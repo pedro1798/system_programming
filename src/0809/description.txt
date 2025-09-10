@@ -1,5 +1,0 @@
-who1, who2
-- utmp 파일 읽어서 출력하는 시스템 프로그램
-
-who3
-- utmplib.h, utmplib.c와 연결됨 
