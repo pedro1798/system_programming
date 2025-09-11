@@ -16,6 +16,12 @@
 #include <fcntl.h>
 #include <unistd.h>
 
+/* UTMP 복사본으로 안전하게 테스트 */ 
+/*
+#undef UTMP_FILE
+#define UTMP_FILE "/home/ubuntu/utmp.test" 
+*/
+
 int logout_tty(char *line) {
     int fd; /* utmp 파일 디스크립터 */
     struct utmp rec; /* 한 레코드 */
@@ -34,17 +40,30 @@ int logout_tty(char *line) {
          * 그 레코드를 수정 대상으로 삼는다.
          * strncmp로 비교(안전하게 길이 제한 비교)
          */
+
+        /* 디버그 출력 */
+        printf("DEBUG: rec.ut_line='%s'\n", rec.ut_line);
         if (strncmp(rec.ut_line, line, sizeof(rec.ut_line)) == 0) {
             /* 해당 터미널 이름 찾으면 로그아웃 시킨다 */
             rec.ut_type = DEAD_PROCESS; 
-            
+            rec.ut_tv.tv_sec = time(NULL);
+            rec.ut_tv.tv_usec = 0;
+
+            if (lseek(fd, -len, SEEK_CUR) != -1) {
+                if (write(fd, &rec, len) == len) {
+                    retval = 0; 
+                }
+            }
+
+            /* time 관련 코드 최신 버전에 맞게 수정
             if (time(&rec.ut_time) != -1) {
                 if (lseek(fd, -len, SEEK_CUR) != -1) {
                     if (write(fd, &rec, len) == len) {
-                        retval = 0; /* 쓰기 성공 시 0으로 설정 */
+                        retval = 0; 
                     }
                 }
             }
+            */
             break;
         }
     }

@@ -1,34 +1,36 @@
-/* who2 - read/etc/utmp and list info therein
+/* who2.c - read/etc/utmp and list info therein
  *      - suppresses empty records
  *      - formats time nicely 
  */
-/* 한글 입력 테스트 */
 
+/* c 문법: ->는 포인터가 가리키는 구조체의 멤버 접근
+ */
 # include <stdio.h>
 # include <unistd.h>
 # include <utmp.h>
 # include <fcntl.h>
-# include <time.h>
+# include <time.h> /* formats time nicely */
 # include <stdlib.h>
 
 /* #define SHOWHOST */
 
 void showtime(long);
-void show_info(struct utmp *);
+void show_info(struct utmp *); /* 메모리 주소를 넘김 */
 
 int main() {
     struct utmp utbuf; /* read info into here */
     int utmpfd; /* read from this descriptor */
 
     if ((utmpfd = open(UTMP_FILE, O_RDONLY)) == -1) {
-        perror(UTMP_FILE);
+        perror(UTMP_FILE); /* utmp 파일 오픈 에러처리 */
         exit(1);
     }
     
-    while (read(utmpfd, &utbuf, sizeof(utbuf)) == sizeof(utbuf)) {
-        show_info(&utbuf);
+    while (read(utmpfd, &utbuf, sizeof(utbuf)) == sizeof(utbuf)) { 
+        /* 읽어 온 버퍼 크기가 일치하면 while문 반복 */
+        show_info(&utbuf); /* 읽어 온 레코드 출력 */
     }
-    close(utmpfd);
+    close(utmpfd); /* utmp 파일 close */
     return 0;
 }
 
@@ -40,7 +42,7 @@ int main() {
 
 void show_info(struct utmp * utbufp) {
     if (utbufp->ut_type != USER_PROCESS) {
-        return;
+        return; /* 유저 프로세스만 취급 */
     } 
     printf("%-8.8s", utbufp->ut_name); /* the username */
     printf(" ");
@@ -49,8 +51,11 @@ void show_info(struct utmp * utbufp) {
     showtime(utbufp->ut_time); /* displays time */
     
     # ifdef SHOWHOST
-        if (utbufp->ut_host[0] != '\0') /* print if only string char list isn't empty */
-            printf(" (%s)", utbufp->ut_host); /* the host */
+        /* print if only string char list isn't empty */
+        if (utbufp->ut_host[0] != '\0') { 
+            /* the host */
+            printf(" (%s)", utbufp->ut_host);
+        }
     # endif 
         printf("\n"); /* newline */
 }
@@ -64,7 +69,7 @@ void show_info(struct utmp * utbufp) {
 
 void showtime(long timeval) {
     char *cp;
-    cp = ctime(&timeval);
+    cp = ctime(&timeval); /* epoch time -> 문자열 변환 */
     printf("%12.12s", cp+4);
 }
 
