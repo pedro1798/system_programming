@@ -32,13 +32,29 @@ int main() {
         exit(1);
     }
 
-    while (read(utmpfd, &current_record, reclen) == reclen) {
+    ssize_t n; /* read 반환값 저장하는 변수 */ 
+    /* ssize_t read는 
+     * - 양수: 실제 읽은 바이트 수
+     * - 0: EOF, 더 이상 읽을 데이터가 없을 때. EOF 정상종료이다 *
+     * - -1: 오류 발생, errno에 오류 코드 코드 설정 
+     */
+    while ((n = read(utmpfd, &current_record, reclen)) == reclen) {
         /* 읽은 결과가 정확히 레코드 크기와 같으면 반복 
          * 읽어 온 레코드를 show_info 함수의 매개변수로 넘김.
          */
         show_info(&current_record);
     }
-    close(utmpfd); /* 파일 디스크립터 close */
+
+    if (n != 0 && n != reclen) {
+        perror("Error reading UTMP file");
+        close(utmpfd);
+        return -1;
+    }
+    
+    if (close(utmpfd) == -1) { /* 파일 디스크립터 close */
+        perror("Failed to close UTMP file"); /* 에러처리 */
+    } 
+    
     return 0;
 }
 
