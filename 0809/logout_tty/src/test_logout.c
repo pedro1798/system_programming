@@ -1,10 +1,9 @@
 #include <stdio.h>
 
-// logout_tty.c 안에 정의된 함수 후에 매크로로 치환 
 int logout_tty(char *line);
 
 int main(int argc, char *argv[]) {
-    if (argc != 2) {
+    if (argc != 2) { /* 매개변수 안 들어왔을 때 처리 */
         fprintf(stderr, "Usage: %s <tty_name>\n", argv[0]);
         return 1;
     }
