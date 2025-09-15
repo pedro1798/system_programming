@@ -3,8 +3,8 @@
  *      - formats time nicely 
  */
 
-/* c 문법: ->는 포인터가 가리키는 구조체의 멤버 접근
- */
+/* c 문법: ->는 포인터가 가리키는 구조체의 멤버 접근 */
+
 # include <stdio.h>
 # include <unistd.h>
 # include <utmp.h>
@@ -12,7 +12,7 @@
 # include <time.h> /* formats time nicely */
 # include <stdlib.h>
 
-/* #define SHOWHOST */
+#define SHOWHOST
 
 void showtime(long);
 void show_info(struct utmp *); /* 메모리 주소를 넘김 */
@@ -46,7 +46,7 @@ void show_info(struct utmp * utbufp) {
     } 
     printf("%-8.8s", utbufp->ut_name); /* the username */
     printf(" ");
-    printf("%-8.8s", utbufp->ut_line);
+    printf("%-8.8s", utbufp->ut_line); /* 터미널명 */
     printf(" ");
     showtime(utbufp->ut_time); /* displays time */
     
@@ -58,6 +58,8 @@ void show_info(struct utmp * utbufp) {
         }
     # endif 
         printf("\n"); /* newline */
+    
+    return;
 }
 
 /* void showtime(long timeval) : 
@@ -71,5 +73,6 @@ void showtime(long timeval) {
     char *cp;
     cp = ctime(&timeval); /* epoch time -> 문자열 변환 */
     printf("%12.12s", cp+4);
+    return;
 }
 
