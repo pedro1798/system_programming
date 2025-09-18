@@ -1,44 +1,83 @@
-# include <sys/types.h>
-# include <dirent.h>
-# include <sys/stat.h>
-# include <stdio.h>
+# include <sys/types.h> /* 시스템 자료형 라이브러리 (uid_t, gid_t 등) */
+# include <dirent.h> /* 디렉토리 처리 함수 (opendir, readdir 등)  */
+# include <sys/stat.h> /* 파일 상태 확인용 (stat 구조체) */
+# include <stdio.h> 
 # include <stddef.h>
-# include <string.h>
+# include <string.h> /* 문자열 처리 함수 (strcpy 등) */
 
-void do_ls(char[]);
-void dostat(char *);
-void show_file_info(char *, struct stat *);
-void mode_to_letters(int, char[]);
-char *uid_to_name(uid_t);
-char *gid_to_name(gid_t);
+/* int stat(const char *pathname, struct stat *statbuf);
+ * pathname: 정보를 얻고 싶은 파일 이름 (예: "test.txt")
+ * statbuf: struct stat 구조체의 주소. 여기로 파일 정보가 채워져 돌아옴.
+ * 리턴값: 성공 시 0, 실패 시 -1 (이때 errno에 오류 코드가 저장됨)
+ */
+
+/* struct stat {
+    mode_t    st_mode;    // 파일 종류와 접근 권한 (S_IFDIR, S_IRUSR 등)
+    ino_t     st_ino;     // 아이노드 번호
+    dev_t     st_dev;     // 디바이스 번호
+    nlink_t   st_nlink;   // 하드 링크 개수
+    uid_t     st_uid;     // 파일 소유자 UID
+    gid_t     st_gid;     // 파일 소유 그룹 GID
+    off_t     st_size;    // 파일 크기 (바이트 단위)
+    time_t    st_atime;   // 마지막 접근 시각
+    time_t    st_mtime;   // 마지막 수정 시각
+    time_t    st_ctime;   // 상태 변경 시각 (권한, 소유자 변경 등)
+    ...
+}; */
+
+/* 동작 과정
+ * 1.stat("파일명", &info) 호출 → 커널이 파일 시스템에 요청 보냄 
+ * 2.커널은 해당 파일의 아이노드(inode) 정보를 읽음
+ *  • 아이노드에는 파일의 데이터가 아니라 메타데이터가 저장돼 있음
+ * 3. 그 정보를 struct stat info 구조체에 채워줌
+ * 4. 프로그램은 info.st_mode, info.st_size, info.st_uid 같은 필드를 사용해서 필요한 정보를 가져옴
+ */
+
+void do_ls(char[]); // 디렉토리 탐색
+void dostat(char *); // 파일 정보 출력
+void show_file_info(char *, struct stat *); // stat 구조체를 사람이 읽을 수 있게 출력 
+void mode_to_letters(int, char[]); // 파일 모드를 rwx 등 문자로 변환
+char *uid_to_name(uid_t); // UID를 사용자 이름으로 변환 
+char *gid_to_name(gid_t); // GID를 그룹 이름으로 변환 
 
 int main(int ac, char *av[]) {
     if (ac == 1) {
+        // 인자가 없으면 현재 디렉토리(".")의 내용 출력
         do_ls(".");
     } else {
+        // 인자가 여러 개면 하나씩 처리
         while (--ac) {
-            printf("%s:\n", * ++av);
-            do_ls(* av);
+            printf("%s:\n", * ++av); // 디렉토리 이름 츨력
+            do_ls(* av); // 해당 디렉토리 내용 출력
         }
     }
 }
+
+/*
+ * do_ls: 주어진 디렉토리 이름에 대해 파일 목록을 읽고 dostat() 호출
+ */
 
 void do_ls(char dirname[]) {
     /*
      * list files in directory called dirname
      */
-    DIR *dir_ptr; /* the directory */
-    struct dirent *direntp; /* each entry*/
+    DIR *dir_ptr; /* the directory, 디렉토리 포인터 */ 
+    struct dirent *direntp; /* each entry, 디렉토리 엔트리 구조체 */
     
     if ((dir_ptr = opendir(dirname)) == NULL) {
         fprintf(stderr, "ls1: cannot open %s\n", dirname);
-    } else {
+    } else { // 디렉토리 안 파일들을 하나씩 읽음
         while ((direntp = readdir( dir_ptr)) != NULL) {
+            // 파일 이름 전달해 상세 정보 출력
             dostat(direntp->d_name);
-        }
-        closedir(dir_ptr);
+        } 
+        closedir(dir_ptr); // 디렉토리 닫기 
     }
 }
+
+/* 
+ * dostat: 파일의 이름을 받아 stat() 호출 후 show_file_info()로 전달
+ */
 
 void dostat(char * filename) {
     struct stat info;
@@ -46,51 +85,55 @@ void dostat(char * filename) {
     if (stat(filename, &info) == -1) { /* cannot stat */
         perror(filename);              /* say why */
     } else {                           /* else show info */
-        show_file_info(filename, &info);
+        show_file_info(filename, &info); /* 성공하면 정보 출력 */
     }
 }
 
+/*
+ * show_file_info: stat 구조체를 사람이 읽을 수 있는 형태로 출력
+ */
 void show_file_info( char * filename, struct stat *info_p) {
     /*
      * display the info about filename. 
      * The info is stored in struct at *info_p
      */
-    
     char *uid_to_name(), *ctime(), *gid_to_name(), *filemode();
     void mode_to_letters();
-    char modestr[11];
+    char modestr[11]; // 권한을 문자열로 변환한 값 저장 (-rwxr-xr 이렇게)
 
-    mode_to_letters(info_p->st_mode, modestr);
+    mode_to_letters(info_p->st_mode, modestr); // 파일 모드를 문자열로 변환해 modestr에 저장
     
-    printf("%s ", modestr);
-    printf("%4d ", (int) info_p->st_nlink);
-    printf("%-8s ", gid_to_name(info_p->st_uid));
-    printf("%-8s ", gid_to_name(info_p->st_gid));
-    printf("%8ld ", (long) info_p->st_size);
-    printf("%.12s ", 4+ctime(&info_p->st_mtime));
-    printf("%s\n", filename);
+    printf("%s ", modestr); // 파일 유형/권한 
+    printf("%4d ", (int) info_p->st_nlink); // 하드 링크 수
+    printf("%-8s ", gid_to_name(info_p->st_uid)); // 소유자 
+    printf("%-8s ", gid_to_name(info_p->st_gid)); // 그룹
+    printf("%8ld ", (long) info_p->st_size); // 파일 크기
+    printf("%.12s ", 4+ctime(&info_p->st_mtime)); //최근 수정 시간
+    printf("%s\n", filename); // 파일 이름
 }
 
+/*
+ * mode_to_letters: 파일 모드를 문자열로 변환(rwx등)
+ */
 void mode_to_letters(int mode, char str[]) {
     strcpy(str, "----------");
 
-    if (S_ISDIR(mode)) str[0] = 'd';
-    if (S_ISCHR(mode)) str[0] = 'c';
-    if (S_ISBLK(mode)) str[0] = 'b';
-
+    if (S_ISDIR(mode)) str[0] = 'd'; // 디렉토리인가?
+    if (S_ISCHR(mode)) str[0] = 'c'; // 문자 디바이스인가?
+    if (S_ISBLK(mode)) str[0] = 'b'; // 블록 디바이스인가?
+    
+    // 소유자 read, write, execute
     if (mode & S_IRUSR) str[1] = 'r';
     if (mode & S_IWUSR) str[2] = 'w';
     if (mode & S_IXUSR) str[3] = 'x';
     
+    // 그룹 read, write, execute
     if (mode & S_IRGRP) str[4] = 'r';
     if (mode & S_IWGRP) str[5] = 'w';
     if (mode & S_IXGRP) str[6] = 'x';
     
+    // 기타 사용자 read, write, execute
     if (mode & S_IROTH) str[7] = 'r';
     if (mode & S_IWOTH) str[8] = 'w';
     if (mode & S_IXOTH) str[9] = 'x';
 }
-
-
-
-
