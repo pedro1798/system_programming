@@ -66,13 +66,7 @@ void do_ls(char *path) {
         perror(path);
         return;
     }
-
-    if (!S_ISDIR(info.st_mode)) {
-        // 파일이면 자기 자신 출력
-        show_file_info(path, &info);
-        return;
-    }
-
+    
     // 디렉토리 처리
     DIR *dir_ptr; /* the directory, 디렉토리 포인터 */ 
     struct dirent *direntp; /* each entry, 디렉토리 엔트리 구조체 */
@@ -84,6 +78,7 @@ void do_ls(char *path) {
     } 
     
     char fullpath[PATH_MAX]; // 상대경로 담을 변수
+
     // 디렉토리 안 파일들을 하나씩 읽음
     while ((direntp = readdir(dir_ptr)) != NULL) {
         // ".", ".."는 건너뜀
@@ -92,7 +87,7 @@ void do_ls(char *path) {
             continue;
         }
         // 파일 이름 전달해 상세 정보 출력
-        snprintf(fullpath, sizeof(path), "%s/%s", path, direntp->d_name);
+        snprintf(fullpath, PATH_MAX, "%s/%s", path, direntp->d_name);
         dostat(fullpath); // dostat 호출!!!!
     }
     closedir(dir_ptr); // 디렉토리 닫기 
@@ -104,11 +99,16 @@ void do_ls(char *path) {
 
 void dostat(char * filename) {
     struct stat info;
-    printf("파일이름: %s\n", filename);
+    
     if (stat(filename, &info) == -1) { /* cannot stat */
         perror(filename);              /* say why */
-    } else {                           /* else show info */
-        show_file_info(filename, &info); /* 성공하면 정보 출력 */
+        return;
+    }
+    
+    show_file_info(filename, &info); /* 성공하면 정보 출력 */
+    
+    if (S_ISDIR(info.st_mode)) {
+        do_ls(filename);
     }
 }
 
@@ -125,11 +125,11 @@ void show_file_info( char * filename, struct stat *info_p) {
     char modestr[11]; // 권한을 문자열로 변환한 값 저장 (-rwxr-xr 이렇게)
 
     mode_to_letters(info_p->st_mode, modestr); // 파일 모드를 문자열로 변환해 modestr에 저장
-    
+
     printf("%s ", modestr); // 파일 유형+권한
     printf("%4d ", (int) info_p->st_nlink); // 하드 링크 수 
-    printf("%-8s ", gid_to_name(info_p->st_uid)); // 소유자 
-    printf("%-8s ", uid_to_name(info_p->st_gid)); // 그룹
+    printf("%-8s ", uid_to_name(info_p->st_uid)); // 소유자 
+    printf("%-8s ", gid_to_name(info_p->st_gid)); // 그룹
     printf("%8ld ", (long) info_p->st_size); // 파일 크기
     printf("%.12s ", 4+ctime(&info_p->st_mtime)); // 최근 수정 시간
     printf("%s\n", filename); // 파일 이름
