@@ -27,7 +27,7 @@ void do_ls(char *path) {
     DIR *dir_ptr; /* the directory, 디렉토리 포인터 */ 
     struct dirent *direntp; /* each entry, 디렉토리 엔트리 구조체 */
 
-    if (stat(path, &info) == -1) { // 처음 받은 path의 stat 에러체크하고 에러면 리턴한다.
+    if (stat(path, &info) == -1) { // stat 호출  
         perror(path);
         fprintf(stderr, "stat(path, &info) failed");
         return;
@@ -48,11 +48,16 @@ void do_ls(char *path) {
     while ((direntp = readdir(dir_ptr)) != NULL) {
         char fullpath[PATH_MAX]; // 상대경로 담을 변수 
         snprintf(fullpath, PATH_MAX, "%s/%s", path, direntp->d_name);
-            
-        if (stat(fullpath, &info) == 0) {
-            show_file_info(fullpath, &info);
+        
+        struct stat entry_info;
+        if (stat(fullpath, &entry_info) == -1) {
+            perror(fullpath);
+            continue;
         }
-        if (S_ISDIR(info.st_mode) &&
+        
+        show_file_info(fullpath, &entry_info);
+        
+        if (S_ISDIR(entry_info.st_mode) &&
             strcmp(direntp->d_name, ".") != 0 &&
             strcmp(direntp->d_name, "..") != 0) {
             do_ls(fullpath);
@@ -67,10 +72,6 @@ void show_file_info( char * filename, struct stat *info_p) {
     char modestr[11]; // 권한을 문자열로 변환한 값 저장 (-rwxr-xr 이렇게)
 
     mode_to_letters(info_p->st_mode, modestr); // 파일 모드를 문자열로 변환해 modestr에 저장
-
-    if (S_ISDIR(info_p->st_mode)) {
-        printf("%s:\n", filename);
-    }
 
     printf("%s ", modestr); // 파일 유형+권한
     printf("%4d ", (int) info_p->st_nlink); // 하드 링크 수 
