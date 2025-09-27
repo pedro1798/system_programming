@@ -14,7 +14,6 @@
  * 리턴값: 성공 시 0, 실패 시 -1 (이때 errno에 오류 코드가 저장됨)
  */
 
-
 // struct stat 주요 필드 설명
 // - st_dev     : 파일이 위치한 장치 ID
 // - st_ino     : 아이노드 번호 (고유 식별자)
@@ -34,6 +33,8 @@ void do_ls(char dirname[]);
 
 // 파일 정보 출력 (stat 구조체를 이용해 정보 표시)
 void dostat(char *filename);
+
+void show_file_info(char * filemane, struct stat *info_p);
 
 // UID를 사용자 이름으로 변환
 char *uid_to_name(uid_t);  
@@ -56,47 +57,41 @@ int main(int ac, char *av[]) {
  * do_ls: 주어진 디렉토리 이름에 대해 파일 목록을 읽고 dostat() 호출
  */
 void do_ls(char *path) {
-    /*
-     * list files in directory called dirname
-     */
     struct stat info;
-
-    if (stat(path, &info) == -1) {
-        fprintf(stderr, "Error!!");
-        perror(path);
-        return;
-    }
-    
-    // 디렉토리 처리
     DIR *dir_ptr; /* the directory, 디렉토리 포인터 */ 
     struct dirent *direntp; /* each entry, 디렉토리 엔트리 구조체 */
+    char fullpath[PATH_MAX]; // 상대경로 담을 변수
+    
+    if (stat(path, &info) == -1) {
+        perror(path);
+        fprintf(stderr, "stat(path, &info) failed");
+        return;
+    }
     
     if ((dir_ptr = opendir(path)) == NULL) {
         perror(path);
         fprintf(stderr, "sp03A: Cannot open %s\n", path);
         return;
     } 
-    
-    char fullpath[PATH_MAX]; // 상대경로 담을 변수
 
     // 디렉토리 안 파일들을 하나씩 읽음
     while ((direntp = readdir(dir_ptr)) != NULL) {
-        // ".", ".."는 건너뜀
-        if (strcmp(direntp->d_name, ".") == 0 || 
-            (strcmp(direntp->d_name, "..") == 0)) {
-            continue;
-        }
         // 파일 이름 전달해 상세 정보 출력
         snprintf(fullpath, PATH_MAX, "%s/%s", path, direntp->d_name);
         dostat(fullpath); // dostat 호출!!!!
-    }
+        
+        // ".", ".."는 건너뜀
+        if (S_ISDIR(info.st_mode) &&
+            (strcmp(direntp->d_name, ".") != 0) && 
+            (strcmp(direntp->d_name, "..") != 0)) {
+            do_ls(fullpath);
+        }
     closedir(dir_ptr); // 디렉토리 닫기 
 }
 
 /* 
  * dostat: 파일의 이름을 받아 stat() 호출 후 show_file_info()로 전달
  */
-
 void dostat(char * filename) {
     struct stat info;
     
@@ -106,10 +101,10 @@ void dostat(char * filename) {
     }
     
     show_file_info(filename, &info); /* 성공하면 정보 출력 */
-    
+    /* 
     if (S_ISDIR(info.st_mode)) {
         do_ls(filename);
-    }
+    }*/
 }
 
 /*
@@ -125,6 +120,10 @@ void show_file_info( char * filename, struct stat *info_p) {
     char modestr[11]; // 권한을 문자열로 변환한 값 저장 (-rwxr-xr 이렇게)
 
     mode_to_letters(info_p->st_mode, modestr); // 파일 모드를 문자열로 변환해 modestr에 저장
+
+    if (S_ISDIR(info_p->st_mode)) {
+        printf("%s:\n", filename);
+    }
 
     printf("%s ", modestr); // 파일 유형+권한
     printf("%4d ", (int) info_p->st_nlink); // 하드 링크 수 
