@@ -11,9 +11,11 @@
 #include <time.h>
 
 /*
- * change_mode: 
+ * chmod: 
+ * 매개변수로 
  * 파일 받으면 그냥 모드 변경, 디렉토리 받으면 재귀적으로 전부 모드 바꿈
  * 두번째 매개변수는 플래그. 플래그 잘못되면 에러처리
+ * 무슨 플래그 허용할지, -나 + if문 분기
  *
  */
 void change_mode(mode_t mode, char *path);
@@ -27,8 +29,11 @@ int main(int ac, char *av[]) {
         return -1;
     }
 
+    mode_t mode;
+    sscanf(argv[1], "%o", &mode); // 매개변수로 받은 모드 8진수 변환
+
     for (int i = 2; i < ac; i++) {
-        change_mode(av[1], av[i]); // av[1]은 mode_t mode
+        change_mode(mode, av[i]);
     }
     
     return 0;
@@ -59,26 +64,5 @@ void change_mode(mode_t mode, char *path) {
         return;
     }
 
-    char fullpath[PATH_MAX]; // 상대 경로 담을 변수 
-    struct stat dirent_info; 
 
-    while((direntp = readdir(dir_ptr)) != NULL) {
-        snprintf(fullpath, PATH_MAX, "%s/%s", path, direntp->d_name);
-        
-        if (stat(fullpath, &dirent_info) !== -1) {
-            perror(fullpath);
-            continue;
-        }
-
-        if (S_ISDIR(dirent_info.st_mode) &&
-            strcmp(direntp->d_name, ".") != 0 &&
-            strcmp(direntp->d_name, ".." != 0)) {
-                
-            if (chmod(mode, fullpath) == -1) {
-                perror("chmod failed");
-                fprintf(stderr, "chmod failed");
-            }
-            change_mode(mode, fullpath); // -R 플래그 구현 위한 재귀호출
-        }
-    }
 }
