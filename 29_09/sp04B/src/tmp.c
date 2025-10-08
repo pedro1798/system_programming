@@ -10,6 +10,7 @@
 #include <time.h>
 #include <limits.h>
 #include <unistd.h>
+// int chmod(const char *filepath, mode_t mode);
 
 void change_mode(char *mode_param, const char *path);
 
@@ -38,13 +39,13 @@ void change_mode(char *mode_param, const char *path) {
     
     mode_t mode = parse_mode(mode_param, info.st_mode);
 
-    // 현재 경로 chmod
-    if (chmod(path, mode) == -1) {
-        perror("chmod failed");
-    }
 
     // 디렉토리가 아니면 끝
     if (!S_ISDIR(info.st_mode)) {
+        if (chmod(path, mode) == -1) {
+            perror("Failed to chmod: %s\n", path);
+        }
+        
         return;
     }
 
@@ -77,11 +78,16 @@ void change_mode(char *mode_param, const char *path) {
 
         // 하위 디렉토리면 재귀 호출
         if (S_ISDIR(entry_info.st_mode)) {
-            change_mode(mode, fullpath);
+            change_mode(mode_param, fullpath);
         }
     }
 
     closedir(dir_ptr);
+    
+    // 현재 경로 chmod
+    if (chmod(path, mode) == -1) {
+        perror("chmod failed");
+    }
 }
 
 mode_t parse_mode(const char *mode_str, mode_t old_mode) {
@@ -156,8 +162,14 @@ mode_t parse_mode(const char *mode_str, mode_t old_mode) {
                 new_mode |= mask;
             else if (op == '-')
                 new_mode &= ~mask;
-            else if (op == '=')
-                new_mode = (new_mode & ~(mask)) | mask;
+            else if (op == '=') {
+                // 대상 그룹의 모든 권한 제거 후 새로 설정
+                mode_t clear_mask = 0;
+                if (who & 1) clear_mask |= (S_IRUSR | S_IWUSR | S_IXUSR);
+                if (who & 2) clear_mask |= (S_IRGRP | S_IWGRP | S_IXGRP);
+                if (who & 4) clear_mask |= (S_IROTH | S_IWOTH | S_IXOTH);
+                new_mode = (new_mode & ~clear_mask) | mask;
+            }   
         }
 
         if (*p == ',') p++;  // 여러 연산자 구분자 처리
