@@ -10,19 +10,22 @@
 #include <time.h>
 #include <limits.h>
 #include <unistd.h>
+
 // int chmod(const char *filepath, mode_t mode);
 
+// 파일 경로 받아서 모드 변환
 void change_mode(char *mode_param, const char *path);
 
+// main에서 받은 매개변수를 mode_t로 형변환 후 리턴
 mode_t parse_mode(const char *mode_str, mode_t old_mode);
 
 int main(int ac, char *av[]) {
-    if (ac < 3) {
+    if (ac < 3) { // 모드, 파일 혹은 디렉토리 입력 강제
         fprintf(stderr, "Usage: %s <mode> <file/dir>...\n", av[0]);
         return -1;
     }
     
-    for (int i = 2; i < ac; i++) {
+    for (int i = 2; i < ac; i++) { 
         change_mode(av[1], av[i]);
     }
 
@@ -30,50 +33,55 @@ int main(int ac, char *av[]) {
 }
 
 void change_mode(char *mode_param, const char *path) {
-    struct stat info;
+    struct stat info; // path로 받은 파일/디렉토리 stat 담는 변수 선언
     
-    if (stat(path, &info) == -1) {
+    if (stat(path, &info) == -1) { // 예외처리
+        fprintf(stderr, "chmod failed on %s: ", path);
         perror(path);
         return;
     }
     
-    mode_t mode = parse_mode(mode_param, info.st_mode);
+    mode_t mode = parse_mode(mode_param, info.st_mode); // char* 자료형의 mode_param을 chmod에 넘길 mode_t 자료형으로 바꾼다.
 
 
-    // 디렉토리가 아니면 끝
+    // 디렉토리가 아니면 모드 바꾸고 끝
     if (!S_ISDIR(info.st_mode)) {
         if (chmod(path, mode) == -1) {
-            perror("Failed to chmod: %s\n", path);
+            fprintf(stderr, "chmod failed on %s: ", path);
+            perror(path);
         }
-        
         return;
     }
 
-    DIR *dir_ptr;
-    struct dirent *direntp;
+    DIR *dir_ptr; // 디렉토리 포인터
+    struct dirent *direntp; // 디렉토리 엔트리 포인터 
 
-    if ((dir_ptr = opendir(path)) == NULL) {
+    if ((dir_ptr = opendir(path)) == NULL) { // 예외처리
+        fprintf(stderr, "opendir failed on %s: ", path);
         perror(path);
         return;
     }
 
-    char fullpath[PATH_MAX];
+    char fullpath[PATH_MAX]; // 상대경로 담을 변수
 
-    while ((direntp = readdir(dir_ptr)) != NULL) {
-        if (strcmp(direntp->d_name, ".") == 0 || strcmp(direntp->d_name, "..") == 0)
+    while ((direntp = readdir(dir_ptr)) != NULL) { // 디렉토리 엔트리 순회
+        if (strcmp(direntp->d_name, ".") == 0 || strcmp(direntp->d_name, "..") == 0) // 무한 재귀 방지
             continue;
 
-        snprintf(fullpath, sizeof(fullpath), "%s/%s", path, direntp->d_name);
+        snprintf(fullpath, sizeof(fullpath), "%s/%s", path, direntp->d_name); // 상대경로 fullpath에 저장
 
-        struct stat entry_info;
-        if (stat(fullpath, &entry_info) == -1) {
+        struct stat entry_info; // 디렉토리 엔트리 stat 담는 변수
+
+        if (stat(fullpath, &entry_info) == -1) { // 예외처리
             perror(fullpath);
             continue;
         }
 
-        // 파일이든 디렉토리든 chmod 적용
-        if (chmod(fullpath, mode) == -1) {
-            perror(fullpath);
+        // 파일이면 chmod 적용
+        if (!S_ISDIR(entry_info.st_mode)) {
+            if (chmod(fullpath, mode) == -1) {
+                perror(fullpath);
+            }       
         }
 
         // 하위 디렉토리면 재귀 호출
@@ -84,8 +92,9 @@ void change_mode(char *mode_param, const char *path) {
 
     closedir(dir_ptr);
     
-    // 현재 경로 chmod
+    // 현재 디렉토리 chmod
     if (chmod(path, mode) == -1) {
+        fprintf(stderr, "chmod failed on %s: ", path);
         perror("chmod failed");
     }
 }
@@ -142,6 +151,8 @@ mode_t parse_mode(const char *mode_str, mode_t old_mode) {
         }
 
         // ④ 비트 조작
+        // who 비트: 1 = u, 2 = g, 4 = o, 7 = a
+        // i 루프 순서: 0→u, 1→g, 2→o
         for (int i = 0; i < 3; i++) {  // u,g,o 순서
             if (!(who & (1 << i))) continue;
 

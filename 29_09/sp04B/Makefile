@@ -28,7 +28,7 @@ SRC = $(wildcard $(SRC_DIR)/*.c)
 OBJS = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRC))
 
 # 실행 파일
-TARGET = $(BIN_DIR)/sp02A
+TARGET = $(BIN_DIR)/sp04B_2022117156
 
 .PHONY: all clean
 
