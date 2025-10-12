@@ -43,7 +43,9 @@ void printpathto(ino_t this_inode) {
 
         my_inode = get_inode(".");
         printpathto(my_inode);
-        printf("%s", its_name);
+        printf("/%s", its_name);
+    } else {
+        printf("/");
     }
 }
 
@@ -70,7 +72,7 @@ void inum_to_name(ino_t inode_to_find, char *namebuf, int buflen) {
             closedir(dir_ptr);
             return;
         }
-        fprintf(stderr, "error looking for inum %ld\n", inode_to_find);
-        exit(1);
     }
+    fprintf(stderr, "error looking for inum %ld\n", inode_to_find);
+    exit(1);
 }
