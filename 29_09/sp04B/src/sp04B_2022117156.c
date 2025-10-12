@@ -95,21 +95,26 @@ void change_mode(char *mode_param, const char *path) {
     // 현재 디렉토리 chmod
     if (chmod(path, mode) == -1) {
         fprintf(stderr, "chmod failed on %s: ", path);
-        perror("chmod failed");
+        perror(path);
     }
 }
 
 mode_t parse_mode(const char *mode_str, mode_t old_mode) {
-    // 숫자 모드일 경우
+    // 숫자 모드일 경우 8진수 정수로 변환 후 리턴
+    // 문자 '0'~'9'가 연속된 ASCII 코드(Unicode에서도 동일) 값에 대응한다
     if (mode_str[0] >= '0' && mode_str[0] <= '7') {
         mode_t mode;
         sscanf(mode_str, "%o", &mode);  // 문자열을 8진수 정수로 변환
         return mode;
     }
+    
+    // ④비트 조작
+    // who 비트: 1 = u, 2 = g, 4 = o, 7 = a
+    // i 루프 순서: 0→u, 1→g, 2→o
 
     // 문자 모드일 경우
     mode_t new_mode = old_mode;  // 현재 권한 기준으로 수정
-    const char *p = mode_str;
+    const char *p = mode_str; // mode_str 문자열 포인터
 
     while (*p) {
         int who = 0;   // u, g, o, a
@@ -133,7 +138,7 @@ mode_t parse_mode(const char *mode_str, mode_t old_mode) {
 
         // ② 연산자 파싱
         if (*p == '+' || *p == '-' || *p == '=') {
-            op = *p;
+            op = *p; // 연산자 포인터 저장 
             p++;
         } else {
             fprintf(stderr, "Invalid mode format: missing operator (+, -, =)\n");
@@ -149,13 +154,12 @@ mode_t parse_mode(const char *mode_str, mode_t old_mode) {
             }
             p++;
         }
-
-        // ④ 비트 조작
-        // who 비트: 1 = u, 2 = g, 4 = o, 7 = a
-        // i 루프 순서: 0→u, 1→g, 2→o
+        // i는 0→u, 1→g, 2→o를 의미 
         for (int i = 0; i < 3; i++) {  // u,g,o 순서
-            if (!(who & (1 << i))) continue;
-
+            if (!(who & (1 << i))) continue; // who에 해당 비트가 없으면 continue로 넘어간다.
+            // i=0 (user) → S_IRUSR
+            // i=1 (group) → S_IRGRP
+            // i=2 (other) → S_IROTH
             mode_t mask = 0;
             switch (perm) {
                 case 4: mask = (i == 0) ? S_IRUSR : (i == 1) ? S_IRGRP : S_IROTH; break;
@@ -169,12 +173,11 @@ mode_t parse_mode(const char *mode_str, mode_t old_mode) {
                     break;
             }
 
-            if (op == '+')
+            if (op == '+') // +면 권한 부여
                 new_mode |= mask;
-            else if (op == '-')
+            else if (op == '-') // -면 권한 뺏음
                 new_mode &= ~mask;
-            else if (op == '=') {
-                // 대상 그룹의 모든 권한 제거 후 새로 설정
+            else if (op == '=') { // 대상 그룹의 모든 권한 제거 후 새로 설정
                 mode_t clear_mask = 0;
                 if (who & 1) clear_mask |= (S_IRUSR | S_IWUSR | S_IXUSR);
                 if (who & 2) clear_mask |= (S_IRGRP | S_IWGRP | S_IXGRP);
