@@ -1,193 +1,76 @@
-#include <sys/types.h>
-#include <dirent.h>
-#include <sys/stat.h>
-#include <stdio.h>
-#include <stddef.h>
 #include <string.h>
-#include <grp.h>
-#include <pwd.h>
-#include <stdlib.h>
-#include <time.h>
-#include <limits.h>
 #include <unistd.h>
+#include <stdio.h>
+#include <sys/types.h>
+#include<sys/stat.h>
+#include <dirent.h>
+#include <stdlib.h>
 
-// int chmod(const char *filepath, mode_t mode);
+ino_t get_inode(char *);
+void printpathto(ino_t);
+void inum_to_name(ino_t, char *, int);
 
-// 파일 경로 받아서 모드 변환
-void change_mode(char *mode_param, const char *path);
-
-// main에서 받은 매개변수를 mode_t로 형변환 후 리턴
-mode_t parse_mode(const char *mode_str, mode_t old_mode);
-
-int main(int ac, char *av[]) {
-    if (ac < 3) { // 모드, 파일 혹은 디렉토리 입력 강제
-        fprintf(stderr, "Usage: %s <mode> <file/dir>...\n", av[0]);
-        return -1;
-    }
-    
-    for (int i = 2; i < ac; i++) { 
-        change_mode(av[1], av[i]);
-    }
-
+int main() {
+    printpathto(get_inode("."));
+    putchar('\n');
     return 0;
 }
 
-void change_mode(char *mode_param, const char *path) {
-    struct stat info; // path로 받은 파일/디렉토리 stat 담는 변수 선언
-    
-    if (stat(path, &info) == -1) { // 예외처리
-        fprintf(stderr, "chmod failed on %s: ", path);
-        perror(path);
-        return;
+ino_t get_inode(char *fname) {
+    /*
+     * returns inode number of the file
+     */
+    struct stat info;
+    if (stat(fname, &info) == -1) {
+        fprintf(stderr, "Cannot stat ");
+        perror(fname);
+        exit(1);
     }
-    
-    mode_t mode = parse_mode(mode_param, info.st_mode); // char* 자료형의 mode_param을 chmod에 넘길 mode_t 자료형으로 바꾼다.
+    return info.st_ino;
+}
 
+void printpathto(ino_t this_inode) {
+    /*
+     * prints path leading down to an object with this inode
+     * kind of recursive
+     */
+    ino_t my_inode;
+    char its_name[BUFSIZ];
 
-    // 디렉토리가 아니면 모드 바꾸고 끝
-    if (!S_ISDIR(info.st_mode)) {
-        if (chmod(path, mode) == -1) {
-            fprintf(stderr, "chmod failed on %s: ", path);
-            perror(path);
-        }
-        return;
-    }
+    if (get_inode("..") != this_inode ) {
+        chdir("..");
+        inum_to_name(this_inode, its_name, BUFSIZ);
 
-    DIR *dir_ptr; // 디렉토리 포인터
-    struct dirent *direntp; // 디렉토리 엔트리 포인터 
-
-    if ((dir_ptr = opendir(path)) == NULL) { // 예외처리
-        fprintf(stderr, "opendir failed on %s: ", path);
-        perror(path);
-        return;
-    }
-
-    char fullpath[PATH_MAX]; // 상대경로 담을 변수
-
-    while ((direntp = readdir(dir_ptr)) != NULL) { // 디렉토리 엔트리 순회
-        if (strcmp(direntp->d_name, ".") == 0 || strcmp(direntp->d_name, "..") == 0) // 무한 재귀 방지
-            continue;
-
-        snprintf(fullpath, sizeof(fullpath), "%s/%s", path, direntp->d_name); // 상대경로 fullpath에 저장
-
-        struct stat entry_info; // 디렉토리 엔트리 stat 담는 변수
-
-        if (stat(fullpath, &entry_info) == -1) { // 예외처리
-            perror(fullpath);
-            continue;
-        }
-
-        // 파일이면 chmod 적용
-        if (!S_ISDIR(entry_info.st_mode)) {
-            if (chmod(fullpath, mode) == -1) {
-                perror(fullpath);
-            }       
-        }
-
-        // 하위 디렉토리면 재귀 호출
-        if (S_ISDIR(entry_info.st_mode)) {
-            change_mode(mode_param, fullpath);
-        }
-    }
-
-    closedir(dir_ptr);
-    
-    // 현재 디렉토리 chmod
-    if (chmod(path, mode) == -1) {
-        fprintf(stderr, "chmod failed on %s: ", path);
-        perror(path);
+        my_inode = get_inode(".");
+        printpathto(my_inode);
+        printf("%s", its_name);
     }
 }
 
-mode_t parse_mode(const char *mode_str, mode_t old_mode) {
-    // 숫자 모드일 경우 8진수 정수로 변환 후 리턴
-    // 문자 '0'~'9'가 연속된 ASCII 코드(Unicode에서도 동일) 값에 대응한다
-    if (mode_str[0] >= '0' && mode_str[0] <= '7') {
-        mode_t mode;
-        sscanf(mode_str, "%o", &mode);  // 문자열을 8진수 정수로 변환
-        return mode;
-    }
+void inum_to_name(ino_t inode_to_find, char *namebuf, int buflen) {
+    /* 
+     * looks through current directory for a file with this inode number
+     * and copies its name into namebuf
+     */
+    DIR *dir_ptr; // the directory
+    struct dirent *direntp; /* each entry */
     
-    // ④비트 조작
-    // who 비트: 1 = u, 2 = g, 4 = o, 7 = a
-    // i 루프 순서: 0→u, 1→g, 2→o
-
-    // 문자 모드일 경우
-    mode_t new_mode = old_mode;  // 현재 권한 기준으로 수정
-    const char *p = mode_str; // mode_str 문자열 포인터
-
-    while (*p) {
-        int who = 0;   // u, g, o, a
-        int op = 0;    // '+', '-', '='
-        int perm = 0;  // r, w, x 비트
-
-        // ① 대상자(u,g,o,a) 파싱
-        while (*p == 'u' || *p == 'g' || *p == 'o' || *p == 'a') {
-            switch (*p) {
-                case 'u': who |= 1; break;
-                case 'g': who |= 2; break;
-                case 'o': who |= 4; break;
-                case 'a': who |= 7; break;
-            }
-            p++;
-        }
-
-        // 기본값 (who 없으면 a)
-        if (who == 0)
-            who = 7;
-
-        // ② 연산자 파싱
-        if (*p == '+' || *p == '-' || *p == '=') {
-            op = *p; // 연산자 포인터 저장 
-            p++;
-        } else {
-            fprintf(stderr, "Invalid mode format: missing operator (+, -, =)\n");
-            return old_mode;
-        }
-
-        // ③ 권한 비트 파싱
-        while (*p == 'r' || *p == 'w' || *p == 'x') {
-            switch (*p) {
-                case 'r': perm |= 4; break;  // 읽기
-                case 'w': perm |= 2; break;  // 쓰기
-                case 'x': perm |= 1; break;  // 실행
-            }
-            p++;
-        }
-        // i는 0→u, 1→g, 2→o를 의미 
-        for (int i = 0; i < 3; i++) {  // u,g,o 순서
-            if (!(who & (1 << i))) continue; // who에 해당 비트가 없으면 continue로 넘어간다.
-            // i=0 (user) → S_IRUSR
-            // i=1 (group) → S_IRGRP
-            // i=2 (other) → S_IROTH
-            mode_t mask = 0;
-            switch (perm) {
-                case 4: mask = (i == 0) ? S_IRUSR : (i == 1) ? S_IRGRP : S_IROTH; break;
-                case 2: mask = (i == 0) ? S_IWUSR : (i == 1) ? S_IWGRP : S_IWOTH; break;
-                case 1: mask = (i == 0) ? S_IXUSR : (i == 1) ? S_IXGRP : S_IXOTH; break;
-                default:
-                    mask = 0;
-                    if (perm & 4) mask |= (i == 0 ? S_IRUSR : i == 1 ? S_IRGRP : S_IROTH);
-                    if (perm & 2) mask |= (i == 0 ? S_IWUSR : i == 1 ? S_IWGRP : S_IWOTH);
-                    if (perm & 1) mask |= (i == 0 ? S_IXUSR : i == 1 ? S_IXGRP : S_IXOTH);
-                    break;
-            }
-
-            if (op == '+') // +면 권한 부여
-                new_mode |= mask;
-            else if (op == '-') // -면 권한 뺏음
-                new_mode &= ~mask;
-            else if (op == '=') { // 대상 그룹의 모든 권한 제거 후 새로 설정
-                mode_t clear_mask = 0;
-                if (who & 1) clear_mask |= (S_IRUSR | S_IWUSR | S_IXUSR);
-                if (who & 2) clear_mask |= (S_IRGRP | S_IWGRP | S_IXGRP);
-                if (who & 4) clear_mask |= (S_IROTH | S_IWOTH | S_IXOTH);
-                new_mode = (new_mode & ~clear_mask) | mask;
-            }   
-        }
-
-        if (*p == ',') p++;  // 여러 연산자 구분자 처리
+    dir_ptr = opendir(".");
+    if (dir_ptr == NULL ) {
+        perror(".");
+        exit(1);
     }
-
-    return new_mode;
+    /* 
+     * search directory for a file with specified inum
+     */
+    while ((direntp = readdir(dir_ptr)) != NULL) {
+        if (direntp->d_ino == inode_to_find) {
+            strncpy(namebuf, direntp->d_name, buflen);
+            namebuf[buflen-1] = '\0'; /* just in case */
+            closedir(dir_ptr);
+            return;
+        }
+        fprintf(stderr, "error looking for inum %ld\n", inode_to_find);
+        exit(1);
+    }
 }
