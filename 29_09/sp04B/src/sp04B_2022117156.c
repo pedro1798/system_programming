@@ -74,5 +74,6 @@ void inum_to_name(ino_t inode_to_find, char *namebuf, int buflen) {
         }
     }
     fprintf(stderr, "error looking for inum %ld\n", inode_to_find);
+    closedir(dir_ptr);
     exit(1);
 }
