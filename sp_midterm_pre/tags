@@ -1,0 +1,37 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_OUTPUT_EXCMD	mixed	/number, pattern, mixed, or combineV2/
+!_TAG_OUTPUT_FILESEP	slash	/slash or backslash/
+!_TAG_OUTPUT_MODE	u-ctags	/u-ctags or e-ctags/
+!_TAG_PATTERN_LENGTH_LIMIT	96	/0 for no limit/
+!_TAG_PROC_CWD	/home/ubuntu/system_programming/sp_midterm_pre/	//
+!_TAG_PROGRAM_AUTHOR	Universal Ctags Team	//
+!_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
+!_TAG_PROGRAM_URL	https://ctags.io/	/official site/
+!_TAG_PROGRAM_VERSION	5.9.0	//
+$(OBJ_DIR)/%.o	Makefile	/^$(OBJ_DIR)\/%.o: $(SRC_DIR)\/%.c$/;"	t
+$(TARGET)	Makefile	/^$(TARGET): $(OBJS)$/;"	t
+BIN_DIR	Makefile	/^BIN_DIR = bin$/;"	m
+BUFFERSIZE	dump/sp_midterm_pre.c	/^#define BUFFERSIZE /;"	d	file:
+BUFFERSIZE	src/sp_midterm_2022117156.c	/^#define BUFFERSIZE /;"	d	file:
+CC	Makefile	/^CC = gcc$/;"	m
+CFLAGS	Makefile	/^CFLAGS = -g -Wall$/;"	m
+OBJS	Makefile	/^OBJS = $(patsubst $(SRC_DIR)\/%.c, $(OBJ_DIR)\/%.o, $(SRC))$/;"	m
+OBJ_DIR	Makefile	/^OBJ_DIR = build$/;"	m
+SRC	Makefile	/^SRC = $(wildcard $(SRC_DIR)\/*.c)$/;"	m
+SRC_DIR	Makefile	/^SRC_DIR = src$/;"	m
+TARGET	Makefile	/^TARGET = $(BIN_DIR)\/sp02A$/;"	m
+all	Makefile	/^all: $(TARGET)$/;"	t
+clean	Makefile	/^clean:$/;"	t
+compare_person_name	dump/sp_midterm_pre.c	/^int compare_person_name(const void *a, const void *b) {$/;"	f	typeref:typename:int
+do_cat	src/sp_midterm_2022117156.c	/^void do_cat(char *path) {$/;"	f	typeref:typename:void
+do_ls	dump/sp_midterm_pre.c	/^void do_ls(char *path) {$/;"	f	typeref:typename:void
+filename_info	dump/sp_midterm_pre.c	/^struct filename_info { \/\/ realloc에 저장할 구조체$/;"	s	file:
+gid_to_name	dump/sp_midterm_pre.c	/^char * gid_to_name(gid_t gid) { $/;"	f	typeref:typename:char *
+info	dump/sp_midterm_pre.c	/^    struct stat info;$/;"	m	struct:filename_info	typeref:struct:stat	file:
+main	dump/sp_midterm_pre.c	/^int main(int ac, char *av[]) {$/;"	f	typeref:typename:int
+main	src/sp_midterm_2022117156.c	/^int main(int ac, char *av[]) {$/;"	f	typeref:typename:int
+mode_to_letters	dump/sp_midterm_pre.c	/^void mode_to_letters(int mode, char str[]) {$/;"	f	typeref:typename:void
+name	dump/sp_midterm_pre.c	/^    char *name;$/;"	m	struct:filename_info	typeref:typename:char *	file:
+show_file_info	dump/sp_midterm_pre.c	/^void show_file_info(char *filename, struct stat *info_p) { $/;"	f	typeref:typename:void
+uid_to_name	dump/sp_midterm_pre.c	/^char * uid_to_name(uid_t uid) {$/;"	f	typeref:typename:char *

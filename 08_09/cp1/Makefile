@@ -1,5 +1,5 @@
 # ==================================================
-# Makefile - src/*.c → build/*.o → bin/who3
+# Makefile - src/*.c → build/*.o → bin/logout_tty
 # ==================================================
 
 # 디렉토리
@@ -28,7 +28,7 @@ SRC = $(wildcard $(SRC_DIR)/*.c)
 OBJS = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRC))
 
 # 실행 파일
-TARGET = $(BIN_DIR)/who3
+TARGET = $(BIN_DIR)/sp02A
 
 .PHONY: all clean
 
@@ -41,7 +41,7 @@ all: $(TARGET)
 # 링크 단계
 # =======================
 $(TARGET): $(OBJS)
-	@mkdir -p $(BIN_DIR)
+	@mkdir -p $(BIN_DIR) # bin 없으면 생성, 있으면 냅둠
 	$(CC) $^ -o $@
 
 # =======================

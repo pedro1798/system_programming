@@ -1,7 +1,7 @@
-// ls 
-// 출력 개선 - 정상 작동함
+// cat
 #include <sys/types.h>   // 기본 자료형 정의 (uid_t, gid_t 등)
 #include <dirent.h>      // 디렉토리 처리 (opendir, readdir)
+#include <unistd.h>
 #include <sys/stat.h>    // 파일 상태 확인 (stat 구조체)
 #include <stdio.h>       // 표준 입출력
 #include <stddef.h>      // 표준 정의 (NULL 등)
@@ -10,7 +10,9 @@
 #include <pwd.h>         // 사용자 정보 (getpwuid)
 #include <stdlib.h>      // 동적 메모리 할당 (malloc, realloc, free)
 #include <time.h>       // 시간 관련 함수 (ctime)
-#define PATH_MAX 1024 // redefine PATH_MAX if not defined
+#include <fcntl.h>
+// #define PATH_MAX 1024 // redefine PATH_MAX if not defined
+#define BUFFERSIZE 1024
 
 void do_ls(char dirname[]);
 void show_file_info(char * filename, struct stat *info_p);
@@ -41,7 +43,9 @@ void do_ls(char *path) {
     struct dirent *direntp; /* each entry, 디렉토리 엔트리 구조체 */
     char fullpath[PATH_MAX]; // 상대 경로 담을 변수
     long total_blocks = 0; // total 계산용
-
+    int in_fd, out_fd, n_chars;
+    char buf[BUFFERSIZE];
+    
     if (stat(path, &info) == -1) { // stat 호출해 info에 파일 정보 저장
         perror(path);
         fprintf(stderr, "stat(path, &info) failed");
@@ -49,7 +53,20 @@ void do_ls(char *path) {
     }
 
     if (!S_ISDIR(info.st_mode)) { // 매개변수가 디렉토리가 아니면
-        show_file_info(path, &info);
+        /* 출력하기  */
+        if (in_fd = open(path, O_RDONLY) == -1) {
+            printf("입력오류");
+            perror(path);
+        }
+        printf("in_fd is %d", in_fd);
+        
+        while((n_chars = read(in_fd, buf, BUFFERSIZE)) > 0) {
+            if (write(0, buf, n_chars) != n_chars) {
+                fprintf(stderr, "read error");
+            }
+        }
+        printf("test%s\n", buf);
+        //show_file_info(path, &info);
         return;
     }
 
@@ -158,7 +175,7 @@ void show_file_info(char *filename, struct stat *info_p) {
     }
 
     printf("%s "               // 권한
-           "%4d "             // 하드링크 수
+           "%4ld "             // 하드링크 수
            "%-8s "             // 소유자
            "%-8s "             // 그룹
            "%8ld "             // 파일 크기
