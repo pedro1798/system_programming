@@ -1,0 +1,23 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_OUTPUT_EXCMD	mixed	/number, pattern, mixed, or combineV2/
+!_TAG_OUTPUT_FILESEP	slash	/slash or backslash/
+!_TAG_OUTPUT_MODE	u-ctags	/u-ctags or e-ctags/
+!_TAG_PATTERN_LENGTH_LIMIT	96	/0 for no limit/
+!_TAG_PROC_CWD	/home/ubuntu/system_programming/test/	//
+!_TAG_PROGRAM_AUTHOR	Universal Ctags Team	//
+!_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
+!_TAG_PROGRAM_URL	https://ctags.io/	/official site/
+!_TAG_PROGRAM_VERSION	5.9.0	//
+$(OBJ_DIR)/%.o	Makefile	/^$(OBJ_DIR)\/%.o: $(SRC_DIR)\/%.c$/;"	t
+$(TARGET)	Makefile	/^$(TARGET): $(OBJS)$/;"	t
+BIN_DIR	Makefile	/^BIN_DIR = bin$/;"	m
+CC	Makefile	/^CC = gcc$/;"	m
+CFLAGS	Makefile	/^CFLAGS = -g -Wall$/;"	m
+OBJS	Makefile	/^OBJS = $(patsubst $(SRC_DIR)\/%.c, $(OBJ_DIR)\/%.o, $(SRC))$/;"	m
+OBJ_DIR	Makefile	/^OBJ_DIR = build$/;"	m
+SRC	Makefile	/^SRC = $(wildcard $(SRC_DIR)\/*.c)$/;"	m
+SRC_DIR	Makefile	/^SRC_DIR = src$/;"	m
+TARGET	Makefile	/^TARGET = $(BIN_DIR)\/sp02A$/;"	m
+all	Makefile	/^all: $(TARGET)$/;"	t
+clean	Makefile	/^clean:$/;"	t

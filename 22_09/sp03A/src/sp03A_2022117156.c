@@ -47,7 +47,7 @@ void do_ls(char *path) {
         fprintf(stderr, "stat(path, &info) failed");
         return;
     }
-
+    printf("test!!!!!: %4ld\n", info.st_mode);
     if (!S_ISDIR(info.st_mode)) { // 매개변수가 디렉토리가 아니면
         show_file_info(path, &info);
         return;
