@@ -3,7 +3,9 @@
 " ==========================================
 
 set nocompatible
-filetype plugin indent on
+filetype on
+filetype plugin on
+filetype indent on
 syntax on
 
 " 기본 표시
@@ -26,7 +28,7 @@ set tabstop=4
 set shiftwidth=4
 set expandtab
 set autoindent
-set smartindent
+" set smartindent
 
 set clipboard=unnamed
 set wildmenu
@@ -39,7 +41,8 @@ set termencoding=utf-8
 autocmd FileType c,cpp setlocal cindent
 autocmd FileType c,cpp setlocal cinoptions:0,l1,g0,t0
 autocmd FileType c,cpp setlocal comments=s1:/*,mb:*,ex:*/,://,b:#
-autocmd FileType c,cpp setlocal formatoptions=croql
+autocmd FileType c,cpp setlocal formatoptions+=croql
+autocmd BufRead,BufNewFile *.c,*.h,*.cpp set filetype=c
 
 " 상태줄
 set laststatus=2
