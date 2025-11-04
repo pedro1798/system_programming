@@ -4,7 +4,7 @@
 !_TAG_OUTPUT_FILESEP	slash	/slash or backslash/
 !_TAG_OUTPUT_MODE	u-ctags	/u-ctags or e-ctags/
 !_TAG_PATTERN_LENGTH_LIMIT	96	/0 for no limit/
-!_TAG_PROC_CWD	/home/ubuntu/system_programming/test/	//
+!_TAG_PROC_CWD	/home/ubuntu/system_programming/test/easy2/	//
 !_TAG_PROGRAM_AUTHOR	Universal Ctags Team	//
 !_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
 !_TAG_PROGRAM_URL	https://ctags.io/	/official site/
@@ -21,3 +21,5 @@ SRC_DIR	Makefile	/^SRC_DIR = src$/;"	m
 TARGET	Makefile	/^TARGET = $(BIN_DIR)\/sp02A$/;"	m
 all	Makefile	/^all: $(TARGET)$/;"	t
 clean	Makefile	/^clean:$/;"	t
+main	src/easy2.c	/^int main() {$/;"	f	typeref:typename:int
+progress_bar	src/easy2.c	/^void progress_bar(double progress) {$/;"	f	typeref:typename:void

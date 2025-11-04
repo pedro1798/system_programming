@@ -1,0 +1,39 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_OUTPUT_EXCMD	mixed	/number, pattern, mixed, or combineV2/
+!_TAG_OUTPUT_FILESEP	slash	/slash or backslash/
+!_TAG_OUTPUT_MODE	u-ctags	/u-ctags or e-ctags/
+!_TAG_PATTERN_LENGTH_LIMIT	96	/0 for no limit/
+!_TAG_PROC_CWD	/home/ubuntu/system_programming/09_11/	//
+!_TAG_PROGRAM_AUTHOR	Universal Ctags Team	//
+!_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
+!_TAG_PROGRAM_URL	https://ctags.io/	/official site/
+!_TAG_PROGRAM_VERSION	5.9.0	//
+$(OBJ_DIR)/%.o	sp06A/Makefile	/^$(OBJ_DIR)\/%.o: $(SRC_DIR)\/%.c$/;"	t
+$(OBJ_DIR)/%.o	sp06B/Makefile	/^$(OBJ_DIR)\/%.o: $(SRC_DIR)\/%.c$/;"	t
+$(TARGET)	sp06A/Makefile	/^$(TARGET): $(OBJS)$/;"	t
+$(TARGET)	sp06B/Makefile	/^$(TARGET): $(OBJS)$/;"	t
+ARGLEN	sp06B/src/sp06B_2022117156.c	/^#define ARGLEN /;"	d	file:
+BIN_DIR	sp06A/Makefile	/^BIN_DIR = bin$/;"	m
+BIN_DIR	sp06B/Makefile	/^BIN_DIR = bin$/;"	m
+CC	sp06A/Makefile	/^CC = gcc$/;"	m
+CC	sp06B/Makefile	/^CC = gcc$/;"	m
+CFLAGS	sp06A/Makefile	/^CFLAGS = -g -Wall$/;"	m
+CFLAGS	sp06B/Makefile	/^CFLAGS = -g -Wall$/;"	m
+MAXARGS	sp06B/src/sp06B_2022117156.c	/^#define MAXARGS /;"	d	file:
+OBJS	sp06A/Makefile	/^OBJS = $(patsubst $(SRC_DIR)\/%.c, $(OBJ_DIR)\/%.o, $(SRC))$/;"	m
+OBJS	sp06B/Makefile	/^OBJS = $(patsubst $(SRC_DIR)\/%.c, $(OBJ_DIR)\/%.o, $(SRC))$/;"	m
+OBJ_DIR	sp06A/Makefile	/^OBJ_DIR = build$/;"	m
+OBJ_DIR	sp06B/Makefile	/^OBJ_DIR = build$/;"	m
+SRC	sp06A/Makefile	/^SRC = $(wildcard $(SRC_DIR)\/*.c)$/;"	m
+SRC	sp06B/Makefile	/^SRC = $(wildcard $(SRC_DIR)\/*.c)$/;"	m
+SRC_DIR	sp06A/Makefile	/^SRC_DIR = src$/;"	m
+SRC_DIR	sp06B/Makefile	/^SRC_DIR = src$/;"	m
+TARGET	sp06A/Makefile	/^TARGET = $(BIN_DIR)\/sp02A$/;"	m
+TARGET	sp06B/Makefile	/^TARGET = $(BIN_DIR)\/sp02A$/;"	m
+all	sp06A/Makefile	/^all: $(TARGET)$/;"	t
+all	sp06B/Makefile	/^all: $(TARGET)$/;"	t
+clean	sp06A/Makefile	/^clean:$/;"	t
+clean	sp06B/Makefile	/^clean:$/;"	t
+execute	sp06B/src/sp06B_2022117156.c	/^execute(char *arglist[]) {$/;"	f
+main	sp06B/src/sp06B_2022117156.c	/^int main() {$/;"	f	typeref:typename:int

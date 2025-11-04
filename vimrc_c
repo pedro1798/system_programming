@@ -1,0 +1,58 @@
+" ==========================================
+" C 전용 Vim 설정
+" ==========================================
+
+set nocompatible
+filetype plugin indent on
+syntax on
+
+" 기본 표시
+set number
+set ruler
+set showcmd
+set cursorline
+set showmatch
+set ignorecase
+set smartcase
+set hlsearch
+set incsearch
+
+" 편집 관련
+set backspace=indent,eol,start
+set history=100
+set mouse=a
+
+set tabstop=4
+set shiftwidth=4
+set expandtab
+set autoindent
+set smartindent
+
+set clipboard=unnamed
+set wildmenu
+
+set encoding=utf-8
+set fileencoding=utf-8
+set termencoding=utf-8
+
+" C 전용 들여쓰기, 주석 자동 포맷
+autocmd FileType c,cpp setlocal cindent
+autocmd FileType c,cpp setlocal cinoptions:0,l1,g0,t0
+autocmd FileType c,cpp setlocal comments=s1:/*,mb:*,ex:*/,://,b:#
+autocmd FileType c,cpp setlocal formatoptions=croql
+
+" 상태줄
+set laststatus=2
+set statusline=%f\ %y\ %m\ %r\ %=line:%l/%L\ col:%c
+
+" ==========================================
+" ctags 연동
+" ==========================================
+
+" 프로젝트 디렉토리의 모든 C/H 파일을 대상으로 태그 생성
+" 자동 갱신: 파일 저장 시 ctags 재생성
+autocmd BufWritePost *.c,*.h silent! !ctags -R .
+
+" Ctrl-] : 정의로 이동, Ctrl-T : 이전 위치로 돌아가기
+" tags 파일을 Vim에서 자동 인식
+set tags=./tags;,tags;
