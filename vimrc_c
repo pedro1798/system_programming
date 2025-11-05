@@ -3,10 +3,10 @@
 " ==========================================
 
 set nocompatible
+syntax on
 filetype on
 filetype plugin on
 filetype indent on
-syntax on
 
 " 기본 표시
 set number
@@ -39,10 +39,9 @@ set termencoding=utf-8
 
 " C 전용 들여쓰기, 주석 자동 포맷
 autocmd FileType c,cpp setlocal cindent
-autocmd FileType c,cpp setlocal cinoptions:0,l1,g0,t0
+autocmd FileType c,cpp setlocal cinoptions=:0,l1,g0,t0
 autocmd FileType c,cpp setlocal comments=s1:/*,mb:*,ex:*/,://,b:#
 autocmd FileType c,cpp setlocal formatoptions+=croql
-autocmd BufRead,BufNewFile *.c,*.h,*.cpp set filetype=c
 
 " 상태줄
 set laststatus=2
@@ -59,3 +58,7 @@ autocmd BufWritePost *.c,*.h silent! !ctags -R .
 " Ctrl-] : 정의로 이동, Ctrl-T : 이전 위치로 돌아가기
 " tags 파일을 Vim에서 자동 인식
 set tags=./tags;,tags;
+
+if &filetype ==# 'c' || &filetype ==# 'cpp'
+	doautocmd FileType c
+endif	
