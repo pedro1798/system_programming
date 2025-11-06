@@ -13,6 +13,10 @@
  */
 
 int main(int argc, char* argv[]) {
+    if (argc > 2) {
+        fprintf(stderr, "Too many argument. Please type only one.");
+        exit(1);
+    }
     execvp(argv[1], &argv[1]);
     perror("execvp failed");
     exit(1);
