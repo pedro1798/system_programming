@@ -13,24 +13,31 @@
  * 3. while문에서 실행하고 마지막에서 다시 입력을 받는다
  * 4. exit이면 종료한다
  */
-char *get_arg_list(); 
-void execute(char *arglist[]);
+int get_arg_list(char **arglist); 
+void execute(char** arglist);
 
 int main() {
-    char *arglist = get_arg_list();
     /*
      * use fork and execvp and wait to do it
      */
-    while(strcmp(arglist[0], "exit\n") != 0) {
-        execute(arglist);
+    char **arglist_ptr = (char**)malloc((MAXARGS + 1) * sizeof(char*));
+    
+    if (arglist_ptr == NULL) {
+        perror("malloc");
+        exit(1);
+    }
+    
+    while(strcmp(arglist_ptr[0], "exit\0") != 0) {
+        execute(arglist_ptr);
     }
 }
-void execute(char *arglist[]) {
+
+void execute(char** arglist_ptr) {
     /*
      * use fold and execvp and wait to do it
      */
     int pid, exitstatus; /* of child */
-
+    
     pid = fork();
     
     switch(pid) {
@@ -38,8 +45,9 @@ void execute(char *arglist[]) {
             perror("fork failed");
             exit(1);
         case 0: /* child면 */
+            int arg_count = get_arg_list(arglist_ptr);
             if (arg_count > 0) {
-                execvp(arglist[0], arglist);
+                execvp(arglist_ptr[0], arglist_ptr);
             }
             perror("execvp failed"); /* execvp 정상적으로 실행되면 실행 안 됨 */
             exit(1);
@@ -48,12 +56,10 @@ void execute(char *arglist[]) {
                 printf("child exited with status %d,%d\n", 
                         exitstatus>>8, exitstatus&0377);
             }
-        }
     }
 }
 
-char *get_arg_list() {
-    char *arglist[MAXARGS+1]; /* an array of ptrs, char* argv[]와 같은 역할 */
+int get_arg_list(char** arglist_ptr) { /* argbuf에 입력 받고 arglist_ptr에 파싱 */
     char argbuf[ARGLEN]; /* read stuff here, 버퍼 */
     int arg_count = 0;
     /* 
@@ -70,7 +76,7 @@ char *get_arg_list() {
      *  s를 반환한다. 아무 문자도 읽지 못했을 때만 NULL을 반환한다.
      */
     if (fgets(argbuf, ARGLEN, stdin)) { // argbuf 버퍼에 인수 문자열 받는다
-        if (strcmp(argbuf, "exit\n") == 0) {
+        if (strcmp(argbuf, "exit\n") == 0) { /* exit\n 만나면 종료 */
             fprintf(stderr, "stopped here, meet exit\n");
             return 0;
         }
@@ -91,12 +97,13 @@ char *get_arg_list() {
          * 등록된 디렉터리들을 검색하여 해당 실행 파일을 찾아준다(그래서 /bin/ls라고 명시하지 않아도 됨 
          */
         char *token = strtok(argbuf, " "); /* " "를 구분자로 tokenize*/
+        
         while (token != NULL && arg_count < MAXARGS) {
             /* 토큰(문자열)의 주소를 새로운 배열에 저장 */
-            arglist[arg_count++] = token;
+            arglist_ptr[arg_count++] = token;
             token = strtok(NULL, " "); /* 다음 토큰 가져오기 */
         }
-        arglist[arg_count] = NULL; /* 배열의 끝 표시 */
+        arglist_ptr[arg_count] = NULL; /* 배열의 끝 표시 */
     }
-    return arglist;
+    return arg_count;
 }
