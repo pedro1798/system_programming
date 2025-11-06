@@ -18,6 +18,7 @@ $(TARGET)	sp06A/Makefile	/^$(TARGET): $(OBJS)$/;"	t
 $(TARGET)	sp06B/Makefile	/^$(TARGET): $(OBJS)$/;"	t
 $(TARGET)	tmp/Makefile	/^$(TARGET): $(OBJS)$/;"	t
 ARGLEN	sp06A/src/sp06B_2022117156.c	/^#define ARGLEN /;"	d	file:
+ARGLEN	sp06B/src/sp06B_2022117156.c	/^#define ARGLEN /;"	d	file:
 BIN_DIR	Makefile	/^BIN_DIR = bin$/;"	m
 BIN_DIR	sp06A/Makefile	/^BIN_DIR = bin$/;"	m
 BIN_DIR	sp06B/Makefile	/^BIN_DIR = bin$/;"	m
@@ -31,6 +32,7 @@ CFLAGS	sp06A/Makefile	/^CFLAGS = -g -Wall$/;"	m
 CFLAGS	sp06B/Makefile	/^CFLAGS = -g -Wall$/;"	m
 CFLAGS	tmp/Makefile	/^CFLAGS = -g -Wall$/;"	m
 MAXARGS	sp06A/src/sp06B_2022117156.c	/^#define MAXARGS /;"	d	file:
+MAXARGS	sp06B/src/sp06B_2022117156.c	/^#define MAXARGS /;"	d	file:
 OBJS	Makefile	/^OBJS = $(patsubst $(SRC_DIR)\/%.c, $(OBJ_DIR)\/%.o, $(SRC))$/;"	m
 OBJS	sp06A/Makefile	/^OBJS = $(patsubst $(SRC_DIR)\/%.c, $(OBJ_DIR)\/%.o, $(SRC))$/;"	m
 OBJS	sp06B/Makefile	/^OBJS = $(patsubst $(SRC_DIR)\/%.c, $(OBJ_DIR)\/%.o, $(SRC))$/;"	m
@@ -60,3 +62,4 @@ clean	sp06A/Makefile	/^clean:$/;"	t
 clean	sp06B/Makefile	/^clean:$/;"	t
 clean	tmp/Makefile	/^clean:$/;"	t
 main	sp06A/src/sp06B_2022117156.c	/^int main(int argc, char* argv[]) {$/;"	f	typeref:typename:int
+main	sp06B/src/sp06B_2022117156.c	/^int main(int argc, char* argv[]) {$/;"	f	typeref:typename:int

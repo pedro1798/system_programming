@@ -11,11 +11,9 @@
 !_TAG_PROGRAM_VERSION	5.9.0	//
 $(OBJ_DIR)/%.o	Makefile	/^$(OBJ_DIR)\/%.o: $(SRC_DIR)\/%.c$/;"	t
 $(TARGET)	Makefile	/^$(TARGET): $(OBJS)$/;"	t
-ARGLEN	src/sp06B_2022117156.c	/^#define ARGLEN /;"	d	file:
 BIN_DIR	Makefile	/^BIN_DIR = bin$/;"	m
 CC	Makefile	/^CC = gcc$/;"	m
 CFLAGS	Makefile	/^CFLAGS = -g -Wall$/;"	m
-MAXARGS	src/sp06B_2022117156.c	/^#define MAXARGS /;"	d	file:
 OBJS	Makefile	/^OBJS = $(patsubst $(SRC_DIR)\/%.c, $(OBJ_DIR)\/%.o, $(SRC))$/;"	m
 OBJ_DIR	Makefile	/^OBJ_DIR = build$/;"	m
 SRC	Makefile	/^SRC = $(wildcard $(SRC_DIR)\/*.c)$/;"	m
