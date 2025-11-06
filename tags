@@ -13,6 +13,8 @@ $(OBJ_DIR)/%.o	08_09/cp1/Makefile	/^$(OBJ_DIR)\/%.o: $(SRC_DIR)\/%.c$/;"	t
 $(OBJ_DIR)/%.o	08_09/logout_tty/Makefile	/^$(OBJ_DIR)\/%.o: $(SRC_DIR)\/%.c$/;"	t
 $(OBJ_DIR)/%.o	08_09/who1/Makefile	/^$(OBJ_DIR)\/%.o: $(SRC_DIR)\/%.c$/;"	t
 $(OBJ_DIR)/%.o	08_09/who2/Makefile	/^$(OBJ_DIR)\/%.o: $(SRC_DIR)\/%.c$/;"	t
+$(OBJ_DIR)/%.o	09_11/sp06A/Makefile	/^$(OBJ_DIR)\/%.o: $(SRC_DIR)\/%.c$/;"	t
+$(OBJ_DIR)/%.o	09_11/sp06B/Makefile	/^$(OBJ_DIR)\/%.o: $(SRC_DIR)\/%.c$/;"	t
 $(OBJ_DIR)/%.o	15_09/ls1/Makefile	/^$(OBJ_DIR)\/%.o: $(SRC_DIR)\/%.c$/;"	t
 $(OBJ_DIR)/%.o	15_09/sp02A/Makefile	/^$(OBJ_DIR)\/%.o: $(SRC_DIR)\/%.c$/;"	t
 $(OBJ_DIR)/%.o	22_09/Makefile	/^$(OBJ_DIR)\/%.o: $(SRC_DIR)\/%.c$/;"	t
@@ -21,11 +23,17 @@ $(OBJ_DIR)/%.o	22_09/sp03A/Makefile	/^$(OBJ_DIR)\/%.o: $(SRC_DIR)\/%.c$/;"	t
 $(OBJ_DIR)/%.o	29_09/sp04A/Makefile	/^$(OBJ_DIR)\/%.o: $(SRC_DIR)\/%.c$/;"	t
 $(OBJ_DIR)/%.o	29_09/sp04B/Makefile	/^$(OBJ_DIR)\/%.o: $(SRC_DIR)\/%.c$/;"	t
 $(OBJ_DIR)/%.o	Makefile	/^$(OBJ_DIR)\/%.o: $(SRC_DIR)\/%.c$/;"	t
+$(OBJ_DIR)/%.o	sp_midterm/Makefile	/^$(OBJ_DIR)\/%.o: $(SRC_DIR)\/%.c$/;"	t
 $(OBJ_DIR)/%.o	sp_midterm_pre/Makefile	/^$(OBJ_DIR)\/%.o: $(SRC_DIR)\/%.c$/;"	t
+$(OBJ_DIR)/%.o	test/easy1/Makefile	/^$(OBJ_DIR)\/%.o: $(SRC_DIR)\/%.c$/;"	t
+$(OBJ_DIR)/%.o	test/loading_bar/Makefile	/^$(OBJ_DIR)\/%.o: $(SRC_DIR)\/%.c$/;"	t
+$(OBJ_DIR)/%.o	test/tty_size/Makefile	/^$(OBJ_DIR)\/%.o: $(SRC_DIR)\/%.c$/;"	t
 $(TARGET)	08_09/cp1/Makefile	/^$(TARGET): $(OBJS)$/;"	t
 $(TARGET)	08_09/logout_tty/Makefile	/^$(TARGET): $(OBJS)$/;"	t
 $(TARGET)	08_09/who1/Makefile	/^$(TARGET): $(OBJS)$/;"	t
 $(TARGET)	08_09/who2/Makefile	/^$(TARGET): $(OBJS)$/;"	t
+$(TARGET)	09_11/sp06A/Makefile	/^$(TARGET): $(OBJS)$/;"	t
+$(TARGET)	09_11/sp06B/Makefile	/^$(TARGET): $(OBJS)$/;"	t
 $(TARGET)	15_09/ls1/Makefile	/^$(TARGET): $(OBJS)$/;"	t
 $(TARGET)	15_09/sp02A/Makefile	/^$(TARGET): $(OBJS)$/;"	t
 $(TARGET)	22_09/Makefile	/^$(TARGET): $(OBJS)$/;"	t
@@ -34,11 +42,18 @@ $(TARGET)	22_09/sp03A/Makefile	/^$(TARGET): $(OBJS)$/;"	t
 $(TARGET)	29_09/sp04A/Makefile	/^$(TARGET): $(OBJS)$/;"	t
 $(TARGET)	29_09/sp04B/Makefile	/^$(TARGET): $(OBJS)$/;"	t
 $(TARGET)	Makefile	/^$(TARGET): $(OBJS)$/;"	t
+$(TARGET)	sp_midterm/Makefile	/^$(TARGET): $(OBJS)$/;"	t
 $(TARGET)	sp_midterm_pre/Makefile	/^$(TARGET): $(OBJS)$/;"	t
+$(TARGET)	test/easy1/Makefile	/^$(TARGET): $(OBJS)$/;"	t
+$(TARGET)	test/loading_bar/Makefile	/^$(TARGET): $(OBJS)$/;"	t
+$(TARGET)	test/tty_size/Makefile	/^$(TARGET): $(OBJS)$/;"	t
+ARGLEN	09_11/sp06B/src/sp06B_2022117156.c	/^#define ARGLEN /;"	d	file:
 BIN_DIR	08_09/cp1/Makefile	/^BIN_DIR = bin$/;"	m
 BIN_DIR	08_09/logout_tty/Makefile	/^BIN_DIR = bin$/;"	m
 BIN_DIR	08_09/who1/Makefile	/^BIN_DIR = bin$/;"	m
 BIN_DIR	08_09/who2/Makefile	/^BIN_DIR = bin$/;"	m
+BIN_DIR	09_11/sp06A/Makefile	/^BIN_DIR = bin$/;"	m
+BIN_DIR	09_11/sp06B/Makefile	/^BIN_DIR = bin$/;"	m
 BIN_DIR	15_09/ls1/Makefile	/^BIN_DIR = bin$/;"	m
 BIN_DIR	15_09/sp02A/Makefile	/^BIN_DIR = bin$/;"	m
 BIN_DIR	22_09/Makefile	/^BIN_DIR = bin$/;"	m
@@ -47,7 +62,11 @@ BIN_DIR	22_09/sp03A/Makefile	/^BIN_DIR = bin$/;"	m
 BIN_DIR	29_09/sp04A/Makefile	/^BIN_DIR = bin$/;"	m
 BIN_DIR	29_09/sp04B/Makefile	/^BIN_DIR = bin$/;"	m
 BIN_DIR	Makefile	/^BIN_DIR = bin$/;"	m
+BIN_DIR	sp_midterm/Makefile	/^BIN_DIR = bin$/;"	m
 BIN_DIR	sp_midterm_pre/Makefile	/^BIN_DIR = bin$/;"	m
+BIN_DIR	test/easy1/Makefile	/^BIN_DIR = bin$/;"	m
+BIN_DIR	test/loading_bar/Makefile	/^BIN_DIR = bin$/;"	m
+BIN_DIR	test/tty_size/Makefile	/^BIN_DIR = bin$/;"	m
 BUFFERSIZE	08_09/cp1/src/cp1.c	/^#define BUFFERSIZE /;"	d	file:
 BUFFERSIZE	sp_midterm_pre/dump/sp_midterm_pre.c	/^#define BUFFERSIZE /;"	d	file:
 BUFFERSIZE	sp_midterm_pre/src/sp_midterm_2022117156.c	/^#define BUFFERSIZE /;"	d	file:
@@ -55,6 +74,8 @@ CC	08_09/cp1/Makefile	/^CC = gcc$/;"	m
 CC	08_09/logout_tty/Makefile	/^CC = gcc$/;"	m
 CC	08_09/who1/Makefile	/^CC = gcc$/;"	m
 CC	08_09/who2/Makefile	/^CC = gcc$/;"	m
+CC	09_11/sp06A/Makefile	/^CC = gcc$/;"	m
+CC	09_11/sp06B/Makefile	/^CC = gcc$/;"	m
 CC	15_09/ls1/Makefile	/^CC = gcc$/;"	m
 CC	15_09/sp02A/Makefile	/^CC = gcc$/;"	m
 CC	22_09/Makefile	/^CC = gcc$/;"	m
@@ -63,11 +84,17 @@ CC	22_09/sp03A/Makefile	/^CC = gcc$/;"	m
 CC	29_09/sp04A/Makefile	/^CC = gcc$/;"	m
 CC	29_09/sp04B/Makefile	/^CC = gcc$/;"	m
 CC	Makefile	/^CC = gcc$/;"	m
+CC	sp_midterm/Makefile	/^CC = gcc$/;"	m
 CC	sp_midterm_pre/Makefile	/^CC = gcc$/;"	m
+CC	test/easy1/Makefile	/^CC = gcc$/;"	m
+CC	test/loading_bar/Makefile	/^CC = gcc$/;"	m
+CC	test/tty_size/Makefile	/^CC = gcc$/;"	m
 CFLAGS	08_09/cp1/Makefile	/^CFLAGS = -g -Wall$/;"	m
 CFLAGS	08_09/logout_tty/Makefile	/^CFLAGS = -g -Wall$/;"	m
 CFLAGS	08_09/who1/Makefile	/^CFLAGS = -g -Wall$/;"	m
 CFLAGS	08_09/who2/Makefile	/^CFLAGS = -g -Wall$/;"	m
+CFLAGS	09_11/sp06A/Makefile	/^CFLAGS = -g -Wall$/;"	m
+CFLAGS	09_11/sp06B/Makefile	/^CFLAGS = -g -Wall$/;"	m
 CFLAGS	15_09/ls1/Makefile	/^CFLAGS = -g -Wall$/;"	m
 CFLAGS	15_09/sp02A/Makefile	/^CFLAGS = -g -Wall$/;"	m
 CFLAGS	22_09/Makefile	/^CFLAGS = -g -Wall$/;"	m
@@ -76,14 +103,23 @@ CFLAGS	22_09/sp03A/Makefile	/^CFLAGS = -g -Wall$/;"	m
 CFLAGS	29_09/sp04A/Makefile	/^CFLAGS = -g -Wall$/;"	m
 CFLAGS	29_09/sp04B/Makefile	/^CFLAGS = -g -Wall$/;"	m
 CFLAGS	Makefile	/^CFLAGS = -g -Wall$/;"	m
+CFLAGS	sp_midterm/Makefile	/^CFLAGS = -g -Wall$/;"	m
 CFLAGS	sp_midterm_pre/Makefile	/^CFLAGS = -g -Wall$/;"	m
+CFLAGS	test/easy1/Makefile	/^CFLAGS = -g -Wall$/;"	m
+CFLAGS	test/loading_bar/Makefile	/^CFLAGS = -g -Wall$/;"	m
+CFLAGS	test/tty_size/Makefile	/^CFLAGS = -g -Wall$/;"	m
 COPYMODE	08_09/cp1/src/cp1.c	/^#define COPYMODE /;"	d	file:
+EOF	02_11/sp05A_2022117156.sh	/^cat <<'EOF'$/;"	h
+MAXARGS	09_11/sp06B/src/sp06B_2022117156.c	/^#define MAXARGS /;"	d	file:
+MAX_LINE	sp_midterm/src/sp_midterm_2022117156.c	/^#define MAX_LINE /;"	d	file:
 NRECS	08_09/who3/src/utmplib.c	/^#define NRECS /;"	d	file:
 NULLUT	08_09/who3/src/utmplib.c	/^#define NULLUT /;"	d	file:
 OBJS	08_09/cp1/Makefile	/^OBJS = $(patsubst $(SRC_DIR)\/%.c, $(OBJ_DIR)\/%.o, $(SRC))$/;"	m
 OBJS	08_09/logout_tty/Makefile	/^OBJS = $(patsubst $(SRC_DIR)\/%.c, $(OBJ_DIR)\/%.o, $(SRC))$/;"	m
 OBJS	08_09/who1/Makefile	/^OBJS = $(patsubst $(SRC_DIR)\/%.c, $(OBJ_DIR)\/%.o, $(SRC))$/;"	m
 OBJS	08_09/who2/Makefile	/^OBJS = $(patsubst $(SRC_DIR)\/%.c, $(OBJ_DIR)\/%.o, $(SRC))$/;"	m
+OBJS	09_11/sp06A/Makefile	/^OBJS = $(patsubst $(SRC_DIR)\/%.c, $(OBJ_DIR)\/%.o, $(SRC))$/;"	m
+OBJS	09_11/sp06B/Makefile	/^OBJS = $(patsubst $(SRC_DIR)\/%.c, $(OBJ_DIR)\/%.o, $(SRC))$/;"	m
 OBJS	15_09/ls1/Makefile	/^OBJS = $(patsubst $(SRC_DIR)\/%.c, $(OBJ_DIR)\/%.o, $(SRC))$/;"	m
 OBJS	15_09/sp02A/Makefile	/^OBJS = $(patsubst $(SRC_DIR)\/%.c, $(OBJ_DIR)\/%.o, $(SRC))$/;"	m
 OBJS	22_09/Makefile	/^OBJS = $(patsubst $(SRC_DIR)\/%.c, $(OBJ_DIR)\/%.o, $(SRC))$/;"	m
@@ -92,11 +128,17 @@ OBJS	22_09/sp03A/Makefile	/^OBJS = $(patsubst $(SRC_DIR)\/%.c, $(OBJ_DIR)\/%.o, 
 OBJS	29_09/sp04A/Makefile	/^OBJS = $(patsubst $(SRC_DIR)\/%.c, $(OBJ_DIR)\/%.o, $(SRC))$/;"	m
 OBJS	29_09/sp04B/Makefile	/^OBJS = $(patsubst $(SRC_DIR)\/%.c, $(OBJ_DIR)\/%.o, $(SRC))$/;"	m
 OBJS	Makefile	/^OBJS = $(patsubst $(SRC_DIR)\/%.c, $(OBJ_DIR)\/%.o, $(SRC))$/;"	m
+OBJS	sp_midterm/Makefile	/^OBJS = $(patsubst $(SRC_DIR)\/%.c, $(OBJ_DIR)\/%.o, $(SRC))$/;"	m
 OBJS	sp_midterm_pre/Makefile	/^OBJS = $(patsubst $(SRC_DIR)\/%.c, $(OBJ_DIR)\/%.o, $(SRC))$/;"	m
+OBJS	test/easy1/Makefile	/^OBJS = $(patsubst $(SRC_DIR)\/%.c, $(OBJ_DIR)\/%.o, $(SRC))$/;"	m
+OBJS	test/loading_bar/Makefile	/^OBJS = $(patsubst $(SRC_DIR)\/%.c, $(OBJ_DIR)\/%.o, $(SRC))$/;"	m
+OBJS	test/tty_size/Makefile	/^OBJS = $(patsubst $(SRC_DIR)\/%.c, $(OBJ_DIR)\/%.o, $(SRC))$/;"	m
 OBJ_DIR	08_09/cp1/Makefile	/^OBJ_DIR = build$/;"	m
 OBJ_DIR	08_09/logout_tty/Makefile	/^OBJ_DIR = build$/;"	m
 OBJ_DIR	08_09/who1/Makefile	/^OBJ_DIR = build$/;"	m
 OBJ_DIR	08_09/who2/Makefile	/^OBJ_DIR = build$/;"	m
+OBJ_DIR	09_11/sp06A/Makefile	/^OBJ_DIR = build$/;"	m
+OBJ_DIR	09_11/sp06B/Makefile	/^OBJ_DIR = build$/;"	m
 OBJ_DIR	15_09/ls1/Makefile	/^OBJ_DIR = build$/;"	m
 OBJ_DIR	15_09/sp02A/Makefile	/^OBJ_DIR = build$/;"	m
 OBJ_DIR	22_09/Makefile	/^OBJ_DIR = build$/;"	m
@@ -105,8 +147,13 @@ OBJ_DIR	22_09/sp03A/Makefile	/^OBJ_DIR = build$/;"	m
 OBJ_DIR	29_09/sp04A/Makefile	/^OBJ_DIR = build$/;"	m
 OBJ_DIR	29_09/sp04B/Makefile	/^OBJ_DIR = build$/;"	m
 OBJ_DIR	Makefile	/^OBJ_DIR = build$/;"	m
+OBJ_DIR	sp_midterm/Makefile	/^OBJ_DIR = build$/;"	m
 OBJ_DIR	sp_midterm_pre/Makefile	/^OBJ_DIR = build$/;"	m
+OBJ_DIR	test/easy1/Makefile	/^OBJ_DIR = build$/;"	m
+OBJ_DIR	test/loading_bar/Makefile	/^OBJ_DIR = build$/;"	m
+OBJ_DIR	test/tty_size/Makefile	/^OBJ_DIR = build$/;"	m
 PATH_MAX	22_09/sp03A/src/sp03A_2022117156.c	/^#define PATH_MAX /;"	d	file:
+PATH_MAX	sp_midterm/src/sp_midterm_2022117156.c	/^#define PATH_MAX /;"	d	file:
 SHOWHOST	08_09/who1/src/who1.c	/^#define SHOWHOST$/;"	d	file:
 SHOWHOST	08_09/who2/src/who2.c	/^#define SHOWHOST$/;"	d	file:
 SHOWHOST	08_09/who3/src/who3.c	/^#define SHOWHOST$/;"	d	file:
@@ -114,6 +161,8 @@ SRC	08_09/cp1/Makefile	/^SRC = $(wildcard $(SRC_DIR)\/*.c)$/;"	m
 SRC	08_09/logout_tty/Makefile	/^SRC = $(wildcard $(SRC_DIR)\/*.c)$/;"	m
 SRC	08_09/who1/Makefile	/^SRC = $(wildcard $(SRC_DIR)\/*.c)$/;"	m
 SRC	08_09/who2/Makefile	/^SRC = $(wildcard $(SRC_DIR)\/*.c)$/;"	m
+SRC	09_11/sp06A/Makefile	/^SRC = $(wildcard $(SRC_DIR)\/*.c)$/;"	m
+SRC	09_11/sp06B/Makefile	/^SRC = $(wildcard $(SRC_DIR)\/*.c)$/;"	m
 SRC	15_09/ls1/Makefile	/^SRC = $(wildcard $(SRC_DIR)\/*.c)$/;"	m
 SRC	15_09/sp02A/Makefile	/^SRC = $(wildcard $(SRC_DIR)\/*.c)$/;"	m
 SRC	22_09/Makefile	/^SRC = $(wildcard $(SRC_DIR)\/*.c)$/;"	m
@@ -122,11 +171,17 @@ SRC	22_09/sp03A/Makefile	/^SRC = $(wildcard $(SRC_DIR)\/*.c)$/;"	m
 SRC	29_09/sp04A/Makefile	/^SRC = $(wildcard $(SRC_DIR)\/*.c)$/;"	m
 SRC	29_09/sp04B/Makefile	/^SRC = $(wildcard $(SRC_DIR)\/*.c)$/;"	m
 SRC	Makefile	/^SRC = $(wildcard $(SRC_DIR)\/*.c)$/;"	m
+SRC	sp_midterm/Makefile	/^SRC = $(wildcard $(SRC_DIR)\/*.c)$/;"	m
 SRC	sp_midterm_pre/Makefile	/^SRC = $(wildcard $(SRC_DIR)\/*.c)$/;"	m
+SRC	test/easy1/Makefile	/^SRC = $(wildcard $(SRC_DIR)\/*.c)$/;"	m
+SRC	test/loading_bar/Makefile	/^SRC = $(wildcard $(SRC_DIR)\/*.c)$/;"	m
+SRC	test/tty_size/Makefile	/^SRC = $(wildcard $(SRC_DIR)\/*.c)$/;"	m
 SRC_DIR	08_09/cp1/Makefile	/^SRC_DIR = src$/;"	m
 SRC_DIR	08_09/logout_tty/Makefile	/^SRC_DIR = src$/;"	m
 SRC_DIR	08_09/who1/Makefile	/^SRC_DIR = src$/;"	m
 SRC_DIR	08_09/who2/Makefile	/^SRC_DIR = src$/;"	m
+SRC_DIR	09_11/sp06A/Makefile	/^SRC_DIR = src$/;"	m
+SRC_DIR	09_11/sp06B/Makefile	/^SRC_DIR = src$/;"	m
 SRC_DIR	15_09/ls1/Makefile	/^SRC_DIR = src$/;"	m
 SRC_DIR	15_09/sp02A/Makefile	/^SRC_DIR = src$/;"	m
 SRC_DIR	22_09/Makefile	/^SRC_DIR = src$/;"	m
@@ -135,11 +190,17 @@ SRC_DIR	22_09/sp03A/Makefile	/^SRC_DIR = src$/;"	m
 SRC_DIR	29_09/sp04A/Makefile	/^SRC_DIR = src$/;"	m
 SRC_DIR	29_09/sp04B/Makefile	/^SRC_DIR = src$/;"	m
 SRC_DIR	Makefile	/^SRC_DIR = src$/;"	m
+SRC_DIR	sp_midterm/Makefile	/^SRC_DIR = src$/;"	m
 SRC_DIR	sp_midterm_pre/Makefile	/^SRC_DIR = src$/;"	m
+SRC_DIR	test/easy1/Makefile	/^SRC_DIR = src$/;"	m
+SRC_DIR	test/loading_bar/Makefile	/^SRC_DIR = src$/;"	m
+SRC_DIR	test/tty_size/Makefile	/^SRC_DIR = src$/;"	m
 TARGET	08_09/cp1/Makefile	/^TARGET = $(BIN_DIR)\/sp02A$/;"	m
 TARGET	08_09/logout_tty/Makefile	/^TARGET = $(BIN_DIR)\/logout_tty$/;"	m
 TARGET	08_09/who1/Makefile	/^TARGET = $(BIN_DIR)\/who1    $/;"	m
 TARGET	08_09/who2/Makefile	/^TARGET = $(BIN_DIR)\/who2$/;"	m
+TARGET	09_11/sp06A/Makefile	/^TARGET = $(BIN_DIR)\/sp02A$/;"	m
+TARGET	09_11/sp06B/Makefile	/^TARGET = $(BIN_DIR)\/sp02A$/;"	m
 TARGET	15_09/ls1/Makefile	/^TARGET = $(BIN_DIR)\/ls1$/;"	m
 TARGET	15_09/sp02A/Makefile	/^TARGET = $(BIN_DIR)\/sp02A$/;"	m
 TARGET	22_09/Makefile	/^TARGET = $(BIN_DIR)\/sp02A$/;"	m
@@ -148,13 +209,19 @@ TARGET	22_09/sp03A/Makefile	/^TARGET = $(BIN_DIR)\/sp03A$/;"	m
 TARGET	29_09/sp04A/Makefile	/^TARGET = $(BIN_DIR)\/sp04A_2022117156$/;"	m
 TARGET	29_09/sp04B/Makefile	/^TARGET = $(BIN_DIR)\/sp04B_2022117156$/;"	m
 TARGET	Makefile	/^TARGET = $(BIN_DIR)\/sp02A$/;"	m
+TARGET	sp_midterm/Makefile	/^TARGET = $(BIN_DIR)\/sp02A$/;"	m
 TARGET	sp_midterm_pre/Makefile	/^TARGET = $(BIN_DIR)\/sp02A$/;"	m
+TARGET	test/easy1/Makefile	/^TARGET = $(BIN_DIR)\/sp02A$/;"	m
+TARGET	test/loading_bar/Makefile	/^TARGET = $(BIN_DIR)\/loading_bar$/;"	m
+TARGET	test/tty_size/Makefile	/^TARGET = $(BIN_DIR)\/sp02A$/;"	m
 UTMPLIB_H	08_09/who3/src/utmplib.h	/^#define UTMPLIB_H$/;"	d
 UTSIZE	08_09/who3/src/utmplib.c	/^#define UTSIZE /;"	d	file:
 all	08_09/cp1/Makefile	/^all: $(TARGET)$/;"	t
 all	08_09/logout_tty/Makefile	/^all: $(TARGET)$/;"	t
 all	08_09/who1/Makefile	/^all: $(TARGET)$/;"	t
 all	08_09/who2/Makefile	/^all: $(TARGET)$/;"	t
+all	09_11/sp06A/Makefile	/^all: $(TARGET)$/;"	t
+all	09_11/sp06B/Makefile	/^all: $(TARGET)$/;"	t
 all	15_09/ls1/Makefile	/^all: $(TARGET)$/;"	t
 all	15_09/sp02A/Makefile	/^all: $(TARGET)$/;"	t
 all	22_09/Makefile	/^all: $(TARGET)$/;"	t
@@ -163,12 +230,19 @@ all	22_09/sp03A/Makefile	/^all: $(TARGET)$/;"	t
 all	29_09/sp04A/Makefile	/^all: $(TARGET)$/;"	t
 all	29_09/sp04B/Makefile	/^all: $(TARGET)$/;"	t
 all	Makefile	/^all: $(TARGET)$/;"	t
+all	sp_midterm/Makefile	/^all: $(TARGET)$/;"	t
 all	sp_midterm_pre/Makefile	/^all: $(TARGET)$/;"	t
+all	test/easy1/Makefile	/^all: $(TARGET)$/;"	t
+all	test/loading_bar/Makefile	/^all: $(TARGET)$/;"	t
+all	test/tty_size/Makefile	/^all: $(TARGET)$/;"	t
 change_mode	29_09/sp04A/src/sp04A_2022117156.c	/^void change_mode(char *mode_param, const char *path) {$/;"	f	typeref:typename:void
+check_mode	sp_midterm/src/sp_midterm_2022117156.c	/^bool check_mode(char* path, char* param_mode) {$/;"	f	typeref:typename:bool
 clean	08_09/cp1/Makefile	/^clean:$/;"	t
 clean	08_09/logout_tty/Makefile	/^clean:$/;"	t
 clean	08_09/who1/Makefile	/^clean:$/;"	t
 clean	08_09/who2/Makefile	/^clean:$/;"	t
+clean	09_11/sp06A/Makefile	/^clean:$/;"	t
+clean	09_11/sp06B/Makefile	/^clean:$/;"	t
 clean	15_09/ls1/Makefile	/^clean:$/;"	t
 clean	15_09/sp02A/Makefile	/^clean:$/;"	t
 clean	22_09/Makefile	/^clean:$/;"	t
@@ -177,11 +251,16 @@ clean	22_09/sp03A/Makefile	/^clean:$/;"	t
 clean	29_09/sp04A/Makefile	/^clean:$/;"	t
 clean	29_09/sp04B/Makefile	/^clean:$/;"	t
 clean	Makefile	/^clean:$/;"	t
+clean	sp_midterm/Makefile	/^clean:$/;"	t
 clean	sp_midterm_pre/Makefile	/^clean:$/;"	t
+clean	test/easy1/Makefile	/^clean:$/;"	t
+clean	test/loading_bar/Makefile	/^clean:$/;"	t
+clean	test/tty_size/Makefile	/^clean:$/;"	t
 compare_person_name	22_09/sp03A/src/sp03A_2022117156.c	/^int compare_person_name(const void *a, const void *b) {$/;"	f	typeref:typename:int
 compare_person_name	sp_midterm_pre/dump/sp_midterm_pre.c	/^int compare_person_name(const void *a, const void *b) {$/;"	f	typeref:typename:int
 cur_rec	08_09/who3/src/utmplib.c	/^static int cur_rec; \/* next to go *\/$/;"	v	typeref:typename:int	file:
 do_cat	sp_midterm_pre/src/sp_midterm_2022117156.c	/^void do_cat(char *path) {$/;"	f	typeref:typename:void
+do_find	sp_midterm/src/sp_midterm_2022117156.c	/^void do_find(char* name, char* mode) {$/;"	f	typeref:typename:void
 do_ls	15_09/dump/sp02A_2022117156.c	/^void do_ls(char dirname[]) {$/;"	f	typeref:typename:void
 do_ls	15_09/ls1/src/ls.c	/^void do_ls(char dirname[], char * cmd) {$/;"	f	typeref:typename:void
 do_ls	15_09/ls2/src/ls2.c	/^void do_ls(char dirname[]) {$/;"	f	typeref:typename:void
@@ -191,6 +270,7 @@ do_ls	sp_midterm_pre/dump/sp_midterm_pre.c	/^void do_ls(char *path) {$/;"	f	type
 dostat	15_09/dump/sp02A_2022117156.c	/^void dostat(char * filename) {$/;"	f	typeref:typename:void
 dostat	15_09/ls2/src/ls2.c	/^void dostat(char * filename) {$/;"	f	typeref:typename:void
 dostat	15_09/sp02A/src/sp02A_2022117156.c	/^void dostat(char * filename) {$/;"	f	typeref:typename:void
+execute	09_11/sp06B/src/sp06B_2022117156.c	/^void execute(char *arglist[]) {$/;"	f	typeref:typename:void
 fd_utmp	08_09/who3/src/utmplib.c	/^static int fd_utmp = -1; $/;"	v	typeref:typename:int	file:
 filename_info	22_09/sp03A/src/sp03A_2022117156.c	/^struct filename_info { \/\/ realloc에 저장할 구조체$/;"	s	file:
 filename_info	sp_midterm_pre/dump/sp_midterm_pre.c	/^struct filename_info { \/\/ realloc에 저장할 구조체$/;"	s	file:
@@ -200,6 +280,7 @@ gid_to_name	15_09/dump/grp.c	/^char * gid_to_name(gid_t gid) {$/;"	f	typeref:typ
 gid_to_name	15_09/ls2/src/grp.c	/^char * gid_to_name(gid_t gid) {$/;"	f	typeref:typename:char *
 gid_to_name	15_09/sp02A/src/sp02A_2022117156.c	/^char * gid_to_name(gid_t gid) {$/;"	f	typeref:typename:char *
 gid_to_name	22_09/sp03A/src/sp03A_2022117156.c	/^char * gid_to_name(gid_t gid) { $/;"	f	typeref:typename:char *
+gid_to_name	sp_midterm/src/sp_midterm_2022117156.c	/^char * gid_to_name(gid_t gid) {$/;"	f	typeref:typename:char *
 gid_to_name	sp_midterm_pre/dump/sp_midterm_pre.c	/^char * gid_to_name(gid_t gid) { $/;"	f	typeref:typename:char *
 info	22_09/sp03A/src/sp03A_2022117156.c	/^    struct stat info;$/;"	m	struct:filename_info	typeref:struct:stat	file:
 info	sp_midterm_pre/dump/sp_midterm_pre.c	/^    struct stat info;$/;"	m	struct:filename_info	typeref:struct:stat	file:
@@ -210,6 +291,7 @@ main	08_09/logout_tty/src/test_logout.c	/^int main(int argc, char *argv[]) {$/;"
 main	08_09/who1/src/who1.c	/^int main() {$/;"	f	typeref:typename:int
 main	08_09/who2/src/who2.c	/^int main() {$/;"	f	typeref:typename:int
 main	08_09/who3/src/who3.c	/^int main() {$/;"	f	typeref:typename:int
+main	09_11/sp06B/src/sp06B_2022117156.c	/^int main() {$/;"	f	typeref:typename:int
 main	15_09/dump/sp02A_2022117156.c	/^int main(int ac, char *av[]) {$/;"	f	typeref:typename:int
 main	15_09/ls1/src/ls.c	/^int main(int ac, char *av[]){$/;"	f	typeref:typename:int
 main	15_09/ls2/src/ls2.c	/^int main(int ac, char *av[]) {$/;"	f	typeref:typename:int
@@ -219,12 +301,17 @@ main	22_09/pwd/src/pwd.c	/^int main() {$/;"	f	typeref:typename:int
 main	22_09/sp03A/src/sp03A_2022117156.c	/^int main(int ac, char *av[]) {$/;"	f	typeref:typename:int
 main	29_09/sp04A/src/sp04A_2022117156.c	/^int main(int ac, char *av[]) {$/;"	f	typeref:typename:int
 main	29_09/sp04B/src/sp04B_2022117156.c	/^int main() {$/;"	f	typeref:typename:int
+main	sp_midterm/src/sp_midterm_2022117156.c	/^int main(int ac, char *av[]) {$/;"	f	typeref:typename:int
 main	sp_midterm_pre/dump/sp_midterm_pre.c	/^int main(int ac, char *av[]) {$/;"	f	typeref:typename:int
 main	sp_midterm_pre/src/sp_midterm_2022117156.c	/^int main(int ac, char *av[]) {$/;"	f	typeref:typename:int
+main	test/easy1/src/moving_text_example.c	/^int main(void) {$/;"	f	typeref:typename:int
+main	test/loading_bar/src/easy2.c	/^int main() {$/;"	f	typeref:typename:int
+main	test/tty_size/src/easy2.c	/^int main(void) {$/;"	f	typeref:typename:int
 mode_to_letters	15_09/dump/sp02A_2022117156.c	/^void mode_to_letters(int mode, char str[]) {$/;"	f	typeref:typename:void
 mode_to_letters	15_09/ls2/src/ls2.c	/^void mode_to_letters(int mode, char str[]) {$/;"	f	typeref:typename:void
 mode_to_letters	15_09/sp02A/src/sp02A_2022117156.c	/^void mode_to_letters(int mode, char str[]) {$/;"	f	typeref:typename:void
 mode_to_letters	22_09/sp03A/src/sp03A_2022117156.c	/^void mode_to_letters(int mode, char str[]) {$/;"	f	typeref:typename:void
+mode_to_letters	sp_midterm/src/sp_midterm_2022117156.c	/^void mode_to_letters(int mode, char str[]) {$/;"	f	typeref:typename:void
 mode_to_letters	sp_midterm_pre/dump/sp_midterm_pre.c	/^void mode_to_letters(int mode, char str[]) {$/;"	f	typeref:typename:void
 name	22_09/sp03A/src/sp03A_2022117156.c	/^    char *name;$/;"	m	struct:filename_info	typeref:typename:char *	file:
 name	sp_midterm_pre/dump/sp_midterm_pre.c	/^    char *name;$/;"	m	struct:filename_info	typeref:typename:char *	file:
@@ -233,10 +320,13 @@ oops	08_09/cp1/src/cp1.c	/^void oops(char *s1, char *s2) {$/;"	f	typeref:typenam
 parse_mode	29_09/sp04A/src/sp04A_2022117156.c	/^mode_t parse_mode(const char *mode_str, mode_t old_mode) {$/;"	f	typeref:typename:mode_t
 printpathto	22_09/pwd/src/pwd.c	/^void printpathto(ino_t this_inode) {$/;"	f	typeref:typename:void
 printpathto	29_09/sp04B/src/sp04B_2022117156.c	/^void printpathto(ino_t this_inode) {$/;"	f	typeref:typename:void
+progress_bar	test/loading_bar/src/easy2.c	/^void progress_bar(double progress) {$/;"	f	typeref:typename:void
+show	02_11/sp05A_2022117156.sh	/^show() {$/;"	f
 show_file_info	15_09/dump/sp02A_2022117156.c	/^void show_file_info( char * filename, struct stat *info_p) {$/;"	f	typeref:typename:void
 show_file_info	15_09/ls2/src/ls2.c	/^void show_file_info( char * filename, struct stat *info_p) {$/;"	f	typeref:typename:void
 show_file_info	15_09/sp02A/src/sp02A_2022117156.c	/^void show_file_info( char * filename, struct stat *info_p) {$/;"	f	typeref:typename:void
 show_file_info	22_09/sp03A/src/sp03A_2022117156.c	/^void show_file_info(char *filename, struct stat *info_p) { $/;"	f	typeref:typename:void
+show_file_info	sp_midterm/src/sp_midterm_2022117156.c	/^void show_file_info(char *filename, struct stat *info_p) {$/;"	f	typeref:typename:void
 show_file_info	sp_midterm_pre/dump/sp_midterm_pre.c	/^void show_file_info(char *filename, struct stat *info_p) { $/;"	f	typeref:typename:void
 show_info	08_09/who1/src/who1.c	/^void show_info(struct utmp *utbufp) { \/* utmp에서 읽어 온 정보 출력 *\/$/;"	f	typeref:typename:void
 show_info	08_09/who2/src/who2.c	/^void show_info(struct utmp * utbufp) {$/;"	f	typeref:typename:void
@@ -248,6 +338,7 @@ uid_to_name	15_09/dump/pwd.c	/^char * uid_to_name(uid_t uid) {$/;"	f	typeref:typ
 uid_to_name	15_09/ls2/src/pwd.c	/^char * uid_to_name(uid_t uid) {$/;"	f	typeref:typename:char *
 uid_to_name	15_09/sp02A/src/sp02A_2022117156.c	/^char * uid_to_name(uid_t uid) {$/;"	f	typeref:typename:char *
 uid_to_name	22_09/sp03A/src/sp03A_2022117156.c	/^char * uid_to_name(uid_t uid) {$/;"	f	typeref:typename:char *
+uid_to_name	sp_midterm/src/sp_midterm_2022117156.c	/^char * uid_to_name(uid_t uid) {$/;"	f	typeref:typename:char *
 uid_to_name	sp_midterm_pre/dump/sp_midterm_pre.c	/^char * uid_to_name(uid_t uid) {$/;"	f	typeref:typename:char *
 utmp_close	08_09/who3/src/utmplib.c	/^void utmp_close() {$/;"	f	typeref:typename:void
 utmp_next	08_09/who3/src/utmplib.c	/^struct utmp * utmp_next() {$/;"	f	typeref:struct:utmp *

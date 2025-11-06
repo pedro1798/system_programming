@@ -9,31 +9,54 @@
 !_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
 !_TAG_PROGRAM_URL	https://ctags.io/	/official site/
 !_TAG_PROGRAM_VERSION	5.9.0	//
+$(OBJ_DIR)/%.o	Makefile	/^$(OBJ_DIR)\/%.o: $(SRC_DIR)\/%.c$/;"	t
 $(OBJ_DIR)/%.o	sp06A/Makefile	/^$(OBJ_DIR)\/%.o: $(SRC_DIR)\/%.c$/;"	t
 $(OBJ_DIR)/%.o	sp06B/Makefile	/^$(OBJ_DIR)\/%.o: $(SRC_DIR)\/%.c$/;"	t
+$(OBJ_DIR)/%.o	tmp/Makefile	/^$(OBJ_DIR)\/%.o: $(SRC_DIR)\/%.c$/;"	t
+$(TARGET)	Makefile	/^$(TARGET): $(OBJS)$/;"	t
 $(TARGET)	sp06A/Makefile	/^$(TARGET): $(OBJS)$/;"	t
 $(TARGET)	sp06B/Makefile	/^$(TARGET): $(OBJS)$/;"	t
-ARGLEN	sp06B/src/sp06B_2022117156.c	/^#define ARGLEN /;"	d	file:
+$(TARGET)	tmp/Makefile	/^$(TARGET): $(OBJS)$/;"	t
+ARGLEN	sp06A/src/sp06B_2022117156.c	/^#define ARGLEN /;"	d	file:
+BIN_DIR	Makefile	/^BIN_DIR = bin$/;"	m
 BIN_DIR	sp06A/Makefile	/^BIN_DIR = bin$/;"	m
 BIN_DIR	sp06B/Makefile	/^BIN_DIR = bin$/;"	m
+BIN_DIR	tmp/Makefile	/^BIN_DIR = bin$/;"	m
+CC	Makefile	/^CC = gcc$/;"	m
 CC	sp06A/Makefile	/^CC = gcc$/;"	m
 CC	sp06B/Makefile	/^CC = gcc$/;"	m
+CC	tmp/Makefile	/^CC = gcc$/;"	m
+CFLAGS	Makefile	/^CFLAGS = -g -Wall$/;"	m
 CFLAGS	sp06A/Makefile	/^CFLAGS = -g -Wall$/;"	m
 CFLAGS	sp06B/Makefile	/^CFLAGS = -g -Wall$/;"	m
-MAXARGS	sp06B/src/sp06B_2022117156.c	/^#define MAXARGS /;"	d	file:
+CFLAGS	tmp/Makefile	/^CFLAGS = -g -Wall$/;"	m
+MAXARGS	sp06A/src/sp06B_2022117156.c	/^#define MAXARGS /;"	d	file:
+OBJS	Makefile	/^OBJS = $(patsubst $(SRC_DIR)\/%.c, $(OBJ_DIR)\/%.o, $(SRC))$/;"	m
 OBJS	sp06A/Makefile	/^OBJS = $(patsubst $(SRC_DIR)\/%.c, $(OBJ_DIR)\/%.o, $(SRC))$/;"	m
 OBJS	sp06B/Makefile	/^OBJS = $(patsubst $(SRC_DIR)\/%.c, $(OBJ_DIR)\/%.o, $(SRC))$/;"	m
+OBJS	tmp/Makefile	/^OBJS = $(patsubst $(SRC_DIR)\/%.c, $(OBJ_DIR)\/%.o, $(SRC))$/;"	m
+OBJ_DIR	Makefile	/^OBJ_DIR = build$/;"	m
 OBJ_DIR	sp06A/Makefile	/^OBJ_DIR = build$/;"	m
 OBJ_DIR	sp06B/Makefile	/^OBJ_DIR = build$/;"	m
+OBJ_DIR	tmp/Makefile	/^OBJ_DIR = build$/;"	m
+SRC	Makefile	/^SRC = $(wildcard $(SRC_DIR)\/*.c)$/;"	m
 SRC	sp06A/Makefile	/^SRC = $(wildcard $(SRC_DIR)\/*.c)$/;"	m
 SRC	sp06B/Makefile	/^SRC = $(wildcard $(SRC_DIR)\/*.c)$/;"	m
+SRC	tmp/Makefile	/^SRC = $(wildcard $(SRC_DIR)\/*.c)$/;"	m
+SRC_DIR	Makefile	/^SRC_DIR = src$/;"	m
 SRC_DIR	sp06A/Makefile	/^SRC_DIR = src$/;"	m
 SRC_DIR	sp06B/Makefile	/^SRC_DIR = src$/;"	m
-TARGET	sp06A/Makefile	/^TARGET = $(BIN_DIR)\/sp02A$/;"	m
+SRC_DIR	tmp/Makefile	/^SRC_DIR = src$/;"	m
+TARGET	Makefile	/^TARGET = $(BIN_DIR)\/sp02A$/;"	m
+TARGET	sp06A/Makefile	/^TARGET = $(BIN_DIR)\/sp06A_2022117156$/;"	m
 TARGET	sp06B/Makefile	/^TARGET = $(BIN_DIR)\/sp02A$/;"	m
+TARGET	tmp/Makefile	/^TARGET = $(BIN_DIR)\/sp02A$/;"	m
+all	Makefile	/^all: $(TARGET)$/;"	t
 all	sp06A/Makefile	/^all: $(TARGET)$/;"	t
 all	sp06B/Makefile	/^all: $(TARGET)$/;"	t
+all	tmp/Makefile	/^all: $(TARGET)$/;"	t
+clean	Makefile	/^clean:$/;"	t
 clean	sp06A/Makefile	/^clean:$/;"	t
 clean	sp06B/Makefile	/^clean:$/;"	t
-execute	sp06B/src/sp06B_2022117156.c	/^execute(char *arglist[]) {$/;"	f
-main	sp06B/src/sp06B_2022117156.c	/^int main() {$/;"	f	typeref:typename:int
+clean	tmp/Makefile	/^clean:$/;"	t
+main	sp06A/src/sp06B_2022117156.c	/^int main(int argc, char* argv[]) {$/;"	f	typeref:typename:int
