@@ -7,8 +7,13 @@
 #include <signal.h>
 #define MAXARGS 20 /* cmdline args */
 #define ARGLEN 100 /* token length */
-
-int main(int argc, char* argv[]) {
+/*
+ * 1. 입력을 받는다 
+ * 2. 받은 입력으로 while문 돌린다
+ * 3. while문에서 실행하고 마지막에서 다시 입력을 받는다
+ * 4. exit이면 종료한다
+ */
+int main() {
     char *arglist[MAXARGS+1]; /* an array of ptrs, char* argv[]와 같은 역할 */
     char argbuf[ARGLEN]; /* read stuff here, 버퍼 */
     int arg_count = 0;
@@ -71,3 +76,20 @@ int main(int argc, char* argv[]) {
             }
     }
 }
+
+char *makestring(char *buf) {
+/*
+ * trim off newline and create storage for the string
+ */
+    char *cp, *malloc();
+    if (buf[strlen(buf)-1] == '\n') buf[strlen(buf)-1] = '\0'; /* trim newline */
+    cp = malloc (strlen(buf)+1); /* get memory */
+    
+    if (cp == NULL) {
+        fprintf(stderr, "no memory\n");
+        exit(1);
+    }
+    strcpy(cp, buf);
+    return cp;
+}
+
