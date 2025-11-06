@@ -22,14 +22,22 @@ int main() {
      */
     char **arglist_ptr = (char**)malloc((MAXARGS + 1) * sizeof(char*));
     
-    if (arglist_ptr == NULL) {
-        perror("malloc");
-        exit(1);
+    arglist_ptr[0] = NULL; /* 루프 시작 전에 유효하도록 NULL 초기화 */
+    /* 무한 루프 */
+    while(1) {
+        int arg_count = get_arg_list(arglist_ptr);
+        if (arglist_ptr[0] == NULL) continue; // 빈 입력 건너뛰기
+        if (strcmp(arglist_ptr[0], "exit") == 0) break; // exit 명령 시 종료 
+        // 실행
+        if (arg_count > 0) {
+            execute(arglist_ptr);
+        }
     }
-    
-    while(strcmp(arglist_ptr[0], "exit\0") != 0) {
-        execute(arglist_ptr);
+    for (int i = 0; i < arg_count + 1; i++) {
+        free(arglist_ptr[i]);
     }
+    free(arglist_ptr); // 메모리 해제
+    return 0;
 }
 
 void execute(char** arglist_ptr) {
@@ -45,8 +53,7 @@ void execute(char** arglist_ptr) {
             perror("fork failed");
             exit(1);
         case 0: /* child면 */
-            int arg_count = get_arg_list(arglist_ptr);
-            if (arg_count > 0) {
+            if (arglist_ptr[0] != NULL) {
                 execvp(arglist_ptr[0], arglist_ptr);
             }
             perror("execvp failed"); /* execvp 정상적으로 실행되면 실행 안 됨 */
@@ -76,14 +83,13 @@ int get_arg_list(char** arglist_ptr) { /* argbuf에 입력 받고 arglist_ptr에
      *  s를 반환한다. 아무 문자도 읽지 못했을 때만 NULL을 반환한다.
      */
     if (fgets(argbuf, ARGLEN, stdin)) { // argbuf 버퍼에 인수 문자열 받는다
-        if (strcmp(argbuf, "exit\n") == 0) { /* exit\n 만나면 종료 */
-            fprintf(stderr, "stopped here, meet exit\n");
-            return 0;
-        }
-
         if (argbuf[strlen(argbuf)-1] == '\n') {
             printf("change last character from \\n to \\0");
             argbuf[strlen(argbuf)-1] = '\0';
+        }
+        if (strcmp(argbuf, "exit\0") == 0) { /* exit\n 만나면 종료 */
+            fprintf(stderr, "stopped here, meet exit\n");
+            return 0;
         }
         /* 
          * 현재 실행 중인 프로세스의 메모리 이미지를 새로운 프로그램의 메모리
@@ -97,10 +103,11 @@ int get_arg_list(char** arglist_ptr) { /* argbuf에 입력 받고 arglist_ptr에
          * 등록된 디렉터리들을 검색하여 해당 실행 파일을 찾아준다(그래서 /bin/ls라고 명시하지 않아도 됨 
          */
         char *token = strtok(argbuf, " "); /* " "를 구분자로 tokenize*/
-        
+        char *cp_token = (char*)malloc((MAXARGS+1) * strlen(token));
+
         while (token != NULL && arg_count < MAXARGS) {
             /* 토큰(문자열)의 주소를 새로운 배열에 저장 */
-            arglist_ptr[arg_count++] = token;
+            arglist_ptr[arg_count++] = cp_token;
             token = strtok(NULL, " "); /* 다음 토큰 가져오기 */
         }
         arglist_ptr[arg_count] = NULL; /* 배열의 끝 표시 */
