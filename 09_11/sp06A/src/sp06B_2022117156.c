@@ -14,7 +14,7 @@
 
 int main(int argc, char* argv[]) {
     if (argc > 2) {
-        fprintf(stderr, "Too many argument. Please type only one.");
+        fprintf(stderr, "Too many argument. Please type only one.\n");
         exit(1);
     }
     execvp(argv[1], &argv[1]);

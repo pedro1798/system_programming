@@ -23,5 +23,5 @@ SRC_DIR	Makefile	/^SRC_DIR = src$/;"	m
 TARGET	Makefile	/^TARGET = $(BIN_DIR)\/sp06B_2022117156$/;"	m
 all	Makefile	/^all: $(TARGET)$/;"	t
 clean	Makefile	/^clean:$/;"	t
+execute	src/sp06B_2022117156.c	/^void execute(char *arglist[]) {$/;"	f	typeref:typename:void
 main	src/sp06B_2022117156.c	/^int main() {$/;"	f	typeref:typename:int
-makestring	src/sp06B_2022117156.c	/^char *makestring(char *buf) {$/;"	f	typeref:typename:char *
