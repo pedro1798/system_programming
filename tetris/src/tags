@@ -9,4 +9,17 @@
 !_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
 !_TAG_PROGRAM_URL	https://ctags.io/	/official site/
 !_TAG_PROGRAM_VERSION	5.9.0	//
+Tetrimino	tetris.c	/^} Tetrimino; $/;"	t	typeref:struct:__anonff228dd10108	file:
+__anonff228dd10108	tetris.c	/^typedef struct {$/;"	s	file:
+draw	tetris.c	/^void draw(WINDOW *win, int x, int y, Tetrimino tet) {$/;"	f	typeref:typename:void
+gen_tetrimino	tetris.c	/^Tetrimino *gen_tetrimino() {$/;"	f	typeref:typename:Tetrimino *
 main	tetris.c	/^int main() {$/;"	f	typeref:typename:int
+rotate	tetris.c	/^Tetrimino rotate(Tetrimino tet) {$/;"	f	typeref:typename:Tetrimino
+x1	tetris.c	/^    int x1; \/\/ x1, y1: 가장 왼쪽 위 pivot $/;"	m	struct:__anonff228dd10108	typeref:typename:int	file:
+x2	tetris.c	/^    int x2;$/;"	m	struct:__anonff228dd10108	typeref:typename:int	file:
+x3	tetris.c	/^    int x3;$/;"	m	struct:__anonff228dd10108	typeref:typename:int	file:
+x4	tetris.c	/^    int x4;$/;"	m	struct:__anonff228dd10108	typeref:typename:int	file:
+y1	tetris.c	/^    int y1;$/;"	m	struct:__anonff228dd10108	typeref:typename:int	file:
+y2	tetris.c	/^    int y2;$/;"	m	struct:__anonff228dd10108	typeref:typename:int	file:
+y3	tetris.c	/^    int y3;$/;"	m	struct:__anonff228dd10108	typeref:typename:int	file:
+y4	tetris.c	/^    int y4;$/;"	m	struct:__anonff228dd10108	typeref:typename:int	file:

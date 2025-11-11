@@ -11,7 +11,42 @@
  * stdscr: 기본(전체) 윈도우, initscr() 호출 시 자동 생성 
  */
 
+/* 블럭 상대 좌표 */
+typedef struct {
+    int x1; // x1, y1: 가장 왼쪽 위 pivot 
+    int y1;
+    int x2;
+    int y2;
+    int x3;
+    int y3;
+    int x4;
+    int y4;
+} Tetrimino; 
+
+//void erase(int x, int y, int block_num);
+void draw(WINDOW* win, int x, int y, Tetrimino tet);
+
+Tetrimino rotate(Tetrimino tet);
+Tetrimino *gen_tetrimino();
+
 int main() {
+    /* 테트리스 블럭 상대좌표 */
+    Tetrimino *tets = gen_tetrimino(); 
+    
+    int term_height, term_width; // 터미널 크기 받는 변수
+    getmaxyx(stdscr, term_height, term_width); // 터미널 크기 얻기
+    
+    /* 박스 크기 변수 */
+    int box_height = term_height * 8 / 10;
+    int box_width = term_width * 6 / 10;
+    
+    /* 테트리스 그리드 */
+    char **grid = malloc(box_height * sizeof(char*));
+    for (int i = 0; i < box_height; i++) {
+        grid[i] = malloc(box_width * sizeof(char));
+    }
+
+/*##############################################################*/
     initscr(); // ncurses 모드 진입(표준 화면 초기화)
     refresh(); // 한 번 초기화 
     cbreak(); // 버퍼링된 입력 즉시 전달, 즉 라인 버퍼링 해제(즉시 키 입력 받기)
@@ -19,16 +54,13 @@ int main() {
     keypad(stdscr, TRUE); // 화살표 등 특수키 활성화
     curs_set(0); // 커서 숨김
     
-    int term_height, term_width;
-    getmaxyx(stdscr, term_height, term_width); // 터미널 크기 얻기
-    
-    int box_height = term_height * 8 / 10;
-    int box_width = term_width * 6 / 10;
-    
+    /* 박스 시작 좌표 */
     int start_y = (term_height - box_height) / 2;
     int start_x = (term_width - box_width) / 2;
 
+    /* 윈도우 생성 */
     WINDOW *win = newwin(box_height, box_width, start_y, start_x);
+    /* 윈도우 테두리 그리기 */
     box(win, 0, 0);
     
     char msg[] = "Tetris";
@@ -42,26 +74,104 @@ int main() {
     wrefresh(win); // 윈도우 갱신(화면에 실제로 그림)
     // getch();
     
-    int old_y = start_y + 1;
+    char* txt = "block"; 
+    
+    int old_y = 2 ;
     int old_x = box_width / 2;
 
     while(1) {
-        if (old_y == (start_y + box_height - 1)) {
-            mvwprintw(win, old_y, old_x, "break!!!!!!!!!!");
+        if (old_y >= (box_height - 1)) {
+            mvwprintw(win, old_y, old_x, "break!!!!!!");
             break;
         }
-        int new_y = old_y + 1;
-        int new_x = old_x;
-        
-        mvwprintw(win, old_y, old_x, " ");
-        mvwprintw(win, new_y, new_x, "block");
 
-        sleep(1);
+        // mvwprintw(win, old_y, old_x - strlen(txt), "     ");
+        // mvwprintw(win, ++old_y, old_x, "%s", txt);
+        
+        draw(win, old_x, old_y, tets[0]);
+        
         wrefresh(win);
+        usleep(100000);
     }
+
+    mvwprintw(win, box_height - 1, 2, "Press any key to exit...");
+    wrefresh(win);
+    getch();
 
     delwin(win);
     endwin();
+
+    for (int i = 0; i < box_height; i++) {
+        free(grid[i]);
+    }
+    free(grid);
     
     return 0;
 }
+
+Tetrimino *gen_tetrimino() {
+    Tetrimino I, L, J, O, S, T, Z;
+    /* 0 */
+    I.x2, I.x3, I.x4 = 0;
+    I.y1, I.y2, I.y3 = 1, 2, 3;
+    
+    /* 1 */
+    L.x2, L.x3, L.x4 = 1, 2, 2;
+    L.y2, L.y2, L.y3 = 0, 0, 1;
+    
+    /* 2 */
+    J.x2, J.x3, J.x4 = 0, -1, -2;
+    J.y2, J.y3, J.y4 = 1, 1, 1;
+    
+    /* 3 */
+    O.x2, O.x3, O.x4 = 1, 1, 0;
+    O.y2, O.y3, O.y4 = 0, 1, 1;
+    
+    /* 4 */
+    S.x2, S.x3, S.x4 = 0, -1, -1;
+    S.y2, S.y3, S.y4 = 1, 1, 2;
+    
+    /* 5 */
+    T.x2, T.x3, T.x4 = 0, -1, 0;
+    T.y2, T.y3, T.y4 = 1, 1, 2;
+    
+    /* 6 */
+    Z.x2, Z.x3, Z.x4 = 0, 1, 1;
+    Z.y2, Z.y3, Z.y4 = 1, 1, 2;
+   
+    Tetrimino tets[] = {I, L, J, O, S, T, Z};
+
+    return tets; 
+}
+
+void draw(WINDOW *win, int x, int y, Tetrimino tet) {
+    int x1 = x + tet.x1; 
+    int y1 = y + tet.y1;
+    int x2 = x + tet.x2; 
+    int y2 = y + tet.y2;
+    int x3 = x + tet.x3; 
+    int y3 = y + tet.y3;
+    int x4 = x + tet.x4; 
+    int y4 = y + tet.y4;
+
+    mvwprintw(win, y1, x1 , "#");
+    mvwprintw(win, y2, x2 , "#");
+    mvwprintw(win, y3, x3 , "#");
+    mvwprintw(win, y4, x4 , "#");
+}
+/*
+void erase(int x, int y, Tetrimino tet) {
+
+}*/
+
+Tetrimino rotate(Tetrimino tet) {
+    Tetrimino tmp;
+    
+    tmp.x1 = -tet.y1; tmp.y1 = tet.x1; 
+    tmp.x2 = -tet.y2; tmp.y2 = tet.x2; 
+    tmp.x3 = -tet.y3; tmp.y3 = tet.x3; 
+    tmp.x4 = -tet.y4; tmp.y4 = tet.x4; 
+    
+    return tmp;
+}
+
