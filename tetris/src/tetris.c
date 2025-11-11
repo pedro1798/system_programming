@@ -6,6 +6,8 @@
 #include <time.h>
 #include <unistd.h>
 
+/* tets free하기! */
+
 /*
  * int LINES / COLS : 현재 터미널 행/열 크기
  * stdscr: 기본(전체) 윈도우, initscr() 호출 시 자동 생성 
@@ -23,15 +25,19 @@ typedef struct {
     int y4;
 } Tetrimino; 
 
-//void erase(int x, int y, int block_num);
+void erase_block(WINDOW* win, int x, int y, Tetrimino tet);
 void draw(WINDOW* win, int x, int y, Tetrimino tet);
 
 Tetrimino rotate(Tetrimino tet);
 Tetrimino *gen_tetrimino();
 
 int main() {
-    /* 테트리스 블럭 상대좌표 */
-    Tetrimino *tets = gen_tetrimino(); 
+    initscr(); // ncurses 모드 진입(표준 화면 초기화)
+    refresh(); // 한 번 초기화 
+    cbreak(); // 버퍼링된 입력 즉시 전달, 즉 라인 버퍼링 해제(즉시 키 입력 받기)
+    noecho(); // 입력 문자 화면 표시하지 않음
+    keypad(stdscr, TRUE); // 화살표 등 특수키 활성화
+    curs_set(0); // 커서 숨김
     
     int term_height, term_width; // 터미널 크기 받는 변수
     getmaxyx(stdscr, term_height, term_width); // 터미널 크기 얻기
@@ -39,20 +45,6 @@ int main() {
     /* 박스 크기 변수 */
     int box_height = term_height * 8 / 10;
     int box_width = term_width * 6 / 10;
-    
-    /* 테트리스 그리드 */
-    char **grid = malloc(box_height * sizeof(char*));
-    for (int i = 0; i < box_height; i++) {
-        grid[i] = malloc(box_width * sizeof(char));
-    }
-
-/*##############################################################*/
-    initscr(); // ncurses 모드 진입(표준 화면 초기화)
-    refresh(); // 한 번 초기화 
-    cbreak(); // 버퍼링된 입력 즉시 전달, 즉 라인 버퍼링 해제(즉시 키 입력 받기)
-    noecho(); // 입력 문자 화면 표시하지 않음
-    keypad(stdscr, TRUE); // 화살표 등 특수키 활성화
-    curs_set(0); // 커서 숨김
     
     /* 박스 시작 좌표 */
     int start_y = (term_height - box_height) / 2;
@@ -68,6 +60,16 @@ int main() {
     int msg_x = (box_width - (int)strlen(msg)) / 2;
     
     if (msg_y == box_height - 1) msg_y--;  // 경계 침범 방지
+    
+    /* 테트리미노의 상대좌표 */
+    Tetrimino *tets = gen_tetrimino(); 
+    
+    
+    /* 테트리스 그리드 */
+    char **grid = malloc(box_height * sizeof(char*));
+    for (int i = 0; i < box_height; i++) {
+        grid[i] = malloc(box_width * sizeof(char));
+    }
 
     mvwprintw(win, msg_y, msg_x, "%s", msg);
 
@@ -76,7 +78,7 @@ int main() {
     
     char* txt = "block"; 
     
-    int old_y = 2 ;
+    int old_y = 2;
     int old_x = box_width / 2;
 
     while(1) {
@@ -87,9 +89,9 @@ int main() {
 
         // mvwprintw(win, old_y, old_x - strlen(txt), "     ");
         // mvwprintw(win, ++old_y, old_x, "%s", txt);
-        
-        draw(win, old_x, old_y, tets[0]);
-        
+        erase_block(win, old_x, old_y, tets[3]);
+        draw(win, old_x, ++old_y, tets[3]);
+                
         wrefresh(win);
         usleep(100000);
     }
@@ -110,9 +112,11 @@ int main() {
 }
 
 Tetrimino *gen_tetrimino() {
+    Tetrimino *arr = malloc(sizeof(Tetrimino) * 7);
+
     Tetrimino I, L, J, O, S, T, Z;
     /* 0 */
-    I.x2, I.x3, I.x4 = 0;
+    I.x2, I.x3, I.x4 = 0, 0, 0;
     I.y1, I.y2, I.y3 = 1, 2, 3;
     
     /* 1 */
@@ -139,9 +143,17 @@ Tetrimino *gen_tetrimino() {
     Z.x2, Z.x3, Z.x4 = 0, 1, 1;
     Z.y2, Z.y3, Z.y4 = 1, 1, 2;
    
-    Tetrimino tets[] = {I, L, J, O, S, T, Z};
+    // Tetrimino tets[] = {I, L, J, O, S, T, Z};
+    
+    arr[0] = I;
+    arr[1] = L;
+    arr[2] = J;
+    arr[3] = O;
+    arr[4] = S;
+    arr[5] = T;
+    arr[6] = Z;
 
-    return tets; 
+    return arr; 
 }
 
 void draw(WINDOW *win, int x, int y, Tetrimino tet) {
@@ -154,15 +166,11 @@ void draw(WINDOW *win, int x, int y, Tetrimino tet) {
     int x4 = x + tet.x4; 
     int y4 = y + tet.y4;
 
-    mvwprintw(win, y1, x1 , "#");
-    mvwprintw(win, y2, x2 , "#");
-    mvwprintw(win, y3, x3 , "#");
-    mvwprintw(win, y4, x4 , "#");
+    mvwprintw(win, y1, x1 , "1");
+    mvwprintw(win, y2, x2 , "2");
+    mvwprintw(win, y3, x3 , "3");
+    mvwprintw(win, y4, x4 , "4");
 }
-/*
-void erase(int x, int y, Tetrimino tet) {
-
-}*/
 
 Tetrimino rotate(Tetrimino tet) {
     Tetrimino tmp;
@@ -175,3 +183,18 @@ Tetrimino rotate(Tetrimino tet) {
     return tmp;
 }
 
+void erase_block(WINDOW *win, int x, int y, Tetrimino tet) {
+    int x1 = x + tet.x1; 
+    int y1 = y + tet.y1;
+    int x2 = x + tet.x2; 
+    int y2 = y + tet.y2;
+    int x3 = x + tet.x3; 
+    int y3 = y + tet.y3;
+    int x4 = x + tet.x4; 
+    int y4 = y + tet.y4;
+
+    mvwprintw(win, y1, x1 , " ");
+    mvwprintw(win, y2, x2 , " ");
+    mvwprintw(win, y3, x3 , " ");
+    mvwprintw(win, y4, x4 , " ");
+}

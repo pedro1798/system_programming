@@ -1,2 +1,2 @@
 #!/bin/sh
-gcc tetris.c -o tetris -lncurses
+gcc -g tetris.c -o tetris -lncurses

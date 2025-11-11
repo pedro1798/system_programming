@@ -12,6 +12,7 @@
 Tetrimino	tetris.c	/^} Tetrimino; $/;"	t	typeref:struct:__anonff228dd10108	file:
 __anonff228dd10108	tetris.c	/^typedef struct {$/;"	s	file:
 draw	tetris.c	/^void draw(WINDOW *win, int x, int y, Tetrimino tet) {$/;"	f	typeref:typename:void
+erase_block	tetris.c	/^void erase_block(WINDOW *win, int x, int y, Tetrimino tet) {$/;"	f	typeref:typename:void
 gen_tetrimino	tetris.c	/^Tetrimino *gen_tetrimino() {$/;"	f	typeref:typename:Tetrimino *
 main	tetris.c	/^int main() {$/;"	f	typeref:typename:int
 rotate	tetris.c	/^Tetrimino rotate(Tetrimino tet) {$/;"	f	typeref:typename:Tetrimino
