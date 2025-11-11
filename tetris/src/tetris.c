@@ -86,7 +86,7 @@ int main() {
             break;
         }
         
-        draw(win, old_x, old_y++, tets[0]);
+        draw(win, old_x, old_y++, tets[2]);
                 
         wrefresh(win);
         usleep(500000);
@@ -112,32 +112,32 @@ Tetrimino *gen_tetrimino() {
 
     Tetrimino I, L, J, O, S, T, Z;
     /* 0 */
-    I.x2, I.x3, I.x4 = 0, 0, 0;
-    I.y1, I.y2, I.y3 = 1, 2, 3;
+    I.x2 = 0; I.x3 = 0; I.x4 = 0;
+    I.y1 = 1; I.y2 = 2; I.y3 = 3;
     
     /* 1 */
-    L.x2, L.x3, L.x4 = 1, 2, 2;
-    L.y2, L.y2, L.y3 = 0, 0, 1;
+    L.x2 = 1; L.x3 = 2; L.x4 = 2;
+    L.y2 = 0; L.y2 = 0; L.y3 = 1;
     
     /* 2 */
-    J.x2, J.x3, J.x4 = 0, -1, -2;
-    J.y2, J.y3, J.y4 = 1, 1, 1;
+    J.x2 = 0; J.x3 = -1; J.x4 = -2;
+    J.y2 =1; J.y3 = 1; J.y4 = 1;
     
     /* 3 */
-    O.x2, O.x3, O.x4 = 1, 1, 0;
-    O.y2, O.y3, O.y4 = 0, 1, 1;
+    O.x2 = 1; O.x3 = 1; O.x4 = 0;
+    O.y2 = 0; O.y3 =1; O.y4 = 1;
     
     /* 4 */
-    S.x2, S.x3, S.x4 = 0, -1, -1;
-    S.y2, S.y3, S.y4 = 1, 1, 2;
+    S.x2 = 0; S.x3 = -1; S.x4 = -1;
+    S.y2 = 1; S.y3 = 1; S.y4 = 2;
     
     /* 5 */
-    T.x2, T.x3, T.x4 = 0, -1, 0;
-    T.y2, T.y3, T.y4 = 1, 1, 2;
+    T.x2 = 0; T.x3 = -1; T.x4 = 0;
+    T.y2 = 1; T.y3 = 1; T.y4 = 2;
     
     /* 6 */
-    Z.x2, Z.x3, Z.x4 = 0, 1, 1;
-    Z.y2, Z.y3, Z.y4 = 1, 1, 2;
+    Z.x2 = 0; Z.x3 = 1; Z.x4 = 1;
+    Z.y2 = 1; Z.y3 = 1; Z.y4 = 2;
    
     // Tetrimino tets[] = {I, L, J, O, S, T, Z};
     
