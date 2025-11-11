@@ -79,17 +79,20 @@ int main() {
     
     int old_y = 2;
     int old_x = box_width / 2;
+    
+    int dumb_idx = 0;
 
     while(1) {
         if (old_y >= (box_height - 1)) {
-            mvwprintw(win, old_y, old_x, "break!!!!!!");
-            break;
+            old_y = 2;
+            dumb_idx = (dumb_idx + 1) % 7;
+            continue;
         }
         
-        draw(win, old_x, old_y++, tets[2]);
+        draw(win, old_x, old_y++, tets[dumb_idx]);
                 
         wrefresh(win);
-        usleep(500000);
+        usleep(200000);
     }
 
     mvwprintw(win, box_height - 1, 2, "Press any key to exit...");
@@ -112,32 +115,32 @@ Tetrimino *gen_tetrimino() {
 
     Tetrimino I, L, J, O, S, T, Z;
     /* 0 */
-    I.x2 = 0; I.x3 = 0; I.x4 = 0;
-    I.y1 = 1; I.y2 = 2; I.y3 = 3;
+    I.x1 = 0; I.x2 = 0; I.x3 = 0; I.x4 = 0;
+    I.y1 = 0; I.y2 = 1; I.y3 = 2; I.y4 = 3;
     
     /* 1 */
-    L.x2 = 1; L.x3 = 2; L.x4 = 2;
-    L.y2 = 0; L.y2 = 0; L.y3 = 1;
+    L.x1 = 0; L.x2 = 1; L.x3 = 2; L.x4 = 2;
+    L.y1 = 0; L.y2 = 0; L.y2 = 0; L.y3 = 1;
     
     /* 2 */
-    J.x2 = 0; J.x3 = -1; J.x4 = -2;
-    J.y2 =1; J.y3 = 1; J.y4 = 1;
+    J.x1 = 0; J.x2 = 0; J.x3 = -1; J.x4 = -2;
+    J.y1 = 0; J.y2 =1; J.y3 = 1; J.y4 = 1;
     
     /* 3 */
-    O.x2 = 1; O.x3 = 1; O.x4 = 0;
-    O.y2 = 0; O.y3 =1; O.y4 = 1;
+    O.x1 = 0; O.x2 = 1; O.x3 = 1; O.x4 = 0;
+    O.y1 = 0; O.y2 = 0; O.y3 =1; O.y4 = 1;
     
     /* 4 */
-    S.x2 = 0; S.x3 = -1; S.x4 = -1;
-    S.y2 = 1; S.y3 = 1; S.y4 = 2;
+    S.x1 = 0; S.x2 = 0; S.x3 = -1; S.x4 = -1;
+    S.y1 = 0; S.y2 = 1; S.y3 = 1; S.y4 = 2;
     
     /* 5 */
-    T.x2 = 0; T.x3 = -1; T.x4 = 0;
-    T.y2 = 1; T.y3 = 1; T.y4 = 2;
+    T.x1 = 0; T.x2 = 0; T.x3 = -1; T.x4 = 0;
+    T.y1 = 0; T.y2 = 1; T.y3 = 1; T.y4 = 2;
     
     /* 6 */
-    Z.x2 = 0; Z.x3 = 1; Z.x4 = 1;
-    Z.y2 = 1; Z.y3 = 1; Z.y4 = 2;
+    Z.x1 = 0; Z.x2 = 0; Z.x3 = 1; Z.x4 = 1;
+    Z.y1 = 0;Z.y1 = 0;  Z.y2 = 1; Z.y3 = 1; Z.y4 = 2;
    
     // Tetrimino tets[] = {I, L, J, O, S, T, Z};
     
