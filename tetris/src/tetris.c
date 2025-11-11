@@ -25,7 +25,6 @@ typedef struct {
     int y4;
 } Tetrimino; 
 
-void erase_block(WINDOW* win, int x, int y, Tetrimino tet);
 void draw(WINDOW* win, int x, int y, Tetrimino tet);
 
 Tetrimino rotate(Tetrimino tet);
@@ -86,14 +85,11 @@ int main() {
             mvwprintw(win, old_y, old_x, "break!!!!!!");
             break;
         }
-
-        // mvwprintw(win, old_y, old_x - strlen(txt), "     ");
-        // mvwprintw(win, ++old_y, old_x, "%s", txt);
-        erase_block(win, old_x, old_y, tets[3]);
-        draw(win, old_x, ++old_y, tets[3]);
+        
+        draw(win, old_x, old_y++, tets[0]);
                 
         wrefresh(win);
-        usleep(100000);
+        usleep(500000);
     }
 
     mvwprintw(win, box_height - 1, 2, "Press any key to exit...");
@@ -165,11 +161,16 @@ void draw(WINDOW *win, int x, int y, Tetrimino tet) {
     int y3 = y + tet.y3;
     int x4 = x + tet.x4; 
     int y4 = y + tet.y4;
-
-    mvwprintw(win, y1, x1 , "1");
-    mvwprintw(win, y2, x2 , "2");
-    mvwprintw(win, y3, x3 , "3");
-    mvwprintw(win, y4, x4 , "4");
+    
+    mvwprintw(win, y1, x1 , " ");
+    mvwprintw(win, y2, x2 , " ");
+    mvwprintw(win, y3, x3 , " ");
+    mvwprintw(win, y4, x4 , " ");
+    
+    mvwprintw(win, y1+1, x1 , "1");
+    mvwprintw(win, y2+1, x2 , "2");
+    mvwprintw(win, y3+1, x3 , "3");
+    mvwprintw(win, y4+1, x4 , "4");
 }
 
 Tetrimino rotate(Tetrimino tet) {
@@ -181,20 +182,4 @@ Tetrimino rotate(Tetrimino tet) {
     tmp.x4 = -tet.y4; tmp.y4 = tet.x4; 
     
     return tmp;
-}
-
-void erase_block(WINDOW *win, int x, int y, Tetrimino tet) {
-    int x1 = x + tet.x1; 
-    int y1 = y + tet.y1;
-    int x2 = x + tet.x2; 
-    int y2 = y + tet.y2;
-    int x3 = x + tet.x3; 
-    int y3 = y + tet.y3;
-    int x4 = x + tet.x4; 
-    int y4 = y + tet.y4;
-
-    mvwprintw(win, y1, x1 , " ");
-    mvwprintw(win, y2, x2 , " ");
-    mvwprintw(win, y3, x3 , " ");
-    mvwprintw(win, y4, x4 , " ");
 }
