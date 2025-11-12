@@ -10,3 +10,4 @@
 !_TAG_PROGRAM_URL	https://ctags.io/	/official site/
 !_TAG_PROGRAM_VERSION	5.9.0	//
 main	sp07A_2022117156.c	/^int main() {$/;"	f	typeref:typename:int
+main	sp07A_2022117156_tmp.c	/^int main() {$/;"	f	typeref:typename:int
