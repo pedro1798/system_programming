@@ -9,9 +9,14 @@
 !_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
 !_TAG_PROGRAM_URL	https://ctags.io/	/official site/
 !_TAG_PROGRAM_VERSION	5.9.0	//
+GRID_HEIGHT	tetris.c	/^#define GRID_HEIGHT /;"	d	file:
+GRID_WIDTH	tetris.c	/^#define GRID_WIDTH /;"	d	file:
 Tetrimino	tetris.c	/^} Tetrimino; $/;"	t	typeref:struct:__anonff228dd10108	file:
 __anonff228dd10108	tetris.c	/^typedef struct {$/;"	s	file:
+chk_bottom	tetris.c	/^void chk_bottom() {$/;"	f	typeref:typename:void
+chk_collision	tetris.c	/^int chk_collision() {$/;"	f	typeref:typename:int
 draw	tetris.c	/^void draw(WINDOW *win, int x, int y, Tetrimino tet) {$/;"	f	typeref:typename:void
+erase_block	tetris.c	/^void erase_block(WINDOW *win, int x, int y, Tetrimino tet) {$/;"	f	typeref:typename:void
 gen_tetrimino	tetris.c	/^Tetrimino *gen_tetrimino() {$/;"	f	typeref:typename:Tetrimino *
 main	tetris.c	/^int main() {$/;"	f	typeref:typename:int
 rotate	tetris.c	/^Tetrimino rotate(Tetrimino tet) {$/;"	f	typeref:typename:Tetrimino
