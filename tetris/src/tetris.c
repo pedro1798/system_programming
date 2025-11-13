@@ -33,7 +33,7 @@ void draw_tet(WINDOW* win, Tetrimino tet);
 void erase_tet(WINDOW *win, Tetrimino tet); 
 void update_grid(char* grid[], Tetrimino tet); 
 void draw_grid(WINDOW *win, char* grid[], int box_height, int box_width);
-Tetrimino rotate_tet(Tetrimino tet);
+Tetrimino rotate_tet(Tetrimino tet, Tetrimino offset, int box_height, int box_width);
 Tetrimino make_tet(int x, int y, Tetrimino tet);
 Tetrimino *generate_tets();
 Tetrimino move_tet(char flag, Tetrimino tet, int box_height, int box_width); 
@@ -67,16 +67,19 @@ int main() {
     /* 테트리미노의 상대좌표 */
     Tetrimino *tets = generate_tets(); 
     
-    /* 테트리스 그리드 */
+    /* 테트리스 그리드 초기화 */
     char **grid = malloc(box_height * sizeof(char*));
     for (int i = 0; i < box_height; i++) {
         grid[i] = malloc(box_width * sizeof(char));
     }
     for (int i = 0; i < box_height; i++) {
         for (int j = 0; j < box_width; j++) {
-            // 1로 초기화    
+            // 1: 블럭 없음, 0: 블럭 있음;    
             grid[i][j] = 1;
         }
+    }
+    for (int j = 0; j < box_width; j++) {
+        grid[box_height-1][j] = 0;
     }
     
     int end_y, end_x;
@@ -92,59 +95,62 @@ int main() {
     wrefresh(win); // 윈도우 갱신(화면에 실제로 그림)
     
     int new_x = box_width / 2;
-    int new_y = 0;
+    int new_y = 1;
     
     int dumb_idx = 0;
     int ch, speed;
     nodelay(stdscr, TRUE);
-    
-    Tetrimino old_tet;
-    Tetrimino tet = make_tet(new_x, new_y, tets[dumb_idx]); // Let there be tetrimino 
+
+    // Let there be tetrimino
+    Tetrimino new_tet = make_tet(new_x, new_y, tets[dumb_idx]); 
+    Tetrimino old_tet = new_tet;
 
     while(1) {
-        erase_tet(win, tet); // 화면에서 이전 테트리미노 지운다. 
-        
-        old_tet = tet; // old_tet 업데이트
-
-        // NOTE: if 체크 어떻게 할지 정하기  
-        if (check_tet(grid, tet)) { // tet이 정지해야 한다면 old_tet으로 그리드 업데이트 후 loop 
-            update_grid(grid, old_tet);
+        erase_tet(win, old_tet); // 화면에서 이전 테트리미노 지운다. 
+        // tet이 정지해야 한다면 old_tet으로 그리드 업데이트 후 loop 
+        if (check_tet(grid, new_tet)) { 
+            update_grid(grid, old_tet); // old_tet을 그리드에 업데이트
             
             /* 테트로미노 좌표 초기화 */
             new_x = box_width / 2; 
-            new_y  = 1;
+            new_y = 1;
 
-            dumb_idx = (dumb_idx + 1) % 7;
+            dumb_idx = (dumb_idx + 1) % 7; // 다음 테트리미노 
 
-            tet = make_tet(new_x, new_y, tets[dumb_idx]); // 새 테트리미노 생성
+            new_tet = make_tet(new_x, new_y, tets[dumb_idx]); // tet update
+            draw_grid(win, grid, box_height, box_width); 
             
             continue;
         }
-        
+        old_tet = new_tet; 
+        /* new_tet 업데이트 */ 
         ch = getch();
-        
         if (ch == 'q') break;
         if (ch == 'r') { // 테트로미노 회전 
-            //erase_tet(win, tet); 
-            tet = move_tet('r', tet, box_height, box_width);
+            new_tet = rotate_tet(old_tet, tets[dumb_idx], box_height, box_width);
         }
         if (ch == 'l') {
-            tet = move_tet('l', tet, box_height, box_width);
+            new_tet = move_tet('l', old_tet, box_height, box_width);
         } 
         if (ch == 'h') {
-            tet = move_tet('h', tet, box_height, box_width);
+            new_tet = move_tet('h', old_tet, box_height, box_width);
         }
-        
-        tet = move_tet('d', tet, box_height, box_width);
+        new_tet = move_tet('d', old_tet, box_height, box_width);
+        /* new_tet 업데이트 */ 
 
-        draw_tet(win, tet);
         draw_grid(win, grid, box_height, box_width); 
-
+        draw_tet(win, old_tet);
+        
         wrefresh(win);
+        
         usleep(200000);
     }
+    char* exit_str = "Press any key to exit...";
+    mvwprintw(stdscr, box_height + 5, 
+            ((term_width - strlen(exit_str)) / 2), 
+            "%s\n",
+            exit_str);
 
-    mvwprintw(stdscr, box_height + 1, 2, "Press any key to exit...");
     wrefresh(win);
     nodelay(stdscr, FALSE);
     getch();
@@ -170,28 +176,28 @@ Tetrimino *generate_tets() {
     I.y1 = 0; I.y2 = 1; I.y3 = 2; I.y4 = 3;
     
     /* 1 */
-    L.x1 = 0; L.x2 = 1; L.x3 = 2; L.x4 = 2;
-    L.y1 = 0; L.y2 = 0; L.y2 = 0; L.y3 = 1;
+    L.x1 = 0; L.x2 = 0; L.x3 = 0; L.x4 = 1;
+    L.y1 = 0; L.y2 = 1; L.y3 = 2; L.y4 = 2;
     
     /* 2 */
-    J.x1 = 0; J.x2 = 0; J.x3 = -1; J.x4 = -2;
-    J.y1 = 0; J.y2 =1; J.y3 = 1; J.y4 = 1;
+    J.x1 = 0; J.x2 = 0; J.x3 = 0; J.x4 = -1;
+    J.y1 = 0; J.y2 = 1; J.y3 = 2; J.y4 = 2;
     
     /* 3 */
     O.x1 = 0; O.x2 = 1; O.x3 = 1; O.x4 = 0;
-    O.y1 = 0; O.y2 = 0; O.y3 =1; O.y4 = 1;
+    O.y1 = 0; O.y2 = 0; O.y3 = 1; O.y4 = 1;
     
     /* 4 */
-    S.x1 = 0; S.x2 = 0; S.x3 = -1; S.x4 = -1;
-    S.y1 = 0; S.y2 = 1; S.y3 = 1; S.y4 = 2;
+    S.x1 = 1; S.x2 = 2; S.x3 = 0; S.x4 = 1;
+    S.y1 = 0; S.y2 = 0; S.y3 = 1; S.y4 = 1;
     
     /* 5 */
-    T.x1 = 0; T.x2 = 0; T.x3 = -1; T.x4 = 0;
-    T.y1 = 0; T.y2 = 1; T.y3 = 1; T.y4 = 2;
+    T.x1 = 0; T.x2 = 0; T.x3 = -1; T.x4 = 1;
+    T.y1 = 0; T.y2 = 1; T.y3 = 1; T.y4 = 1;
     
     /* 6 */
-    Z.x1 = 0; Z.x2 = 0; Z.x3 = 1; Z.x4 = 1;
-    Z.y1 = 0;Z.y1 = 0;  Z.y2 = 1; Z.y3 = 1; Z.y4 = 2;
+    Z.x1 = 0; Z.x2 = 1; Z.x3 = 1; Z.x4 = 1;
+    Z.y1 = 0; Z.y2 = 0; Z.y3 = 1; Z.y4 = 2;
    
     // Tetrimino tets[] = {I, L, J, O, S, T, Z};
     
@@ -231,10 +237,17 @@ void draw_grid(WINDOW *win, char* grid[], int box_height, int box_width) {
     for (int i = 0; i < box_height; i++) {
         for (int j = 0; j < box_width; j++) {
             if (!grid[i][j]) {
-                mvwprintw(win, j, i , "#");
+                mvwprintw(win, i, i, "#");
             }
         }
     }
+}
+
+void update_grid(char* grid[], Tetrimino tet) {
+    grid[tet.y1][tet.x1] = 0;
+    grid[tet.y2][tet.x2] = 0;
+    grid[tet.y3][tet.x3] = 0;
+    grid[tet.y4][tet.x4] = 0;
 }
 
 void erase_tet(WINDOW *win, Tetrimino tet) {
@@ -244,45 +257,79 @@ void erase_tet(WINDOW *win, Tetrimino tet) {
     mvwprintw(win, tet.y4, tet.x4 , " ");
 }
 
-Tetrimino rrotate_tet(Tetrimino tet) {
-    Tetrimino tmp;
+Tetrimino rotate_tet(Tetrimino tet, Tetrimino offset, int box_height, int box_width) {
+    Tetrimino tmp = tet;
+    Tetrimino rot = tet;
+
+    rot.x1 -= tet.x2; 
+    rot.x2 -= tet.x2;
+    rot.x3 -= tet.x2;
+    rot.x4 -= tet.x2;
+    rot.y1 -= tet.y2;
+    rot.y2 -= tet.y2;
+    rot.y3 -= tet.y2;
+    rot.y4 -= tet.y2;
     
-    tmp.x1 = -tet.y1; tmp.y1 = tet.x1; 
-    tmp.x2 = -tet.y2; tmp.y2 = tet.x2; 
-    tmp.x3 = -tet.y3; tmp.y3 = tet.x3; 
-    tmp.x4 = -tet.y4; tmp.y4 = tet.x4; 
+    tmp.x1 = -rot.y1;
+    tmp.x2 = -rot.y2;
+    tmp.x3 = -rot.y3;
+    tmp.x4 = -rot.y4;
+    tmp.y1 = rot.x1;
+    tmp.y2 = rot.x2;
+    tmp.y3 = rot.x3;
+    tmp.y4 = rot.x4;
+
+    tmp.x1 += tet.x2;
+    tmp.x2 += tet.x2;
+    tmp.x3 += tet.x2;
+    tmp.x4 += tet.x2;
+    tmp.y1 += tet.y2;
+    tmp.y2 += tet.y2;
+    tmp.y3 += tet.y2;
+    tmp.y4 += tet.y2;
     
-    return tmp;
+    if (tmp.x1 >= 0 && tmp.x1 < box_width && 
+        tmp.y1 >= 0 && tmp.y1 < box_height && 
+        tmp.x2 >= 0 && tmp.x2 < box_width && 
+        tmp.y2 >= 0 && tmp.y2 < box_height && 
+        tmp.x3 >= 0 && tmp.x3 < box_width && 
+        tmp.y3 >= 0 && tmp.y3 < box_height && 
+        tmp.x4 >= 0 && tmp.x4 < box_width && 
+        tmp.y4 >= 0 && tmp.y4 < box_height) {
+        return tmp;
+    }
+    return tet;
 }
 
 Tetrimino move_tet(char flag, Tetrimino tet, int box_height, int box_width) {
-    box_width--;
+    box_height -= 1;
+    box_width -= 2;
     switch(flag) {
         case('l'): // 오른쪽으로 이동
-            if (tet.x1 < box_width && tet.x2 < box_width && tet.x3 < box_width && tet.x4 < box_width)
+            if (tet.x1 < box_width && 
+                tet.x2 < box_width &&
+                tet.x3 < box_width && 
+                tet.x4 < box_width) {
                 tet.x1++; tet.x2++; tet.x3++; tet.x4++;
+            }
             break;
         case('h'):
-            if (tet.x1 > 0 && tet.x2 > 0 && tet.x3 > 0 && tet.x4 > 0)
+            if (tet.x1 > 1 && 
+                tet.x2 > 1 &&
+                tet.x3 > 1 && 
+                tet.x4 > 1) {
                 tet.x1--; tet.x2--; tet.x3--; tet.x4--;
+            }
             break;
-        case('d'):
-            if (tet.y1 < box_height && tet.y2 < box_height && tet.y3 < box_height && tet.y4 < box_height)
+        case('d'): {
+            if (tet.y1 < box_height && 
+                tet.y2 < box_height && 
+                tet.y3 < box_height && 
+                tet.y4 < box_height) {
                 tet.y1++; tet.y2++; tet.y3++; tet.y4++;
+            }
             break;
-        case('r'):
-            Tetrimino tmp;
-            tmp.x1 = -tet.y1; tmp.y1 = tet.x1; 
-            tmp.x2 = -tet.y2; tmp.y2 = tet.x2; 
-            tmp.x3 = -tet.y3; tmp.y3 = tet.x3; 
-            tmp.x4 = -tet.y4; tmp.y4 = tet.x4; 
-            
-            if (tmp.x1 >= 0 && tmp.x1 < box_width && tmp.y1 >= 0 && tmp.y1 < box_height && 
-                tmp.x2 >= 0 && tmp.x2 < box_width && tmp.y2 >= 0 && tmp.y2 < box_height && 
-                tmp.x3 >= 0 && tmp.x3 < box_width && tmp.y3 >= 0 && tmp.y3 < box_height && 
-                tmp.x4 >= 0 && tmp.x4 < box_width && tmp.y4 >= 0 && tmp.y4 < box_height)
-                tet = tmp;
-            break;
+        }
     }
     return tet;
 }
@@ -291,18 +338,11 @@ int check_tet(char* grid[], Tetrimino tet) {
     /*
      * 1: 블럭 없음, 0은 블럭 있음. 1로 초기화
      */
-    if(grid[tet.x1][tet.y1] && 
-       grid[tet.x2][tet.y2] && 
-       grid[tet.x3][tet.y3] && 
-       grid[tet.x4][tet.y4]) {
+    if(grid[tet.y1][tet.x1] && 
+       grid[tet.y2][tet.x2] && 
+       grid[tet.y3][tet.x3] && 
+       grid[tet.y4][tet.x4]) {
         return 0; // 가능하면 0 리턴
     } 
     return 1; // 불가능하면 1 리턴 
-}
-
-void update_grid(char* grid[], Tetrimino tet) {
-    grid[tet.x1][tet.y1] = 0;
-    grid[tet.x2][tet.y2] = 0;
-    grid[tet.x3][tet.y3] = 0;
-    grid[tet.x4][tet.y4] = 0;
 }
