@@ -3,23 +3,58 @@
 #include <unistd.h>
 #include <signal.h>
 #include <sys/wait.h>
+#include <sys/time.h>
 #include <string.h>
 
-int signal_handler(int signal);
+void sigint_handler(int signal);
+void sigalrm_handler(int signal);
+
+volatile int tick = 0;
 
 int main(int argc, char *argv[]) {
     if (argc > 2) {
         fprintf(stderr, "Too many arguments!");
         exit(-1);
     }
-    struct sigaction sa;
-    sa.sa_handler = signal_handler();
-    sigemptyset(&sa.sa_mask); // 처리 중 다른 시그널 블록 X
+    int cnt = 3; // 초기값 3 
+    if (argc == 2) cnt = atoi(argv[1]); // int로 형변환
+
+    struct itimerval timer; // REAL 시간 타이머 선언
+    timer.it_value.tv_sec = 1; // 처음 만료까지 1초
+    timer.it_value.tv_usec = 0;
+    timer.it_interval.tv_sec = 1; // 이후 1초마다 반복
+    timer.it_interval.tv_usec = 0;
+
+    setitimer(ITIMER_REAL, &timer, NULL);
+
+    struct sigaction sa_sigint, sa_sigalrm;
+    sa_sigint.sa_handler = sigint_handler;
+    sa_sigalrm.sa_handler = sigalrm_handler;
+
+    sigemptyset(&sa_sigint.sa_mask); // 처리 중 다른 시그널 블록 X
+    sigemptyset(&sa_sigalrm.sa_mask);
     // sa.sa_flags = 0;
-    sigcation(SIGINT, &sa, NULL);
+    sigaction(SIGINT, &sa_sigint, NULL);
+    sigaction(SIGALRM, &sa_sigalrm, NULL);
+
+    while(cnt > 0) {
+        pause();
+        if (tick) {
+            fprintf(stdout, "after %ds\n", cnt--);
+            fflush(stdout);
+            tick = 0;
+        }
+    }
+    fprintf(stdout, "time out\n");
+    return 0;
 }
 
-int signal_handler(int signal) {
-    fprintf(stdout, "user interrupt");
+void sigint_handler(int signal) { // ctrl + c 입력받으면 종료
+    fprintf(stdout, "\nuser interrupt\n");
     exit(0);
+}
+
+void sigalrm_handler(int signal) {
+    tick = 1;
+    // fprintf(stdout, "sigalrm received\n");
 }
