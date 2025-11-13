@@ -19,7 +19,7 @@
 
 /* 블럭 상대 좌표 */
 typedef struct {
-    int x1; // x1, y1: 가장 왼쪽 위 pivot 
+    int x1; 
     int y1;
     int x2;
     int y2;
@@ -33,7 +33,11 @@ void draw_tet(WINDOW* win, Tetrimino tet);
 void erase_tet(WINDOW *win, Tetrimino tet); 
 void update_grid(char* grid[], Tetrimino tet); 
 void draw_grid(WINDOW *win, char* grid[], int box_height, int box_width);
-Tetrimino rotate_tet(Tetrimino tet, Tetrimino offset, int box_height, int box_width);
+/* NOTE::파라미터 수정 필요 */
+Tetrimino rotate_tet(Tetrimino tet, 
+                     Tetrimino offset, 
+                     int box_height, 
+                     int box_width);
 Tetrimino make_tet(int x, int y, Tetrimino tet);
 Tetrimino *generate_tets();
 Tetrimino move_tet(char flag, Tetrimino tet, int box_height, int box_width); 
@@ -55,8 +59,8 @@ int main() {
     int box_width = GRID_WIDTH;
     
     /* 박스 시작 좌표 */
-     int start_y = (term_height - box_height) / 2;
-     int start_x = (term_width - box_width) / 2;
+    int start_y = (term_height - box_height) / 2;
+    int start_x = (term_width - box_width) / 2;
 
     /* 윈도우 생성 */
     WINDOW *win = newwin(box_height, box_width, start_y, start_x);
@@ -66,6 +70,12 @@ int main() {
     
     /* 테트리미노의 상대좌표 */
     Tetrimino *tets = generate_tets(); 
+    
+    char* hello_str = "Tetris";
+    mvwprintw(stdscr, start_y - 1, 
+            ((term_width - strlen(hello_str)) / 2), 
+            "%s\n",
+            hello_str);
     
     /* 테트리스 그리드 초기화 */
     char **grid = malloc(box_height * sizeof(char*));
@@ -79,9 +89,9 @@ int main() {
         }
     }
     for (int j = 0; j < box_width; j++) {
-        grid[box_height-1][j] = 0;
+        grid[box_height-1][j] = -1;
     }
-    
+    /* 
     int end_y, end_x;
     end_y = start_y + box_height;
     end_x = start_x + box_width;
@@ -91,8 +101,9 @@ int main() {
     mvwprintw(stdscr, term_height-1, term_width-1, "3");
     mvwprintw(stdscr, end_y, end_x, "4");
     
-    //refresh();  
+    refresh();  
     wrefresh(win); // 윈도우 갱신(화면에 실제로 그림)
+    */
     
     int new_x = box_width / 2;
     int new_y = 1;
@@ -122,20 +133,20 @@ int main() {
             
             continue;
         }
-        old_tet = new_tet; 
+        old_tet = new_tet;
+
         /* new_tet 업데이트 */ 
         ch = getch();
         if (ch == 'q') break;
-        if (ch == 'r') { // 테트로미노 회전 
+        else if (ch == 'r') { // 테트로미노 회전 
             new_tet = rotate_tet(old_tet, tets[dumb_idx], box_height, box_width);
-        }
-        if (ch == 'l') {
+        } else if (ch == 'l') {
             new_tet = move_tet('l', old_tet, box_height, box_width);
-        } 
-        if (ch == 'h') {
+        } else if (ch == 'h') {
             new_tet = move_tet('h', old_tet, box_height, box_width);
+        } else {
+            new_tet = move_tet('d', old_tet, box_height, box_width);
         }
-        new_tet = move_tet('d', old_tet, box_height, box_width);
         /* new_tet 업데이트 */ 
 
         draw_grid(win, grid, box_height, box_width); 
@@ -226,18 +237,18 @@ Tetrimino make_tet(int x, int y, Tetrimino tet) {
 }
 
 void draw_tet(WINDOW *win, Tetrimino tet) {
-    mvwprintw(win, tet.y1, tet.x1 , "1");
-    mvwprintw(win, tet.y2, tet.x2 , "2");
-    mvwprintw(win, tet.y3, tet.x3 , "3");
-    mvwprintw(win, tet.y4, tet.x4 , "4");
+    mvwprintw(win, tet.y1, tet.x1 , "#");
+    mvwprintw(win, tet.y2, tet.x2 , "#");
+    mvwprintw(win, tet.y3, tet.x3 , "#");
+    mvwprintw(win, tet.y4, tet.x4 , "#");
 }
 
 void draw_grid(WINDOW *win, char* grid[], int box_height, int box_width) {
     /* 1: 블럭 없음, 0은 블럭 있음. 1로 초기화 */
     for (int i = 0; i < box_height; i++) {
         for (int j = 0; j < box_width; j++) {
-            if (!grid[i][j]) {
-                mvwprintw(win, i, i, "#");
+            if (grid[i][j] == 0) {
+                mvwprintw(win, i, j, "#");
             }
         }
     }
@@ -338,10 +349,10 @@ int check_tet(char* grid[], Tetrimino tet) {
     /*
      * 1: 블럭 없음, 0은 블럭 있음. 1로 초기화
      */
-    if(grid[tet.y1][tet.x1] && 
-       grid[tet.y2][tet.x2] && 
-       grid[tet.y3][tet.x3] && 
-       grid[tet.y4][tet.x4]) {
+    if(grid[tet.y1][tet.x1] == 1 && 
+       grid[tet.y2][tet.x2] == 1 && 
+       grid[tet.y3][tet.x3] == 1 && 
+       grid[tet.y4][tet.x4] == 1) {
         return 0; // 가능하면 0 리턴
     } 
     return 1; // 불가능하면 1 리턴 
