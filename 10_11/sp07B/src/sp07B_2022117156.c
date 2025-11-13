@@ -19,6 +19,15 @@ int main(int argc, char *argv[]) {
     int cnt = 3; // 초기값 3 
     if (argc == 2) cnt = atoi(argv[1]); // int로 형변환
 
+    /* 이전 실행 시 생성된 시그널 차단 위해 블록 설정 */
+    sigset_t block_set, prev_set;
+    sigemptyset(&block_set);
+    sigaddset(&block_set, SIGALRM);
+    if (sigprocmask(SIG_BLOCK, &block_set, &prev_set) < 0) {
+        perror("sigprocmask");
+        exit(1);
+    }
+
     struct sigaction sa_sigint, sa_sigalrm;
     sa_sigint.sa_handler = sigint_handler;
     sa_sigalrm.sa_handler = sigalrm_handler;
@@ -37,6 +46,12 @@ int main(int argc, char *argv[]) {
     timer.it_value.tv_usec = 0;
     timer.it_interval.tv_sec = 1; // 이후 1초마다 반복
     timer.it_interval.tv_usec = 0;
+
+    /* 시그널 블록 해제 */
+    if (sigprocmask(SIG_SETMASK, &prev_set, NULL) < 0) {
+        perror("sigprocmask restore");
+        exit(1);
+    }
 
     setitimer(ITIMER_REAL, &timer, NULL);
 
