@@ -19,14 +19,6 @@ int main(int argc, char *argv[]) {
     int cnt = 3; // 초기값 3 
     if (argc == 2) cnt = atoi(argv[1]); // int로 형변환
 
-    struct itimerval timer; // REAL 시간 타이머 선언
-    timer.it_value.tv_sec = 1; // 처음 만료까지 1초
-    timer.it_value.tv_usec = 0;
-    timer.it_interval.tv_sec = 1; // 이후 1초마다 반복
-    timer.it_interval.tv_usec = 0;
-
-    setitimer(ITIMER_REAL, &timer, NULL);
-
     struct sigaction sa_sigint, sa_sigalrm;
     sa_sigint.sa_handler = sigint_handler;
     sa_sigalrm.sa_handler = sigalrm_handler;
@@ -36,6 +28,17 @@ int main(int argc, char *argv[]) {
     // sa.sa_flags = 0;
     sigaction(SIGINT, &sa_sigint, NULL);
     sigaction(SIGALRM, &sa_sigalrm, NULL);
+    
+    // ITIMER_REAL 설정
+    // struct itimerval timer = {{1,0},{1,0}};
+    
+    struct itimerval timer; // REAL 시간 타이머 선언
+    timer.it_value.tv_sec = 1; // 처음 만료까지 1초
+    timer.it_value.tv_usec = 0;
+    timer.it_interval.tv_sec = 1; // 이후 1초마다 반복
+    timer.it_interval.tv_usec = 0;
+
+    setitimer(ITIMER_REAL, &timer, NULL);
 
     while(cnt > 0) {
         pause();
