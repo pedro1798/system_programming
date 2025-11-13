@@ -1,0 +1,19 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_OUTPUT_EXCMD	mixed	/number, pattern, mixed, or combineV2/
+!_TAG_OUTPUT_FILESEP	slash	/slash or backslash/
+!_TAG_OUTPUT_MODE	u-ctags	/u-ctags or e-ctags/
+!_TAG_PATTERN_LENGTH_LIMIT	96	/0 for no limit/
+!_TAG_PROC_CWD	/home/ubuntu/system_programming/10_11/bounce/	//
+!_TAG_PROGRAM_AUTHOR	Universal Ctags Team	//
+!_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
+!_TAG_PROGRAM_URL	https://ctags.io/	/official site/
+!_TAG_PROGRAM_VERSION	5.9.0	//
+BLANK	bounce1d.c	/^#define BLANK /;"	d	file:
+MESSAGE	bounce1d.c	/^#define MESSAGE /;"	d	file:
+col	bounce1d.c	/^int col;$/;"	v	typeref:typename:int
+dir	bounce1d.c	/^int dir;$/;"	v	typeref:typename:int
+main	bounce1d.c	/^int main() {$/;"	f	typeref:typename:int
+move_msg	bounce1d.c	/^void move_msg(int signum) {$/;"	f	typeref:typename:void
+row	bounce1d.c	/^int row; $/;"	v	typeref:typename:int
+set_ticker	set_ticker.c	/^int set_ticker(int n_msecs) {$/;"	f	typeref:typename:int
