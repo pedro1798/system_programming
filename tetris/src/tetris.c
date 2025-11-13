@@ -4,14 +4,18 @@
 #include <sys/signal.h>
 #include <time.h>
 #include <unistd.h>
+/*
+ * :::Todo:::
+ * 매번 호출 시 마다 grid 화면에 그리기 
+ * grid와 떨어지는 블록 충돌 감지 
+ * 블럭 바닥에 닿으면 grid에 추가하고 다음 루프 이동 
+ * 바닥 닿고 회전 -> ?? 루프 끝나기 전 순서 잘 조정하면 될듯? 
+ * itimereal 로 매 프레임마다 틱 조절하기
+ * dumb_idx: 실제 랜덤 값으로 수정하기 
+ */
 
 #define GRID_HEIGHT 24
 #define GRID_WIDTH 22
-
-/*
- * int LINES / COLS : 현재 터미널 행/열 크기
- * stdscr: 기본(전체) 윈도우, initscr() 호출 시 자동 생성 
- */
 
 /* 블럭 상대 좌표 */
 typedef struct {
@@ -25,11 +29,13 @@ typedef struct {
     int y4;
 } Tetrimino; 
 
-void draw(WINDOW* win, int x, int y, Tetrimino tet);
-void erase_block(WINDOW *win, int x, int y, Tetrimino tet); 
+void draw_tet(WINDOW* win, Tetrimino tet);
+void erase_tet(WINDOW *win, Tetrimino tet); 
 
-Tetrimino rotate(Tetrimino tet);
-Tetrimino *gen_tetrimino();
+Tetrimino rotate_tet(Tetrimino tet);
+Tetrimino make_tet(int x, int y, Tetrimino tet);
+Tetrimino *generate_tets();
+Tetrimino move_tet(char flag, Tetrimino tet, int box_height, int box_width); 
 
 int main() {
     initscr(); // ncurses 모드 진입(표준 화면 초기화)
@@ -43,9 +49,6 @@ int main() {
     getmaxyx(stdscr, term_height, term_width); // 터미널 크기 얻기
     
     /* 박스 크기 변수 */
-    
-    // int box_height = term_height * 8 / 10;
-    // int box_width = term_width * 6 / 10;
     int box_height = GRID_HEIGHT;
     int box_width = GRID_WIDTH;
     
@@ -55,18 +58,12 @@ int main() {
 
     /* 윈도우 생성 */
     WINDOW *win = newwin(box_height, box_width, start_y, start_x);
+    
     /* 윈도우 테두리 그리기 */
     box(win, 0, 0);
     
-    // char msg[] = "Tetris";
-    // int msg_y = box_height / 2;
-    // int msg_x = (box_width - (int)strlen(msg)) / 2;
-    
-    // if (msg_y == box_height - 1) msg_y--;  // 경계 침범 방지
-    
     /* 테트리미노의 상대좌표 */
-    Tetrimino *tets = gen_tetrimino(); 
-    
+    Tetrimino *tets = generate_tets(); 
     
     /* 테트리스 그리드 */
     char **grid = malloc(box_height * sizeof(char*));
@@ -74,44 +71,51 @@ int main() {
         grid[i] = malloc(box_width * sizeof(char));
     }
 
-    // mvwprintw(win, msg_y, msg_x, "%s", msg);
-
     wrefresh(win); // 윈도우 갱신(화면에 실제로 그림)
-    // getch();
     
-    // char* txt = "block"; 
-    
-    int old_y = 1;
-    int old_x = box_width / 2;
+    int new_x = box_width / 2;
+    int new_y = 1;
     
     int dumb_idx = 0;
     int ch, speed;
     nodelay(stdscr, TRUE);
-    Tetrimino tet = tets[dumb_idx];
+    
+    Tetrimino tet = make_tet(new_x, new_y, tets[dumb_idx]); // Let there be tetrimino 
 
     while(1) {
-        erase_block(win, old_x, old_y, tet);
-        if (old_y >= (box_height - 1)) {
-            erase_block(win, old_x, old_y, tet); 
-            old_x = box_width / 2;
-            old_y = 1;
-            mvwprintw(stdscr, 1, 1, "%d", dumb_idx);
+        erase_tet(win, tet); // 화면에서 이전 테트로미노 지운다. 
+        // NOTE: if 체크 어떻게 할지 정하기  
+        if (new_y >= (box_height - 1)) { // 바닥에 닿으면  
+            erase_tet(win, tet);
+            /* 테트로미노 좌표 초기화 */
+            new_x = box_width / 2; 
+            new_y  = 1;
+
+            mvwprintw(stdscr, 1, 1, "%d", dumb_idx); // 몇 번째 테트로미노인지 표시
+
             dumb_idx = (dumb_idx + 1) % 7;
-            tet = tets[dumb_idx];
+
+            Tetrimino tet = make_tet(new_x, new_y, tets[dumb_idx]); // 새 테트리미노 생성
+            
             continue;
         }
         
         ch = getch();
         
         if (ch == 'q') break;
-        if (ch == 'r') {
-            erase_block(win, old_x, old_y, tet); 
-            tet = rotate(tet); 
+        if (ch == 'r') { // 테트로미노 회전 
+            //erase_tet(win, tet); 
+            tet = rotate_tet(tet); 
         }
-        if (ch == 'l') old_x++; 
-        if (ch == 'h') old_x--; 
-    
-        draw(win, old_x, ++old_y, tet);
+        if (ch == 'l') {
+            tet = move_tet('l', tet, box_height, box_width);
+        } 
+        if (ch == 'h') {
+            tet = move_tet('h', tet, box_height, box_width);
+        }
+        
+        tet = move_tet('d', tet, box_height, box_width);
+        draw_tet(win, tet);
         
         wrefresh(win);
         usleep(200000);
@@ -134,7 +138,7 @@ int main() {
     return 0;
 }
 
-Tetrimino *gen_tetrimino() {
+Tetrimino *generate_tets() {
     Tetrimino *arr = malloc(sizeof(Tetrimino) * 7);
 
     Tetrimino I, L, J, O, S, T, Z;
@@ -179,39 +183,34 @@ Tetrimino *gen_tetrimino() {
     return arr; 
 }
 
-void draw(WINDOW *win, int x, int y, Tetrimino tet) {
-    int x1 = x + tet.x1; 
-    int y1 = y + tet.y1;
-    int x2 = x + tet.x2; 
-    int y2 = y + tet.y2;
-    int x3 = x + tet.x3; 
-    int y3 = y + tet.y3;
-    int x4 = x + tet.x4; 
-    int y4 = y + tet.y4;
-    
-    mvwprintw(win, y1, x1 , "1");
-    mvwprintw(win, y2, x2 , "2");
-    mvwprintw(win, y3, x3 , "3");
-    mvwprintw(win, y4, x4 , "4");
+Tetrimino make_tet(int x, int y, Tetrimino tet) {
+    Tetrimino new_tet;
+    new_tet.x1 = x + tet.x1; 
+    new_tet.y1 = y + tet.y1;
+    new_tet.x2 = x + tet.x2; 
+    new_tet.y2 = y + tet.y2;
+    new_tet.x3 = x + tet.x3; 
+    new_tet.y3 = y + tet.y3;
+    new_tet.x4 = x + tet.x4; 
+    new_tet.y4 = y + tet.y4;
+    return new_tet;
 }
 
-void erase_block(WINDOW *win, int x, int y, Tetrimino tet) {
-    int x1 = x + tet.x1; 
-    int y1 = y + tet.y1;
-    int x2 = x + tet.x2; 
-    int y2 = y + tet.y2;
-    int x3 = x + tet.x3; 
-    int y3 = y + tet.y3;
-    int x4 = x + tet.x4; 
-    int y4 = y + tet.y4;
-    
-    mvwprintw(win, y1, x1 , " ");
-    mvwprintw(win, y2, x2 , " ");
-    mvwprintw(win, y3, x3 , " ");
-    mvwprintw(win, y4, x4 , " ");
+void draw_tet(WINDOW *win, Tetrimino tet) {
+    mvwprintw(win, tet.y1, tet.x1 , "1");
+    mvwprintw(win, tet.y2, tet.x2 , "2");
+    mvwprintw(win, tet.y3, tet.x3 , "3");
+    mvwprintw(win, tet.y4, tet.x4 , "4");
 }
 
-Tetrimino rotate(Tetrimino tet) {
+void erase_tet(WINDOW *win, Tetrimino tet) {
+    mvwprintw(win, tet.y1, tet.x1 , " ");
+    mvwprintw(win, tet.y2, tet.x2 , " ");
+    mvwprintw(win, tet.y3, tet.x3 , " ");
+    mvwprintw(win, tet.y4, tet.x4 , " ");
+}
+
+Tetrimino rotate_tet(Tetrimino tet) {
     Tetrimino tmp;
     
     tmp.x1 = -tet.y1; tmp.y1 = tet.x1; 
@@ -222,14 +221,20 @@ Tetrimino rotate(Tetrimino tet) {
     return tmp;
 }
 
-void chk_bottom() {
-    /*
-     * 회전행렬 할 때 마다 bottom check 후 리턴 
-     */
-}
-
-int chk_collision() {
-    /*
-     * 충돌 체크 후 0/1 리턴, grid에 쓰기(?)
-     */
+Tetrimino move_tet(char flag, Tetrimino tet, int box_height, int box_width) {
+    switch(flag) {
+        case('l'): // 오른쪽으로 이동
+            if (tet.x1 < box_height && tet.x2 < box_height && tet.x3 < box_height && tet.x4 < box_height)
+                tet.x1++; tet.x2++; tet.x3++; tet.x4++;
+            break;
+        case('h'):
+            if (tet.x1 > 0 && tet.x2 > 0 && tet.x3 > 0 && tet.x4 > 0)
+                tet.x1--; tet.x2--; tet.x3--; tet.x4--;
+            break;
+        case('d'):
+            if (tet.y1 < box_height && tet.y2 < box_height && tet.y3 < box_height && tet.y4 < box_height)
+                tet.y1++; tet.y2++; tet.y3++; tet.y4++;
+            break;
+    }
+    return tet;
 }
