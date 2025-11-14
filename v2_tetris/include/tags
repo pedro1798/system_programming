@@ -1,0 +1,22 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_OUTPUT_EXCMD	mixed	/number, pattern, mixed, or combineV2/
+!_TAG_OUTPUT_FILESEP	slash	/slash or backslash/
+!_TAG_OUTPUT_MODE	u-ctags	/u-ctags or e-ctags/
+!_TAG_PATTERN_LENGTH_LIMIT	96	/0 for no limit/
+!_TAG_PROC_CWD	/home/ubuntu/system_programming/v2_tetris/include/	//
+!_TAG_PROGRAM_AUTHOR	Universal Ctags Team	//
+!_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
+!_TAG_PROGRAM_URL	https://ctags.io/	/official site/
+!_TAG_PROGRAM_VERSION	5.9.0	//
+Tetrimino	tetrimino.h	/^} Tetrimino;$/;"	t	typeref:struct:__anon87daa0d60108
+WINDOW	draw.h	/^typedef struct _win_st WINDOW;$/;"	t	typeref:struct:_win_st
+__anon87daa0d60108	tetrimino.h	/^typedef struct {$/;"	s
+x1	tetrimino.h	/^    int x1;$/;"	m	struct:__anon87daa0d60108	typeref:typename:int
+x2	tetrimino.h	/^    int x2;$/;"	m	struct:__anon87daa0d60108	typeref:typename:int
+x3	tetrimino.h	/^    int x3;$/;"	m	struct:__anon87daa0d60108	typeref:typename:int
+x4	tetrimino.h	/^    int x4;$/;"	m	struct:__anon87daa0d60108	typeref:typename:int
+y1	tetrimino.h	/^    int y1;$/;"	m	struct:__anon87daa0d60108	typeref:typename:int
+y2	tetrimino.h	/^    int y2;$/;"	m	struct:__anon87daa0d60108	typeref:typename:int
+y3	tetrimino.h	/^    int y3;$/;"	m	struct:__anon87daa0d60108	typeref:typename:int
+y4	tetrimino.h	/^    int y4;$/;"	m	struct:__anon87daa0d60108	typeref:typename:int
