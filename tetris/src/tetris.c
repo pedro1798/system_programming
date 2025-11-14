@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ncurses.h>
-#include <sys/signal.h>
+#include <signal.h>
 #include <time.h>
 #include <unistd.h>
 /*
@@ -192,7 +192,7 @@ Tetrimino *generate_tets() {
     J.x1 = 0; J.x2 = 0; J.x3 = 0; J.x4 = -1;
     J.y1 = 0; J.y2 = 1; J.y3 = 2; J.y4 = 2;
     
-    /* 3 *int /
+    /* 3 */
     O.x1 = 0; O.x2 = 1; O.x3 = 1; O.x4 = 0;
     O.y1 = 0; O.y2 = 0; O.y3 = 1; O.y4 = 1;
     
@@ -291,6 +291,9 @@ void update_grid(char* grid[], Tetrimino tet, int box_height, int box_width) {
      * i-1 부터 0번줄까지 올라가며 아래로 한 칸 떨어뜨리기
      */
     if (sat_idx != -1) { 
+        for (int k = 0; k < box_width; k++) {
+            grid[sat_idx][k] = 1;
+        }
         for (int i = sat_idx-1; i > 0; i--) {
             for (int j = 0; j < box_width; j++) {
                 if (grid[i][j] == 0) {
@@ -300,6 +303,7 @@ void update_grid(char* grid[], Tetrimino tet, int box_height, int box_width) {
             }
         }
     }
+    sat_idx = -1;
 }
 
 void erase_tet(WINDOW *win, Tetrimino tet) {
