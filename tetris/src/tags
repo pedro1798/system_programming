@@ -21,8 +21,8 @@ generate_tets	tetris.c	/^Tetrimino *generate_tets() {$/;"	f	typeref:typename:Tet
 main	tetris.c	/^int main() {$/;"	f	typeref:typename:int
 make_tet	tetris.c	/^Tetrimino make_tet(int x, int y, Tetrimino tet) {$/;"	f	typeref:typename:Tetrimino
 move_tet	tetris.c	/^Tetrimino move_tet(char flag, Tetrimino tet, int box_height, int box_width) {$/;"	f	typeref:typename:Tetrimino
-rotate_tet	tetris.c	/^Tetrimino rotate_tet(Tetrimino tet, Tetrimino offset, int box_height, int box_width) {$/;"	f	typeref:typename:Tetrimino
-update_grid	tetris.c	/^void update_grid(char* grid[], Tetrimino tet) {$/;"	f	typeref:typename:void
+rotate_tet	tetris.c	/^Tetrimino rotate_tet(Tetrimino tet, int box_height, int box_width) {$/;"	f	typeref:typename:Tetrimino
+update_grid	tetris.c	/^void update_grid(char* grid[], Tetrimino tet, int box_height, int box_width) {$/;"	f	typeref:typename:void
 x1	tetris.c	/^    int x1; $/;"	m	struct:__anonff228dd10108	typeref:typename:int	file:
 x2	tetris.c	/^    int x2;$/;"	m	struct:__anonff228dd10108	typeref:typename:int	file:
 x3	tetris.c	/^    int x3;$/;"	m	struct:__anonff228dd10108	typeref:typename:int	file:
