@@ -14,36 +14,42 @@ $(TARGET)	Makefile	/^$(TARGET): $(OBJS)$/;"	t
 BIN_DIR	Makefile	/^BIN_DIR = bin$/;"	m
 CC	Makefile	/^CC = gcc$/;"	m
 CFLAGS	Makefile	/^CFLAGS = -Wall -Wextra -Werror -Iinclude -lncurses$/;"	m
-FRAME	src/tetris_v2.c	/^#define FRAME /;"	d	file:
-FRAME	src/ticker.c	/^#define FRAME /;"	d	file:
-GRID_HEIGHT	src/tetris_v2.c	/^#define GRID_HEIGHT /;"	d	file:
-GRID_WIDTH	src/tetris_v2.c	/^#define GRID_WIDTH /;"	d	file:
+GRID_HEIGHT	src/main.c	/^#define GRID_HEIGHT /;"	d	file:
+GRID_WIDTH	src/main.c	/^#define GRID_WIDTH /;"	d	file:
+MAX	src/draw.c	/^#define MAX(/;"	d	file:
+MIN	src/draw.c	/^#define MIN(/;"	d	file:
 OBJS	Makefile	/^OBJS = $(SRCS:$(SRC_DIR)\/%.c=$(OBJ_DIR)\/%.o)$/;"	m
 OBJ_DIR	Makefile	/^OBJ_DIR = obj$/;"	m
 SRCS	Makefile	/^SRCS = $(wildcard $(SRC_DIR)\/*.c)$/;"	m
 SRC_DIR	Makefile	/^SRC_DIR = src$/;"	m
 TARGET	Makefile	/^TARGET = $(BIN_DIR)\/tetris$/;"	m
+TICK	src/main.c	/^#define TICK /;"	d	file:
 Tetrimino	include/tetrimino.h	/^} Tetrimino;$/;"	t	typeref:struct:__anona9b042c90108
 WINDOW	include/draw.h	/^typedef struct _win_st WINDOW;$/;"	t	typeref:struct:_win_st
 __anona9b042c90108	include/tetrimino.h	/^typedef struct {$/;"	s
 all	Makefile	/^all: $(TARGET)$/;"	t
 clean	Makefile	/^clean:$/;"	t
+draw_ghost_line	src/draw.c	/^void draw_ghost_line(WINDOW *win, char* grid[], Tetrimino tet, int row) {$/;"	f	typeref:typename:void
 draw_grid	src/draw.c	/^void draw_grid(WINDOW *win, char* grid[], int box_height, int box_width) {$/;"	f	typeref:typename:void
 draw_tet	src/draw.c	/^void draw_tet(WINDOW* win, Tetrimino tet) {$/;"	f	typeref:typename:void
 erase_tet	src/draw.c	/^void erase_tet(WINDOW *win, Tetrimino tet) {$/;"	f	typeref:typename:void
 fclean	Makefile	/^fclean: clean$/;"	t
 generate_grid	src/initiate.c	/^char** generate_grid(int box_height, int box_width) {$/;"	f	typeref:typename:char **
 generate_tets	src/initiate.c	/^Tetrimino *generate_tets() {$/;"	f	typeref:typename:Tetrimino *
+get_tick	src/ticker.c	/^int get_tick() {$/;"	f	typeref:typename:int
 is_collide	src/check.c	/^int is_collide(char* grid[], Tetrimino tet) {$/;"	f	typeref:typename:int
-main	src/tetris_v2.c	/^int main() {$/;"	f	typeref:typename:int
+main	src/main.c	/^int main() {$/;"	f	typeref:typename:int
 make_tet	src/initiate.c	/^Tetrimino make_tet(int x, int y, Tetrimino tet) {$/;"	f	typeref:typename:Tetrimino
 move_tet	src/movement.c	/^Tetrimino move_tet(char flag, Tetrimino tet, int box_height, int box_width) {$/;"	f	typeref:typename:Tetrimino
 re	Makefile	/^re: fclean all$/;"	t
 rotate_tet	src/movement.c	/^Tetrimino rotate_tet(Tetrimino tet, int box_height, int box_width) {$/;"	f	typeref:typename:Tetrimino
-set_ticker	src/ticker.c	/^void set_ticker() {$/;"	f	typeref:typename:void
+set_tick	src/ticker.c	/^void set_tick() {$/;"	f	typeref:typename:void
+set_ticker	src/ticker.c	/^void set_ticker(int tick) {$/;"	f	typeref:typename:void
+show_interface	src/main.c	/^void show_interface(int row, int col, int line, Tetrimino offset) {$/;"	f	typeref:typename:void
 sigalrm_handler	src/ticker.c	/^void sigalrm_handler(int sig) {$/;"	f	typeref:typename:void
 tetris v.2	README.md	/^# tetris v.2$/;"	c
-update_grid	src/update.c	/^void update_grid(char* grid[], Tetrimino tet, int box_height, int box_width) {$/;"	f	typeref:typename:void
+tick	src/ticker.c	/^static volatile sig_atomic_t tick = 0;$/;"	v	typeref:typename:volatile sig_atomic_t	file:
+update_grid	src/update.c	/^int update_grid(char* grid[], Tetrimino tet, int box_height, int box_width) {$/;"	f	typeref:typename:int
 x1	include/tetrimino.h	/^    int x1;$/;"	m	struct:__anona9b042c90108	typeref:typename:int
 x2	include/tetrimino.h	/^    int x2;$/;"	m	struct:__anona9b042c90108	typeref:typename:int
 x3	include/tetrimino.h	/^    int x3;$/;"	m	struct:__anona9b042c90108	typeref:typename:int

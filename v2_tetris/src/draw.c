@@ -1,5 +1,7 @@
 #include "../include/tetrimino.h"
 #include <ncurses.h>
+#define MAX(a, b) (((a) > (b)) ? (a) : (b))
+#define MIN(a, b) (((a) < (b)) ? (a) : (b))
 
 void draw_tet(WINDOW* win, Tetrimino tet) {
     char* block = "#";
@@ -25,6 +27,40 @@ void draw_grid(WINDOW *win, char* grid[], int box_height, int box_width) {
 
         }
     }
+}
+
+void draw_ghost_line(WINDOW *win, char* grid[], Tetrimino tet, int row) {
+    char* line = " ";
+    // int max_x = MAX(MAX(tet.x1, tet.x2), MAX(tet.x3, tet.x4));
+    // int min_x = MIN(MIN(tet.x1, tet.x2), MIN(tet.x3, tet.x4));
+    int max_y = MAX(MAX(tet.y1, tet.y2), MAX(tet.y3, tet.y4)); 
+    /*
+    for (int i = max_y; i < row; i++) {
+        if (grid[i][max_x] == 0) {
+            mvwprintw(win, i, max_x, "%s", line);
+        }
+    } 
+    */
+    for (int i = max_y; i < row; i++) {
+        if (grid[i][tet.x1] == 0) {
+            mvwprintw(win, i, tet.x1, "%s", line);
+        } else break;
+    } 
+    for (int i = max_y; i < row; i++) {
+        if (grid[i][tet.x2] == 0) {
+            mvwprintw(win, i, tet.x2, "%s", line);
+        } else break;
+    } 
+    for (int i = max_y; i < row; i++) {
+        if (grid[i][tet.x3] == 0) {
+            mvwprintw(win, i, tet.x3, "%s", line);
+        }
+    } 
+    for (int i = max_y; i < row; i++) {
+        if (grid[i][tet.x4] == 0) {
+            mvwprintw(win, i, tet.x4, "%s", line);
+        }
+    } 
 }
 
 void erase_tet(WINDOW *win, Tetrimino tet) {

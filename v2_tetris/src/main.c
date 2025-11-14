@@ -17,7 +17,7 @@
 
 #define GRID_HEIGHT 24
 #define GRID_WIDTH 12
-#define FRAME 300000
+#define TICK 300000
 
 void show_interface(int row, int col, int line, Tetrimino offset); 
 
@@ -28,9 +28,9 @@ void show_interface(int row, int col, int line, Tetrimino offset);
  * 프레임 시그널 처리로 개선하기
  */
 
-volatile sig_atomic_t tick = 0;
-
 int main() {
+    set_ticker(TICK);
+
     initscr(); 
     refresh();
     cbreak(); // 버퍼링된 입력 즉시 전달, 라인 버퍼링 해제(즉시 키 입력 받기)
@@ -70,7 +70,7 @@ int main() {
     
     int dumb_idx = 0;
     int next_dumb_idx = (dumb_idx + 1) % 7;
-    int speed = FRAME;
+    // int speed = TICK;
     int lines_cleared = 0; 
     
     int score_x, score_y;
@@ -82,17 +82,18 @@ int main() {
     
     Tetrimino new_tet = make_tet((box_width / 2), 1, tets[dumb_idx]); 
     Tetrimino old_tet = new_tet;
+    
+    int tmp_ch, ch;
 
-    while(1) {
+    while(1) { /* while - 프레임 갱신 */ 
         erase_tet(win, old_tet); 
         
         if (is_collide(grid, new_tet)) {
-            speed = FRAME;
+            set_ticker(TICK);
             lines_cleared += update_grid(grid, old_tet, box_height, box_width); 
             dumb_idx = (dumb_idx + 1) % 7; 
             next_dumb_idx = (dumb_idx + 1) % 7;
             show_interface(score_y, score_x, lines_cleared, tets[next_dumb_idx]); 
-            
             new_tet = make_tet((box_width / 2), 1, tets[dumb_idx]); 
             
             draw_grid(win, grid, box_height, box_width); 
@@ -100,31 +101,44 @@ int main() {
             continue;
         }
         old_tet = new_tet;
+        
+        tmp_ch = getch();
 
-        int ch = getch();
-        /* new_tet 업데이트 */ 
-        if (ch == 'q') break;
-        else if (ch == 'r' || ch == '\n') { // 테트로미노 회전 
-            new_tet = rotate_tet(old_tet, box_height, box_width);
-        } else if (ch == 'l' || ch == KEY_RIGHT) {
-            new_tet = move_tet('l', old_tet, box_height, box_width);
-        } else if (ch == 'h' || ch == KEY_LEFT) {
-            new_tet = move_tet('h', old_tet, box_height, box_width);
-        } else if (ch == 'j' || ch == KEY_DOWN) { 
-            speed /= 3;
-        } else if (ch == 'R') {
-            /* 처음부터 다시 */
-            continue;
-            break;
-        } else {
-            new_tet = move_tet('d', old_tet, box_height, box_width);
+        if (tmp_ch != -1) ch = tmp_ch;
+
+        if(get_tick()) {
+            Tetrimino tmp;
+            /* new_tet 업데이트 */ 
+            if (ch == 'q') break;
+            else if (ch == 'r' || ch == '\n') { // 테트로미노 회전 
+                tmp = rotate_tet(old_tet, box_height, box_width);
+                if (!is_collide(grid, tmp)) new_tet = tmp;
+            } else if (ch == 'l' || ch == KEY_RIGHT) {
+                tmp = move_tet('l', old_tet, box_height, box_width);
+                if (!is_collide(grid, tmp)) new_tet = tmp;
+            } else if (ch == 'h' || ch == KEY_LEFT) {
+                tmp = move_tet('h', old_tet, box_height, box_width);
+                if (!is_collide(grid, tmp)) new_tet = tmp;
+            } 
+            else if (ch == 'j' || ch == KEY_DOWN) { 
+                set_ticker(TICK / 3);
+            } 
+            else if (ch == 'R') {
+                /* 처음부터 다시 */
+                continue;
+                break;
+            } 
+            new_tet = move_tet('d', new_tet, box_height, box_width);
+            
+            ch = -1;
+            set_tick();
         }
 
         draw_grid(win, grid, box_height, box_width); 
+        draw_ghost_line(win, grid, old_tet, box_height);
         draw_tet(win, old_tet);
         
         wrefresh(win);
-        usleep(speed);
     }
     /* while(1) 루프 끝나면 */
     char* exit_str = "Press any key to exit...";
@@ -136,6 +150,7 @@ int main() {
 
     wrefresh(win);
     nodelay(stdscr, FALSE);
+    fflush(stdout);
     getch();
 
     delwin(win);
