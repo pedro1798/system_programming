@@ -6,13 +6,13 @@
 #include <unistd.h>
 /*
  * NOTE::
+ * y = 1에 블럭 닿으면 restart 혹은 종료 
  * 횡적 이동 블럭 있으면 move 못 하게 막기
- * grid 행 다 차면 해당 행 지우고(반짝반짝) 남은 블럭 모두 한 칸 아래로 옮기기
  * 점수 표시하기
  * sleep() 시간 업데이트 해서(프레임 높여서) 떨어지는 속도 조절하기
  * itimereal 로 매 프레임마다 틱 조절하기 - 시그널 사용 
  * dumb_idx: 실제 랜덤 값으로 수정하기 
- * main화면 그리고 Press any key to start 하기
+ * main화면 진입 후 Press any key to start로 게임 시작하기
  * 게임 끝나면 다시 fork execvp 해서 새로 시작(?) 
  * 프로세스 새로 만들어서 점수 저장(?)
  */
@@ -109,6 +109,7 @@ int main() {
     
     int dumb_idx = 0;
     int ch, speed;
+    speed = 200000;
     nodelay(stdscr, TRUE);
 
     // Let there be tetrimino
@@ -139,10 +140,14 @@ int main() {
         if (ch == 'q') break;
         else if (ch == 'r') { // 테트로미노 회전 
             new_tet = rotate_tet(old_tet, box_height, box_width);
-        } else if (ch == 'l') {
+        } else if (ch == 'l' || ch == KEY_RIGHT) {
             new_tet = move_tet('l', old_tet, box_height, box_width);
-        } else if (ch == 'h') {
+        } else if (ch == 'h' || ch == KEY_LEFT) {
             new_tet = move_tet('h', old_tet, box_height, box_width);
+        } else if (ch == 'j' || ch == KEY_DOWN) { 
+            if (speed > 100000) speed -= 50000;
+        } else if (ch == 'k' || ch == KEY_UP) {
+            speed += 50000;
         } else {
             new_tet = move_tet('d', old_tet, box_height, box_width);
         }
@@ -151,7 +156,7 @@ int main() {
         draw_tet(win, old_tet);
         
         wrefresh(win);
-        usleep(200000);
+        usleep(speed);
     }
     /* while(1) 루프 끝나면 */
     char* exit_str = "Press any key to exit...";
