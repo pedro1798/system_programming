@@ -18,10 +18,12 @@
 #define GRID_HEIGHT 24
 #define GRID_WIDTH 12
 #define TICK 300000
+#define LEVEL_SLOPE 3
 
-void show_interface(int row, int col, int line, Tetrimino offset); 
+void show_interface(int row, int col, int line, int score, Tetrimino offset); 
 
 /*
+ * draw 함수에 is_collide 감싼거 지우기. 블럭 충돌만 감지함? 
  * 다음 블록, 지운 라인 수, 점수  그리기
  * 고스트 블록 혹은 고스트 라인
  * 현재 점수(Score), 지운 라인 수(Lines Cleared)
@@ -29,7 +31,8 @@ void show_interface(int row, int col, int line, Tetrimino offset);
  */
 
 int main() {
-    set_ticker(TICK);
+    int tick = TICK;
+    set_ticker(tick);
 
     initscr(); 
     refresh();
@@ -72,28 +75,41 @@ int main() {
     int next_dumb_idx = (dumb_idx + 1) % 7;
     // int speed = TICK;
     int lines_cleared = 0; 
+    int level = 0;
+    int score = 0;
+    int tmp_ch, ch;
     
-    int score_x, score_y;
-    score_x = start_x - 14;
-    score_y = start_y;
-    show_interface(score_y, score_x, lines_cleared, tets[next_dumb_idx]); 
+    int interface_x, interface_y;
+    interface_x = start_x - 14;
+    interface_y = start_y;
+    show_interface(interface_y, 
+                   interface_x, 
+                   lines_cleared, 
+                   score, 
+                   tets[next_dumb_idx]); 
     
     nodelay(stdscr, TRUE);
     
     Tetrimino new_tet = make_tet((box_width / 2), 1, tets[dumb_idx]); 
     Tetrimino old_tet = new_tet;
     
-    int tmp_ch, ch;
 
     while(1) { /* while - 프레임 갱신 */ 
-        erase_tet(win, old_tet); 
+        erase_tet(win, box_height, box_width, old_tet); 
         
         if (is_collide(grid, new_tet)) {
-            set_ticker(TICK);
-            lines_cleared += update_grid(grid, old_tet, box_height, box_width); 
+            int bonus = lines_cleared;
+            lines_cleared += update_grid(grid, old_tet, box_height, box_width);
+            level = lines_cleared / LEVEL_SLOPE; // 0, 1, 2, ...
+            score += 1 * level;
+            if (lines_cleared - bonus) score += (lines_cleared - bonus) * 20;
+            if (tick > 150000) tick -= level * 500;
+
+            set_ticker(tick);
+            
             dumb_idx = (dumb_idx + 1) % 7; 
             next_dumb_idx = (dumb_idx + 1) % 7;
-            show_interface(score_y, score_x, lines_cleared, tets[next_dumb_idx]); 
+            show_interface(interface_y, interface_x, lines_cleared, score, tets[next_dumb_idx]); 
             new_tet = make_tet((box_width / 2), 1, tets[dumb_idx]); 
             
             draw_grid(win, grid, box_height, box_width); 
@@ -112,13 +128,13 @@ int main() {
             if (ch == 'q') break;
             else if (ch == 'r' || ch == '\n') { // 테트로미노 회전 
                 tmp = rotate_tet(old_tet, box_height, box_width);
-                if (!is_collide(grid, tmp)) new_tet = tmp;
+                if (is_inside(box_height, box_width, tmp)) new_tet = tmp;
             } else if (ch == 'l' || ch == KEY_RIGHT) {
                 tmp = move_tet('l', old_tet, box_height, box_width);
-                if (!is_collide(grid, tmp)) new_tet = tmp;
+                if (is_inside(box_height, box_width, tmp)) new_tet = tmp;
             } else if (ch == 'h' || ch == KEY_LEFT) {
                 tmp = move_tet('h', old_tet, box_height, box_width);
-                if (!is_collide(grid, tmp)) new_tet = tmp;
+                if (is_inside(box_height, box_width, tmp)) new_tet = tmp;
             } 
             else if (ch == 'j' || ch == KEY_DOWN) { 
                 set_ticker(TICK / 3);
@@ -136,7 +152,7 @@ int main() {
 
         draw_grid(win, grid, box_height, box_width); 
         draw_ghost_line(win, grid, old_tet, box_height);
-        draw_tet(win, old_tet);
+        draw_tet(win, box_height, box_width, old_tet);
         
         wrefresh(win);
     }
@@ -150,7 +166,6 @@ int main() {
 
     wrefresh(win);
     nodelay(stdscr, FALSE);
-    fflush(stdout);
     getch();
 
     delwin(win);
@@ -165,12 +180,13 @@ int main() {
     return 0;
 }
 
-void show_interface(int row, int col, int line, Tetrimino offset) {
+void show_interface(int row, int col, int line, int score, Tetrimino offset) {
     /* lines cleared */
+    int level = line / LEVEL_SLOPE;
     mvwprintw(stdscr, row + 0, col, ".::Scores::.");
     mvwprintw(stdscr, row + 1, col, "   LINE: %d", line);
-    mvwprintw(stdscr, row + 2, col, "   SCORE: %d", 0);
-    mvwprintw(stdscr, row + 3, col, "   LEVEL: %d", 0);
+    mvwprintw(stdscr, row + 2, col, "   SCORE: %d", score);
+    mvwprintw(stdscr, row + 3, col, "   LEVEL: %d", level);
     
     int block_y = row + 6;
     int block_x = col + 4; 

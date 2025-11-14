@@ -1,14 +1,27 @@
 #include "../include/tetrimino.h"
 #include <ncurses.h>
+#include <check.h>
 #define MAX(a, b) (((a) > (b)) ? (a) : (b))
 #define MIN(a, b) (((a) < (b)) ? (a) : (b))
 
-void draw_tet(WINDOW* win, Tetrimino tet) {
+void draw_tet(WINDOW* win, int row, int col, Tetrimino tet) {
     char* block = "#";
-    mvwprintw(win, tet.y1, tet.x1, "%s", block);
-    mvwprintw(win, tet.y2, tet.x2, "%s", block);
-    mvwprintw(win, tet.y3, tet.x3, "%s", block);
-    mvwprintw(win, tet.y4, tet.x4, "%s", block);
+    if (is_inside(row, col, tet)) {
+        mvwprintw(win, tet.y1, tet.x1, "%s", block);
+        mvwprintw(win, tet.y2, tet.x2, "%s", block);
+        mvwprintw(win, tet.y3, tet.x3, "%s", block);
+        mvwprintw(win, tet.y4, tet.x4, "%s", block);
+    }
+}
+
+void erase_tet(WINDOW *win, int row, int col, Tetrimino tet) {
+    char* hollow = ".";
+    if (is_inside(row, col, tet)) {
+        mvwprintw(win, tet.y1, tet.x1, "%s", hollow);
+        mvwprintw(win, tet.y2, tet.x2, "%s", hollow);
+        mvwprintw(win, tet.y3, tet.x3, "%s", hollow);
+        mvwprintw(win, tet.y4, tet.x4, "%s", hollow);
+    }
 }
 
 void draw_grid(WINDOW *win, char* grid[], int box_height, int box_width) {
@@ -63,10 +76,3 @@ void draw_ghost_line(WINDOW *win, char* grid[], Tetrimino tet, int row) {
     } 
 }
 
-void erase_tet(WINDOW *win, Tetrimino tet) {
-    char* hollow = ".";
-    mvwprintw(win, tet.y1, tet.x1, "%s", hollow);
-    mvwprintw(win, tet.y2, tet.x2, "%s", hollow);
-    mvwprintw(win, tet.y3, tet.x3, "%s", hollow);
-    mvwprintw(win, tet.y4, tet.x4, "%s", hollow);
-}

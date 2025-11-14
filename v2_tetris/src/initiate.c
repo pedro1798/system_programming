@@ -79,5 +79,10 @@ char** generate_grid(int box_height, int box_width) {
         grid[box_height-1][j] = -1;
     }
 
+    for (int k = 0; k < box_height; k++) {
+        grid[k][0] = -1;
+        grid[k][box_height-1] = -1;
+    }
+
     return grid;
 }
