@@ -37,6 +37,8 @@ int main(int argc, char* argv[]) {
     cbreak(); // 버퍼링된 입력 즉시 전달, 라인 버퍼링 해제(즉시 키 입력 받기)
     noecho(); // 입력 문자 화면 표시하지 않음
     keypad(stdscr, TRUE); // 화살표 등 특수키 활성화
+    nodelay(stdscr, TRUE);
+    // timeout(0);
     curs_set(0); // 커서 숨김
     
     int term_height, term_width; // 터미널 크기 받는 변수
@@ -86,15 +88,13 @@ int main(int argc, char* argv[]) {
                    score, 
                    tets[next_dumb_idx]); 
     
-    nodelay(stdscr, TRUE);
-    
     Tetrimino new_tet = make_tet((box_width / 2), 1, tets[dumb_idx]); 
     Tetrimino old_tet = new_tet;
     
-
     while(1) { /* while - 프레임 갱신 */ 
         tmp_ch = getch();
-
+        if (tmp_ch != -1) ch = tmp_ch;
+        
         erase_tet(win, box_height, box_width, old_tet); 
         
         if (is_collide(grid, new_tet)) {
@@ -126,35 +126,33 @@ int main(int argc, char* argv[]) {
             continue;
         }
         old_tet = new_tet;
-        
-        if (tmp_ch != -1) ch = tmp_ch;
+
+        /* update */
+        Tetrimino tmp;
+        if (ch == 'q') break;
+        else if (ch == 'r' || ch == '\n') { // 테트로미노 회전 
+            tmp = rotate_tet(old_tet, box_height, box_width);
+            if (is_inside(box_height, box_width, tmp)) new_tet = tmp;
+        } else if (ch == 'l' || ch == KEY_RIGHT) {
+            tmp = move_tet('l', old_tet, box_height, box_width);
+            if (is_inside(box_height, box_width, tmp)) new_tet = tmp;
+        } else if (ch == 'h' || ch == KEY_LEFT) {
+            tmp = move_tet('h', old_tet, box_height, box_width);
+            if (is_inside(box_height, box_width, tmp)) new_tet = tmp;
+        } 
+        else if (ch == 'j' || ch == KEY_DOWN) { 
+            set_ticker(TICK / 3);
+            set_ticker(20000);
+        } 
+        else if (ch == 'R') {
+            execvp(argv[0], argv);
+        }
+        ch = -1;
+
 
         if(get_tick()) {
-            Tetrimino tmp;
-            /* new_tet 업데이트 */ 
-            if (ch == 'q') break;
-            else if (ch == 'r' || ch == '\n') { // 테트로미노 회전 
-                tmp = rotate_tet(old_tet, box_height, box_width);
-                if (is_inside(box_height, box_width, tmp)) new_tet = tmp;
-            } else if (ch == 'l' || ch == KEY_RIGHT) {
-                tmp = move_tet('l', old_tet, box_height, box_width);
-                if (is_inside(box_height, box_width, tmp)) new_tet = tmp;
-            } else if (ch == 'h' || ch == KEY_LEFT) {
-                tmp = move_tet('h', old_tet, box_height, box_width);
-                if (is_inside(box_height, box_width, tmp)) new_tet = tmp;
-            } 
-            else if (ch == 'j' || ch == KEY_DOWN) { 
-                set_ticker(TICK / 3);
-                set_ticker(20000);
-            } 
-            else if (ch == 'R') {
-                /* 처음부터 다시 */
-                continue;
-                break;
-            } 
             new_tet = move_tet('d', new_tet, box_height, box_width);
-            
-            ch = -1;
+            // ch = -1;
             set_tick();
         }
 
