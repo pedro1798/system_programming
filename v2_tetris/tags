@@ -40,7 +40,7 @@ generate_tets	src/initiate.c	/^Tetrimino *generate_tets() {$/;"	f	typeref:typena
 get_tick	src/ticker.c	/^int get_tick() {$/;"	f	typeref:typename:int
 is_collide	src/check.c	/^int is_collide(char* grid[], Tetrimino tet) {$/;"	f	typeref:typename:int
 is_inside	src/check.c	/^int is_inside(int row, int col, Tetrimino tet) {$/;"	f	typeref:typename:int
-main	src/main.c	/^int main() {$/;"	f	typeref:typename:int
+main	src/main.c	/^int main(int argc, char* argv[]) {$/;"	f	typeref:typename:int
 make_tet	src/initiate.c	/^Tetrimino make_tet(int x, int y, Tetrimino tet) {$/;"	f	typeref:typename:Tetrimino
 move_tet	src/movement.c	/^Tetrimino move_tet(char flag, Tetrimino tet, int box_height, int box_width) {$/;"	f	typeref:typename:Tetrimino
 re	Makefile	/^re: fclean all$/;"	t

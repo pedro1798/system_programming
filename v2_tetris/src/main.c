@@ -23,14 +23,12 @@
 void show_interface(int row, int col, int line, int score, Tetrimino offset); 
 
 /*
- * draw 함수에 is_collide 감싼거 지우기. 블럭 충돌만 감지함? 
- * 다음 블록, 지운 라인 수, 점수  그리기
- * 고스트 블록 혹은 고스트 라인
- * 현재 점수(Score), 지운 라인 수(Lines Cleared)
- * 프레임 시그널 처리로 개선하기
+ * 블럭 회전 시스템 표준에 맞게 개선하기
+ * 상태 변수(박스 크기 등) 구조체에 담아서 전달
  */
 
-int main() {
+int main(int argc, char* argv[]) {
+    (void)argc;
     int tick = TICK;
     set_ticker(tick);
 
@@ -95,14 +93,19 @@ int main() {
     
 
     while(1) { /* while - 프레임 갱신 */ 
+        tmp_ch = getch();
+
         erase_tet(win, box_height, box_width, old_tet); 
         
         if (is_collide(grid, new_tet)) {
-            int bonus = lines_cleared;
-            lines_cleared += update_grid(grid, old_tet, box_height, box_width);
+            int exit = 0;
+
+            int bonus = update_grid(grid, old_tet, box_height, box_width);
+            lines_cleared += bonus;
             level = lines_cleared / LEVEL_SLOPE; // 0, 1, 2, ...
             score += 1 * level;
-            if (lines_cleared - bonus) score += (lines_cleared - bonus) * 20;
+            if (bonus >= 4) score += 400; else score += 100 * bonus;
+
             if (tick > 150000) tick -= level * 500;
 
             set_ticker(tick);
@@ -114,12 +117,16 @@ int main() {
             
             draw_grid(win, grid, box_height, box_width); 
             
+            /* 그리드를 넘어가면 종료 */
+            for (int i = 1; i < box_width; i++) {
+                if (grid[1][i] == 1) exit = 1;
+            }
+            if (exit) break;
+            
             continue;
         }
         old_tet = new_tet;
         
-        tmp_ch = getch();
-
         if (tmp_ch != -1) ch = tmp_ch;
 
         if(get_tick()) {
@@ -138,6 +145,7 @@ int main() {
             } 
             else if (ch == 'j' || ch == KEY_DOWN) { 
                 set_ticker(TICK / 3);
+                set_ticker(20000);
             } 
             else if (ch == 'R') {
                 /* 처음부터 다시 */
@@ -158,15 +166,20 @@ int main() {
     }
     /* while(1) 루프 끝나면 */
     char* exit_str = "Press any key to exit...";
+    char* restart = "Press 'r' to restart";
     int bottom = ((term_width - strlen(exit_str)) / 2);
 
     mvwprintw(stdscr, box_height + 10, bottom, "%s", exit_str);
-    mvwprintw(stdscr, box_height + 12, bottom, "box_height: %d", box_height);
-    mvwprintw(stdscr, box_height + 14, bottom, "box_width: %d", box_width);
+    mvwprintw(stdscr, box_height + 12, bottom, "%s", restart);
 
     wrefresh(win);
     nodelay(stdscr, FALSE);
-    getch();
+    
+    ch = getch();
+   
+    if (ch == 'r') {
+        execvp(argv[0], argv);
+    }
 
     delwin(win);
     endwin();
