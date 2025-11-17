@@ -16,47 +16,73 @@ CC	Makefile	/^CC = gcc$/;"	m
 CFLAGS	Makefile	/^CFLAGS = -Wall -Wextra -Werror -Iinclude -lncurses$/;"	m
 GRID_HEIGHT	src/main.c	/^#define GRID_HEIGHT /;"	d	file:
 GRID_WIDTH	src/main.c	/^#define GRID_WIDTH /;"	d	file:
+GameStatus	include/tetrimino.h	/^typedef struct GameStatus {$/;"	s
+LEVEL_SLOPE	src/draw.c	/^#define LEVEL_SLOPE /;"	d	file:
 LEVEL_SLOPE	src/main.c	/^#define LEVEL_SLOPE /;"	d	file:
+MAX	src/data.c	/^#define MAX(/;"	d	file:
 MAX	src/draw.c	/^#define MAX(/;"	d	file:
+MAX	src/movement.c	/^#define MAX(/;"	d	file:
+MAX_SCORE	src/main.c	/^#define MAX_SCORE /;"	d	file:
 MIN	src/draw.c	/^#define MIN(/;"	d	file:
+MIN	src/movement.c	/^#define MIN(/;"	d	file:
 OBJS	Makefile	/^OBJS = $(SRCS:$(SRC_DIR)\/%.c=$(OBJ_DIR)\/%.o)$/;"	m
 OBJ_DIR	Makefile	/^OBJ_DIR = obj$/;"	m
+PrevScore	include/tetrimino.h	/^typedef struct PrevScore {$/;"	s
 SRCS	Makefile	/^SRCS = $(wildcard $(SRC_DIR)\/*.c)$/;"	m
 SRC_DIR	Makefile	/^SRC_DIR = src$/;"	m
 TARGET	Makefile	/^TARGET = $(BIN_DIR)\/tetris$/;"	m
 TICK	src/main.c	/^#define TICK /;"	d	file:
-Tetrimino	include/tetrimino.h	/^} Tetrimino;$/;"	t	typeref:struct:__anona9b042c90108
+Tetrimino	include/tetrimino.h	/^typedef struct Tetrimino {$/;"	s
+Tetrimino	include/tetrimino.h	/^} Tetrimino;$/;"	t	typeref:struct:Tetrimino
 WINDOW	include/draw.h	/^typedef struct _win_st WINDOW;$/;"	t	typeref:struct:_win_st
-__anona9b042c90108	include/tetrimino.h	/^typedef struct {$/;"	s
 all	Makefile	/^all: $(TARGET)$/;"	t
+box_height	include/tetrimino.h	/^    int box_height;$/;"	m	struct:GameStatus	typeref:typename:int
+box_width	include/tetrimino.h	/^    int box_width;$/;"	m	struct:GameStatus	typeref:typename:int
 clean	Makefile	/^clean:$/;"	t
 draw_ghost_line	src/draw.c	/^void draw_ghost_line(WINDOW *win, char* grid[], Tetrimino tet, int row) {$/;"	f	typeref:typename:void
 draw_grid	src/draw.c	/^void draw_grid(WINDOW *win, char* grid[], int box_height, int box_width) {$/;"	f	typeref:typename:void
+draw_interface	src/draw.c	/^void draw_interface(game_status_t status, prev_score_t prev) {$/;"	f	typeref:typename:void
 draw_tet	src/draw.c	/^void draw_tet(WINDOW* win, int row, int col, Tetrimino tet) {$/;"	f	typeref:typename:void
 erase_tet	src/draw.c	/^void erase_tet(WINDOW *win, int row, int col, Tetrimino tet) {$/;"	f	typeref:typename:void
 fclean	Makefile	/^fclean: clean$/;"	t
+game_status_t	include/tetrimino.h	/^} game_status_t;$/;"	t	typeref:struct:GameStatus
 generate_grid	src/initiate.c	/^char** generate_grid(int box_height, int box_width) {$/;"	f	typeref:typename:char **
 generate_tets	src/initiate.c	/^Tetrimino *generate_tets() {$/;"	f	typeref:typename:Tetrimino *
 get_tick	src/ticker.c	/^int get_tick() {$/;"	f	typeref:typename:int
+interface_x	include/tetrimino.h	/^    int interface_x;$/;"	m	struct:GameStatus	typeref:typename:int
+interface_y	include/tetrimino.h	/^    int interface_y;$/;"	m	struct:GameStatus	typeref:typename:int
 is_collide	src/check.c	/^int is_collide(char* grid[], Tetrimino tet) {$/;"	f	typeref:typename:int
 is_inside	src/check.c	/^int is_inside(int row, int col, Tetrimino tet) {$/;"	f	typeref:typename:int
+level	include/tetrimino.h	/^    int level;$/;"	m	struct:GameStatus	typeref:typename:int
+line	include/tetrimino.h	/^    int line;$/;"	m	struct:GameStatus	typeref:typename:int
+line_cleared	include/tetrimino.h	/^    int line_cleared;$/;"	m	struct:GameStatus	typeref:typename:int
+line_score	src/main.c	/^int line_score(int line_cnt, int level) {$/;"	f	typeref:typename:int
+load_data	src/data.c	/^prev_score_t load_data() {$/;"	f	typeref:typename:prev_score_t
 main	src/main.c	/^int main(int argc, char* argv[]) {$/;"	f	typeref:typename:int
 make_tet	src/initiate.c	/^Tetrimino make_tet(int x, int y, Tetrimino tet) {$/;"	f	typeref:typename:Tetrimino
+max_level	include/tetrimino.h	/^    int max_level;$/;"	m	struct:PrevScore	typeref:typename:int
+max_line	include/tetrimino.h	/^    int max_line;$/;"	m	struct:PrevScore	typeref:typename:int
+max_score	include/tetrimino.h	/^    int max_score;$/;"	m	struct:PrevScore	typeref:typename:int
 move_tet	src/movement.c	/^Tetrimino move_tet(char flag, Tetrimino tet, int box_height, int box_width) {$/;"	f	typeref:typename:Tetrimino
+name	include/tetrimino.h	/^    char name;$/;"	m	struct:Tetrimino	typeref:typename:char
+prev_score	include/tetrimino.h	/^    int prev_score;$/;"	m	struct:GameStatus	typeref:typename:int
+prev_score_t	include/tetrimino.h	/^} prev_score_t;$/;"	t	typeref:struct:PrevScore
 re	Makefile	/^re: fclean all$/;"	t
-rotate_tet	src/movement.c	/^Tetrimino rotate_tet(Tetrimino tet, int box_height, int box_width) {$/;"	f	typeref:typename:Tetrimino
+rotate_tet	src/movement.c	/^Tetrimino rotate_tet(char* grid[], game_status_t status, char* flag) {$/;"	f	typeref:typename:Tetrimino
+save_data	src/data.c	/^void save_data(prev_score_t data) {$/;"	f	typeref:typename:void
+score	include/tetrimino.h	/^    int score;$/;"	m	struct:GameStatus	typeref:typename:int
 set_tick	src/ticker.c	/^void set_tick() {$/;"	f	typeref:typename:void
 set_ticker	src/ticker.c	/^void set_ticker(int tick) {$/;"	f	typeref:typename:void
-show_interface	src/main.c	/^void show_interface(int row, int col, int line, int score, Tetrimino offset) {$/;"	f	typeref:typename:void
 sigalrm_handler	src/ticker.c	/^void sigalrm_handler(int sig) {$/;"	f	typeref:typename:void
+tet	include/tetrimino.h	/^    Tetrimino tet;$/;"	m	struct:GameStatus	typeref:typename:Tetrimino
 tetris v.2	README.md	/^# tetris v.2$/;"	c
 tick	src/ticker.c	/^static volatile sig_atomic_t tick = 0;$/;"	v	typeref:typename:volatile sig_atomic_t	file:
 update_grid	src/update.c	/^int update_grid(char* grid[], Tetrimino tet, int box_height, int box_width) {$/;"	f	typeref:typename:int
-x1	include/tetrimino.h	/^    int x1;$/;"	m	struct:__anona9b042c90108	typeref:typename:int
-x2	include/tetrimino.h	/^    int x2;$/;"	m	struct:__anona9b042c90108	typeref:typename:int
-x3	include/tetrimino.h	/^    int x3;$/;"	m	struct:__anona9b042c90108	typeref:typename:int
-x4	include/tetrimino.h	/^    int x4;$/;"	m	struct:__anona9b042c90108	typeref:typename:int
-y1	include/tetrimino.h	/^    int y1;$/;"	m	struct:__anona9b042c90108	typeref:typename:int
-y2	include/tetrimino.h	/^    int y2;$/;"	m	struct:__anona9b042c90108	typeref:typename:int
-y3	include/tetrimino.h	/^    int y3;$/;"	m	struct:__anona9b042c90108	typeref:typename:int
-y4	include/tetrimino.h	/^    int y4;$/;"	m	struct:__anona9b042c90108	typeref:typename:int
+x1	include/tetrimino.h	/^    int x1;$/;"	m	struct:Tetrimino	typeref:typename:int
+x2	include/tetrimino.h	/^    int x2;$/;"	m	struct:Tetrimino	typeref:typename:int
+x3	include/tetrimino.h	/^    int x3;$/;"	m	struct:Tetrimino	typeref:typename:int
+x4	include/tetrimino.h	/^    int x4;$/;"	m	struct:Tetrimino	typeref:typename:int
+y1	include/tetrimino.h	/^    int y1;$/;"	m	struct:Tetrimino	typeref:typename:int
+y2	include/tetrimino.h	/^    int y2;$/;"	m	struct:Tetrimino	typeref:typename:int
+y3	include/tetrimino.h	/^    int y3;$/;"	m	struct:Tetrimino	typeref:typename:int
+y4	include/tetrimino.h	/^    int y4;$/;"	m	struct:Tetrimino	typeref:typename:int

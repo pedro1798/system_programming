@@ -4,6 +4,8 @@
 #include <signal.h>
 #include <time.h>
 #include <unistd.h>
+#include <sys/time.h>
+#include <sys/wait.h>
 /*
  * NOTE::
  * y = 1에 블럭 닿으면 restart 혹은 종료 
@@ -19,6 +21,7 @@
 
 #define GRID_HEIGHT 24
 #define GRID_WIDTH 22
+#define FRAME 1000000
 
 /* 블럭 상대 좌표 */
 typedef struct {
@@ -32,6 +35,8 @@ typedef struct {
     int y4;
 } Tetrimino; 
 
+void sigalrm_handler(int sig);
+
 void draw_tet(WINDOW* win, Tetrimino tet);
 void erase_tet(WINDOW *win, Tetrimino tet); 
 void update_grid(char* grid[], Tetrimino tet, int box_height, int box_width); 
@@ -42,7 +47,33 @@ Tetrimino *generate_tets();
 Tetrimino move_tet(char flag, Tetrimino tet, int box_height, int box_width); 
 int check_tet(char* grid[], Tetrimino tet);
 
+volatile sig_atomic_t tick = 0;
+
 int main() {
+    sigset_t block_set;
+    sigemptyset(&block_set);
+    sigaddset(&block_set, SIGALRM);
+
+    if (sigprocmask(SIG_BLOCK, &block_set, NULL) < 0) {
+        perror("sigprocmask");
+        exit(1);
+    }
+
+    struct sigaction sa_sigalrm;
+    sa_sigalrm.sa_handler = sigalrm_handler;
+    sigemptyset(&sa_sigalrm.sa_mask);
+    sa_sigalrm.sa_flags = 0;
+    sigaction(SIGALRM, &sa_sigalrm, NULL);
+
+    /* 타이머 설정 */
+    struct itimerval timer = {{0, FRAME}, {0, FRAME}};
+    setitimer(ITIMER_REAL, &timer, NULL);
+    
+    if (sigprocmask(SIG_UNBLOCK, &block_set, NULL) < 0) {
+        perror("sigprocmask");
+        exit(1);
+    }
+
     initscr(); // ncurses 모드 진입(표준 화면 초기화)
     refresh(); // 한 번 초기화 
     cbreak(); // 버퍼링된 입력 즉시 전달, 즉 라인 버퍼링 해제(즉시 키 입력 받기)
@@ -117,46 +148,49 @@ int main() {
     Tetrimino old_tet = new_tet;
 
     while(1) {
-        erase_tet(win, old_tet); // 화면에서 이전 테트리미노 지운다. 
-        // tet이 정지해야 한다면 old_tet으로 그리드 업데이트 후 loop 
-        if (check_tet(grid, new_tet)) { 
-            update_grid(grid, old_tet, box_height, box_width); // old_tet을 그리드에 업데이트
-            
-            /* 테트로미노 좌표 초기화 */
-            new_x = box_width / 2; 
-            new_y = 1;
+    //    pause();
+    //    if (tick) {
+            erase_tet(win, old_tet); // 화면에서 이전 테트리미노 지운다. 
+            // tet이 정지해야 한다면 old_tet으로 그리드 업데이트 후 loop 
+            if (check_tet(grid, new_tet)) { 
+                update_grid(grid, old_tet, box_height, box_width); // old_tet을 그리드에 업데이트
+                
+                /* 테트로미노 좌표 초기화 */
+                new_x = box_width / 2; 
+                new_y = 1;
 
-            dumb_idx = (dumb_idx + 1) % 7; // 다음 테트리미노 
+                dumb_idx = (dumb_idx + 1) % 7; // 다음 테트리미노 
 
-            new_tet = make_tet(new_x, new_y, tets[dumb_idx]); // tet update
+                new_tet = make_tet(new_x, new_y, tets[dumb_idx]); // tet update
+                draw_grid(win, grid, box_height, box_width); 
+                
+                continue;
+            }
+            old_tet = new_tet;
+
+            /* new_tet 업데이트 */ 
+            ch = getch();
+            if (ch == 'q') break;
+            else if (ch == 'r') { // 테트로미노 회전 
+                new_tet = rotate_tet(old_tet, box_height, box_width);
+            } else if (ch == 'l' || ch == KEY_RIGHT) {
+                new_tet = move_tet('l', old_tet, box_height, box_width);
+            } else if (ch == 'h' || ch == KEY_LEFT) {
+                new_tet = move_tet('h', old_tet, box_height, box_width);
+            } else if (ch == 'j' || ch == KEY_DOWN) { 
+                if (speed > 100000) speed -= 50000;
+            } else if (ch == 'k' || ch == KEY_UP) {
+                speed += 50000;
+            } else {
+                new_tet = move_tet('d', old_tet, box_height, box_width);
+            }
+
             draw_grid(win, grid, box_height, box_width); 
+            draw_tet(win, old_tet);
             
-            continue;
-        }
-        old_tet = new_tet;
-
-        /* new_tet 업데이트 */ 
-        ch = getch();
-        if (ch == 'q') break;
-        else if (ch == 'r') { // 테트로미노 회전 
-            new_tet = rotate_tet(old_tet, box_height, box_width);
-        } else if (ch == 'l' || ch == KEY_RIGHT) {
-            new_tet = move_tet('l', old_tet, box_height, box_width);
-        } else if (ch == 'h' || ch == KEY_LEFT) {
-            new_tet = move_tet('h', old_tet, box_height, box_width);
-        } else if (ch == 'j' || ch == KEY_DOWN) { 
-            if (speed > 100000) speed -= 50000;
-        } else if (ch == 'k' || ch == KEY_UP) {
-            speed += 50000;
-        } else {
-            new_tet = move_tet('d', old_tet, box_height, box_width);
-        }
-
-        draw_grid(win, grid, box_height, box_width); 
-        draw_tet(win, old_tet);
-        
-        wrefresh(win);
-        usleep(speed);
+            wrefresh(win);
+            usleep(speed);
+        //}
     }
     /* while(1) 루프 끝나면 */
     char* exit_str = "Press any key to exit...";
@@ -408,4 +442,8 @@ int check_tet(char* grid[], Tetrimino tet) {
         return 0; // 가능하면 0 리턴
     } 
     return 1; // 불가능하면 1 리턴 
+}
+
+void sigalrm_handler(int sig) {
+    tick = 1;
 }

@@ -3,6 +3,7 @@
 
 Tetrimino make_tet(int x, int y, Tetrimino tet) {
     Tetrimino new_tet;
+    new_tet.name = tet.name;
     new_tet.x1 = x + tet.x1;
     new_tet.y1 = y + tet.y1;
     new_tet.x2 = x + tet.x2;
@@ -19,30 +20,37 @@ Tetrimino *generate_tets() {
 
     Tetrimino I, L, J, O, S, T, Z;
     /* 0 */
+    I.name = 'I';
     I.x1 = 0; I.x2 = 0; I.x3 = 0; I.x4 = 0;
     I.y1 = 0; I.y2 = 1; I.y3 = 2; I.y4 = 3;
 
     /* 1 */
+    L.name = 'L';
     L.x1 = 0; L.x2 = 0; L.x3 = 0; L.x4 = 1;
     L.y1 = 0; L.y2 = 1; L.y3 = 2; L.y4 = 2;
 
     /* 2 */
+    J.name = 'J';
     J.x1 = 0; J.x2 = 0; J.x3 = 0; J.x4 = -1;
     J.y1 = 0; J.y2 = 1; J.y3 = 2; J.y4 = 2;
 
     /* 3 */
+    O.name = 'O';
     O.x1 = 0; O.x2 = 1; O.x3 = 1; O.x4 = 0;
     O.y1 = 0; O.y2 = 0; O.y3 = 1; O.y4 = 1;
 
     /* 4 */
+    S.name = 'S';
     S.x1 = 1; S.x2 = 2; S.x3 = 0; S.x4 = 1;
     S.y1 = 0; S.y2 = 0; S.y3 = 1; S.y4 = 1;
 
     /* 5 */
+    T.name = 'T';
     T.x1 = 0; T.x2 = 0; T.x3 = -1; T.x4 = 1;
     T.y1 = 0; T.y2 = 1; T.y3 = 1; T.y4 = 1;
 
     /* 6 */
+    Z.name = 'Z';
     Z.x1 = 0; Z.x2 = 1; Z.x3 = 1; Z.x4 = 1;
     Z.y1 = 0; Z.y2 = 0; Z.y3 = 1; Z.y4 = 2;
 

@@ -11,12 +11,18 @@
 !_TAG_PROGRAM_VERSION	5.9.0	//
 GRID_HEIGHT	main.c	/^#define GRID_HEIGHT /;"	d	file:
 GRID_WIDTH	main.c	/^#define GRID_WIDTH /;"	d	file:
+LEVEL_SLOPE	draw.c	/^#define LEVEL_SLOPE /;"	d	file:
 LEVEL_SLOPE	main.c	/^#define LEVEL_SLOPE /;"	d	file:
+MAX	data.c	/^#define MAX(/;"	d	file:
 MAX	draw.c	/^#define MAX(/;"	d	file:
+MAX	movement.c	/^#define MAX(/;"	d	file:
+MAX_SCORE	main.c	/^#define MAX_SCORE /;"	d	file:
 MIN	draw.c	/^#define MIN(/;"	d	file:
+MIN	movement.c	/^#define MIN(/;"	d	file:
 TICK	main.c	/^#define TICK /;"	d	file:
 draw_ghost_line	draw.c	/^void draw_ghost_line(WINDOW *win, char* grid[], Tetrimino tet, int row) {$/;"	f	typeref:typename:void
 draw_grid	draw.c	/^void draw_grid(WINDOW *win, char* grid[], int box_height, int box_width) {$/;"	f	typeref:typename:void
+draw_interface	draw.c	/^void draw_interface(game_status_t status, prev_score_t prev) {$/;"	f	typeref:typename:void
 draw_tet	draw.c	/^void draw_tet(WINDOW* win, int row, int col, Tetrimino tet) {$/;"	f	typeref:typename:void
 erase_tet	draw.c	/^void erase_tet(WINDOW *win, int row, int col, Tetrimino tet) {$/;"	f	typeref:typename:void
 generate_grid	initiate.c	/^char** generate_grid(int box_height, int box_width) {$/;"	f	typeref:typename:char **
@@ -24,13 +30,15 @@ generate_tets	initiate.c	/^Tetrimino *generate_tets() {$/;"	f	typeref:typename:T
 get_tick	ticker.c	/^int get_tick() {$/;"	f	typeref:typename:int
 is_collide	check.c	/^int is_collide(char* grid[], Tetrimino tet) {$/;"	f	typeref:typename:int
 is_inside	check.c	/^int is_inside(int row, int col, Tetrimino tet) {$/;"	f	typeref:typename:int
+line_score	main.c	/^int line_score(int line_cnt, int level) {$/;"	f	typeref:typename:int
+load_data	data.c	/^prev_score_t load_data() {$/;"	f	typeref:typename:prev_score_t
 main	main.c	/^int main(int argc, char* argv[]) {$/;"	f	typeref:typename:int
 make_tet	initiate.c	/^Tetrimino make_tet(int x, int y, Tetrimino tet) {$/;"	f	typeref:typename:Tetrimino
 move_tet	movement.c	/^Tetrimino move_tet(char flag, Tetrimino tet, int box_height, int box_width) {$/;"	f	typeref:typename:Tetrimino
-rotate_tet	movement.c	/^Tetrimino rotate_tet(Tetrimino tet, int box_height, int box_width) {$/;"	f	typeref:typename:Tetrimino
+rotate_tet	movement.c	/^Tetrimino rotate_tet(char* grid[], game_status_t status, char* flag) {$/;"	f	typeref:typename:Tetrimino
+save_data	data.c	/^void save_data(prev_score_t data) {$/;"	f	typeref:typename:void
 set_tick	ticker.c	/^void set_tick() {$/;"	f	typeref:typename:void
 set_ticker	ticker.c	/^void set_ticker(int tick) {$/;"	f	typeref:typename:void
-show_interface	main.c	/^void show_interface(int row, int col, int line, int score, Tetrimino offset) {$/;"	f	typeref:typename:void
 sigalrm_handler	ticker.c	/^void sigalrm_handler(int sig) {$/;"	f	typeref:typename:void
 tick	ticker.c	/^static volatile sig_atomic_t tick = 0;$/;"	v	typeref:typename:volatile sig_atomic_t	file:
 update_grid	update.c	/^int update_grid(char* grid[], Tetrimino tet, int box_height, int box_width) {$/;"	f	typeref:typename:int

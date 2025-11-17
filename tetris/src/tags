@@ -9,6 +9,7 @@
 !_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
 !_TAG_PROGRAM_URL	https://ctags.io/	/official site/
 !_TAG_PROGRAM_VERSION	5.9.0	//
+FRAME	tetris.c	/^#define FRAME /;"	d	file:
 GRID_HEIGHT	tetris.c	/^#define GRID_HEIGHT /;"	d	file:
 GRID_WIDTH	tetris.c	/^#define GRID_WIDTH /;"	d	file:
 Tetrimino	tetris.c	/^} Tetrimino; $/;"	t	typeref:struct:__anonff228dd10108	file:
@@ -22,6 +23,8 @@ main	tetris.c	/^int main() {$/;"	f	typeref:typename:int
 make_tet	tetris.c	/^Tetrimino make_tet(int x, int y, Tetrimino tet) {$/;"	f	typeref:typename:Tetrimino
 move_tet	tetris.c	/^Tetrimino move_tet(char flag, Tetrimino tet, int box_height, int box_width) {$/;"	f	typeref:typename:Tetrimino
 rotate_tet	tetris.c	/^Tetrimino rotate_tet(Tetrimino tet, int box_height, int box_width) {$/;"	f	typeref:typename:Tetrimino
+sigalrm_handler	tetris.c	/^void sigalrm_handler(int sig) {$/;"	f	typeref:typename:void
+tick	tetris.c	/^volatile sig_atomic_t tick = 0;$/;"	v	typeref:typename:volatile sig_atomic_t
 update_grid	tetris.c	/^void update_grid(char* grid[], Tetrimino tet, int box_height, int box_width) {$/;"	f	typeref:typename:void
 x1	tetris.c	/^    int x1; $/;"	m	struct:__anonff228dd10108	typeref:typename:int	file:
 x2	tetris.c	/^    int x2;$/;"	m	struct:__anonff228dd10108	typeref:typename:int	file:

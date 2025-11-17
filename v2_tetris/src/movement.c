@@ -1,45 +1,107 @@
 #include "../include/tetrimino.h"
+#include <string.h>
+#include "../include/check.h"
+#include <stdlib.h>
+#define MAX(a, b) (((a) > (b)) ? (a) : (b))
+#define MIN(a, b) (((a) < (b)) ? (a) : (b))
+ 
+Tetrimino rotate_tet(char* grid[], game_status_t status, char* flag) {
+    Tetrimino tet = status.tet;
+    if (tet.name == 'O') return tet;
 
-Tetrimino rotate_tet(Tetrimino tet, int box_height, int box_width) {
+    int min_x = MIN(MIN(tet.x1, tet.x2), MIN(tet.x3, tet.x4));
+    int max_x = MAX(MAX(tet.x1, tet.x2), MAX(tet.x3, tet.x4));
+    int pivot_x = tet.x2; 
+    int pivot_y = tet.y2;
+
     Tetrimino tmp = tet;
     Tetrimino rot = tet;
 
-    rot.x1 -= tet.x2;
-    rot.x2 -= tet.x2;
-    rot.x3 -= tet.x2;
-    rot.x4 -= tet.x2;
-    rot.y1 -= tet.y2;
-    rot.y2 -= tet.y2;
-    rot.y3 -= tet.y2;
-    rot.y4 -= tet.y2;
+    if (!strcmp(flag, "cw")) {
+        rot.x1 -= pivot_x;
+        rot.x2 -= pivot_x;
+        rot.x3 -= pivot_x;
+        rot.x4 -= pivot_x;
+        rot.y1 -= pivot_y;
+        rot.y2 -= pivot_y;
+        rot.y3 -= pivot_y;
+        rot.y4 -= pivot_y;
 
-    tmp.x1 = -rot.y1;
-    tmp.x2 = -rot.y2;
-    tmp.x3 = -rot.y3;
-    tmp.x4 = -rot.y4;
-    tmp.y1 = rot.x1;
-    tmp.y2 = rot.x2;
-    tmp.y3 = rot.x3;
-    tmp.y4 = rot.x4;
+        tmp.x1 = -rot.y1;
+        tmp.x2 = -rot.y2;
+        tmp.x3 = -rot.y3;
+        tmp.x4 = -rot.y4;
+        tmp.y1 = rot.x1;
+        tmp.y2 = rot.x2;
+        tmp.y3 = rot.x3;
+        tmp.y4 = rot.x4;
 
-    tmp.x1 += tet.x2;
-    tmp.x2 += tet.x2;
-    tmp.x3 += tet.x2;
-    tmp.x4 += tet.x2;
-    tmp.y1 += tet.y2;
-    tmp.y2 += tet.y2;
-    tmp.y3 += tet.y2;
-    tmp.y4 += tet.y2;
-    if (tmp.x1 >= 0 && tmp.x1 < box_width &&
-        tmp.y1 >= 0 && tmp.y1 < box_height &&
-        tmp.x2 >= 0 && tmp.x2 < box_width &&
-        tmp.y2 >= 0 && tmp.y2 < box_height &&
-        tmp.x3 >= 0 && tmp.x3 < box_width &&
-        tmp.y3 >= 0 && tmp.y3 < box_height &&
-        tmp.x4 >= 0 && tmp.x4 < box_width &&
-        tmp.y4 >= 0 && tmp.y4 < box_height) {
+        tmp.x1 += pivot_x;
+        tmp.x2 += pivot_x;
+        tmp.x3 += pivot_x;
+        tmp.x4 += pivot_x;
+        tmp.y1 += pivot_y;
+        tmp.y2 += pivot_y;
+        tmp.y3 += pivot_y;
+        tmp.y4 += pivot_y;
+    } else if  (!strcmp(flag, "ccw")) {
+        rot.x1 -= pivot_x;
+        rot.x2 -= pivot_x;
+        rot.x3 -= pivot_x;
+        rot.x4 -= pivot_x;
+        rot.y1 -= pivot_y;
+        rot.y2 -= pivot_y;
+        rot.y3 -= pivot_y;
+        rot.y4 -= pivot_y;
+
+        tmp.x1 = rot.y1;
+        tmp.x2 = rot.y2;
+        tmp.x3 = rot.y3;
+        tmp.x4 = rot.y4;
+        tmp.y1 = -rot.x1;
+        tmp.y2 = -rot.x2;
+        tmp.y3 = -rot.x3;
+        tmp.y4 = -rot.x4;
+
+        tmp.x1 += pivot_x;
+        tmp.x2 += pivot_x;
+        tmp.x3 += pivot_x;
+        tmp.x4 += pivot_x;
+        tmp.y1 += pivot_y;
+        tmp.y2 += pivot_y;
+        tmp.y3 += pivot_y;
+        tmp.y4 += pivot_y;
+    } else exit(-1);
+    
+    /* tmp는 회전시킨 블럭 */
+    if (is_inside(status.box_height, status.box_width, tmp) &&
+        !is_collide(grid, tmp)) 
         return tmp;
+     
+    if (min_x <= 2) {
+        /* 벽에 붙었을 때 회전 */
+        tmp.x1++; tmp.x2++; tmp.x3++; tmp.x4++;
+        if (is_inside(status.box_height, status.box_width, tmp) &&
+            !is_collide(grid, tmp)) 
+            return tmp;
+        tmp.x1++; tmp.x2++; tmp.x3++; tmp.x4++;
+        if (is_inside(status.box_height, status.box_width, tmp) &&
+            !is_collide(grid, tmp)) 
+            return tmp;
     }
+    
+    if (max_x >= status.box_width - 2) {
+        /* 벽에 붙었을 때 회전 */
+        tmp.x1--; tmp.x2--; tmp.x3--; tmp.x4--;
+        if (is_inside(status.box_height, status.box_width, tmp) &&
+            !is_collide(grid, tmp)) 
+            return tmp;
+        tmp.x1--; tmp.x2--; tmp.x3--; tmp.x4--;
+        if (is_inside(status.box_height, status.box_width, tmp) &&
+            !is_collide(grid, tmp)) 
+            return tmp;
+    }
+
     return tet;
 }
 

@@ -6,3 +6,4 @@ void draw_tet(WINDOW* win, int row, int col, Tetrimino tet);
 void draw_grid(WINDOW *win, char* grid[], int box_height, int box_width);
 void draw_ghost_line(WINDOW *win, char* grid[], Tetrimino tet, int row);
 void erase_tet(WINDOW *win, int row, int col, Tetrimino tet);
+void draw_interface(game_status_t status, prev_score_t prev);

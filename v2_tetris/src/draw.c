@@ -1,6 +1,7 @@
 #include "../include/tetrimino.h"
 #include <ncurses.h>
 #include <check.h>
+#define LEVEL_SLOPE 10
 #define MAX(a, b) (((a) > (b)) ? (a) : (b))
 #define MIN(a, b) (((a) < (b)) ? (a) : (b))
 
@@ -76,3 +77,40 @@ void draw_ghost_line(WINDOW *win, char* grid[], Tetrimino tet, int row) {
     } 
 }
 
+void draw_interface(game_status_t status, prev_score_t prev) {
+    /* line cleared */
+    int col = status.interface_x + status.box_width + 3; 
+    int row = status.interface_y + 1;
+    int line_cleared = status.line_cleared; // 이번에 삭제된 라인 수
+    int level = (line_cleared / LEVEL_SLOPE);
+    int score = status.score;
+    Tetrimino offset = status.tet;
+
+    mvwprintw(stdscr, row, col, "::Scores::");
+    mvwprintw(stdscr, row + 1, col, "LINE: %d", line_cleared);
+    mvwprintw(stdscr, row + 2, col, "SCORE: %d", score);
+    mvwprintw(stdscr, row + 3, col, "LEVEL: %d", level);
+    
+    mvwprintw(stdscr, row + 5, col, "::Prev Game::");
+    //mvwprintw(stdscr, row + 6, col, "Max Score: %d", status.prev_score);
+    mvwprintw(stdscr, row + 6, col, "Max LINE: %d", prev.max_line);
+    mvwprintw(stdscr, row + 7, col, "Max Score: %d", prev.max_score);
+    mvwprintw(stdscr, row + 8, col, "Max LEVEL: %d", prev.max_level);
+
+
+    int block_y = row + 10;
+    int block_x = col + 4;
+
+    mvwprintw(stdscr, block_y, col, "::NEXT::");
+    
+    mvwprintw(stdscr, block_y+1, col, "           ");
+    mvwprintw(stdscr, block_y+2, col, "           ");
+    mvwprintw(stdscr, block_y+3, col, "           ");
+    mvwprintw(stdscr, block_y+4, col, "           ");
+    block_y++;
+
+    mvwprintw(stdscr, (block_y + offset.y1), (block_x + offset.x1), "#");
+    mvwprintw(stdscr, (block_y + offset.y2), (block_x + offset.x2), "#");
+    mvwprintw(stdscr, (block_y + offset.y3), (block_x + offset.x3), "#");
+    mvwprintw(stdscr, (block_y + offset.y4), (block_x + offset.x4), "#");
+}    
