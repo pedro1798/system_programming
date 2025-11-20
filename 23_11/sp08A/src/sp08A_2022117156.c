@@ -40,7 +40,6 @@ int main(int ac, char **argv) {
                 kill(parent_p, 12);
             sleep(1);
         }
-        printf("sigchld terminated\n");
         exit(0);
     } else { /* 부모 프로세스 */ 
         struct sigaction sa_usr1, sa_usr2, sa_chld;
@@ -66,15 +65,21 @@ int main(int ac, char **argv) {
             pause();
             if (tick == 1) {
                 fprintf(stdout, "SIGUSR1 is received.\n");
+                cnt++;
                 tick = 0;
             }
             if (tick == 2) {
                 fprintf(stdout, "SIGUSR2 is received.\n");
+                cnt++;
                 tick = 0;
             }
         }
-        if (flag) fprintf(stdout, "SIGCHLD is received.\n");
+        if (flag == 0) {
+            waitpid(pid, &state, 0); 
+        }
+        fprintf(stdout, "SIGCHLD is received.\n");
         fprintf(stdout, "parent is terminated.\n");
+        fflush(stdout);
         return 0;           
     }
 }
@@ -86,7 +91,5 @@ void usr2_handler(int sig) {
     tick = 2;
 }
 void chld_handler(int sig) {
-    while ( waitpid(-1, NULL, WNOHANG) > 0) {
-        flag = 1;
-    }
+    flag = 1;
 }
