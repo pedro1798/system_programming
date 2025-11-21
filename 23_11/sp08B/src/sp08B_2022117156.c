@@ -25,7 +25,7 @@ int main(int ac, char **argv) {
         exit(1);
     }
 
-    pid_t pid = fork();
+    pid_t pid = fork(); /* fork */
 
     if (pid < 0) {
         perror("fork");
@@ -60,7 +60,7 @@ int main(int ac, char **argv) {
         close(p_to_c[0]); // 안 쓰는 파이프 I/O 닫기 
         close(c_to_p[1]);
 
-        ssize_t bytes_read = read(c_to_p[0], buffer, BUFSIZ);
+        ssize_t bytes_read = read(c_to_p[0], buffer, BUFSIZ); /* 파이프에서 버퍼로 읽어온다 */
         if (bytes_read > 0) {
             fprintf(stdout, "parent: %s\n", buffer);
         }
