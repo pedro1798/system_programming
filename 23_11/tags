@@ -24,6 +24,8 @@ chld_handler	sp08A/src/sp08A_2022117156.c	/^void chld_handler(int sig) {$/;"	f	t
 clean	sp08A/Makefile	/^clean:$/;"	t
 flag	sp08A/src/sp08A_2022117156.c	/^volatile int flag = 0;$/;"	v	typeref:typename:volatile int
 main	sp08A/src/sp08A_2022117156.c	/^int main(int ac, char **argv) {$/;"	f	typeref:typename:int
+main	sp08B/src/sp08B_2022117156.c	/^int main(int ac, char **argv) {$/;"	f	typeref:typename:int
+main	sp08C/src/sp08C_2022117156.c	/^int main() {$/;"	f	typeref:typename:int
 tick	sp08A/src/sp08A_2022117156.c	/^volatile sig_atomic_t tick = 0;$/;"	v	typeref:typename:volatile sig_atomic_t
 usr1_handler	sp08A/src/sp08A_2022117156.c	/^void usr1_handler(int sig) {$/;"	f	typeref:typename:void
 usr2_handler	sp08A/src/sp08A_2022117156.c	/^void usr2_handler(int sig) {$/;"	f	typeref:typename:void
