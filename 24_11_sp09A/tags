@@ -1,0 +1,28 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_OUTPUT_EXCMD	mixed	/number, pattern, mixed, or combineV2/
+!_TAG_OUTPUT_FILESEP	slash	/slash or backslash/
+!_TAG_OUTPUT_MODE	u-ctags	/u-ctags or e-ctags/
+!_TAG_PATTERN_LENGTH_LIMIT	96	/0 for no limit/
+!_TAG_PROC_CWD	/home/ubuntu/system_programming/24_11_sp09A/	//
+!_TAG_PROGRAM_AUTHOR	Universal Ctags Team	//
+!_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
+!_TAG_PROGRAM_URL	https://ctags.io/	/official site/
+!_TAG_PROGRAM_VERSION	5.9.0	//
+BACKLOG	sp09A_SERV.c	/^#define BACKLOG /;"	d	file:
+BUF_SIZE	sp09A_CLI.c	/^#define BUF_SIZE /;"	d	file:
+BUF_SIZE	sp09A_SERV.c	/^#define BUF_SIZE /;"	d	file:
+HOSTLEN	timeserv/timeserv.c	/^#define HOSTLEN /;"	d	file:
+PORTNUM	timeserv/timeserv.c	/^#define PORTNUM /;"	d	file:
+be_bc	tiny_bc/tiny_bc.c	/^void be_bc(int todc[2], int fromdc[2]) {$/;"	f	typeref:typename:void
+be_dc	tiny_bc/tiny_bc.c	/^void be_dc(int in[2], int out[2]) {$/;"	f	typeref:typename:void
+error_handling	sp09A_CLI.c	/^void error_handling(char *message)$/;"	f	typeref:typename:void
+fatal	tiny_bc/tiny_bc.c	/^void fatal(char mess[]) {$/;"	f	typeref:typename:void
+main	popen/popen.c	/^int main() {$/;"	f	typeref:typename:int
+main	sp09A_CLI.c	/^int main(int argc, char *argv[])$/;"	f	typeref:typename:int
+main	sp09A_SERV.c	/^int main(int argc, char *argv[])$/;"	f	typeref:typename:int
+main	timeserv/timeserv.c	/^int main(int ac, char *av[]) {$/;"	f	typeref:typename:int
+main	tiny_bc/tiny_bc.c	/^int main() {$/;"	f	typeref:typename:int
+oops	sp09A_SERV.c	/^void oops(char *message)$/;"	f	typeref:typename:void
+oops	timeserv/timeserv.c	/^#define oops(/;"	d	file:
+opps	tiny_bc/tiny_bc.c	/^#define opps(/;"	d	file:
