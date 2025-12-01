@@ -236,7 +236,17 @@ int main(int argc, char* argv[]) {
     ch = getch();
    
     if (ch == 'r') {
-        execvp(argv[0], argv);
+        delwin(win);
+        endwin();
+        pid_t pid = fork();
+        if (pid == 0) {
+            execvp(argv[0], argv);
+            perror("execvp");
+            exit(1);
+        } else {
+            // waitpid(pid, NULL, 0);
+            exit(0);
+        }
     }
 
     delwin(win);

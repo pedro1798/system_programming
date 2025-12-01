@@ -1,0 +1,18 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_OUTPUT_EXCMD	mixed	/number, pattern, mixed, or combineV2/
+!_TAG_OUTPUT_FILESEP	slash	/slash or backslash/
+!_TAG_OUTPUT_MODE	u-ctags	/u-ctags or e-ctags/
+!_TAG_PATTERN_LENGTH_LIMIT	96	/0 for no limit/
+!_TAG_PROC_CWD	/home/ubuntu/system_programming/24_11_sp09A/sp09AB/	//
+!_TAG_PROGRAM_AUTHOR	Universal Ctags Team	//
+!_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
+!_TAG_PROGRAM_URL	https://ctags.io/	/official site/
+!_TAG_PROGRAM_VERSION	5.9.0	//
+BACKLOG	sp09A_SERV_2022117156.c	/^#define BACKLOG /;"	d	file:
+BUF_SIZE	sp09A_CLI_2022117156.c	/^#define BUF_SIZE /;"	d	file:
+BUF_SIZE	sp09A_SERV_2022117156.c	/^#define BUF_SIZE /;"	d	file:
+main	sp09A_CLI_2022117156.c	/^int main(int argc, char *argv[])$/;"	f	typeref:typename:int
+main	sp09A_SERV_2022117156.c	/^int main(int argc, char *argv[])$/;"	f	typeref:typename:int
+oops	sp09A_CLI_2022117156.c	/^void oops(char *message)$/;"	f	typeref:typename:void
+oops	sp09A_SERV_2022117156.c	/^void oops(char *message)$/;"	f	typeref:typename:void

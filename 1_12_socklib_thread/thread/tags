@@ -1,0 +1,41 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_OUTPUT_EXCMD	mixed	/number, pattern, mixed, or combineV2/
+!_TAG_OUTPUT_FILESEP	slash	/slash or backslash/
+!_TAG_OUTPUT_MODE	u-ctags	/u-ctags or e-ctags/
+!_TAG_PATTERN_LENGTH_LIMIT	96	/0 for no limit/
+!_TAG_PROC_CWD	/home/ubuntu/system_programming/1_12/thread/	//
+!_TAG_PROGRAM_AUTHOR	Universal Ctags Team	//
+!_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
+!_TAG_PROGRAM_URL	https://ctags.io/	/official site/
+!_TAG_PROGRAM_VERSION	5.9.0	//
+NUM	hello_multi.c	/^#define NUM /;"	d	file:
+NUM	interthread_cooperation.c	/^#define NUM /;"	d	file:
+arg_set	mutex2.c	/^struct arg_set {$/;"	s	file:
+arg_set	twordcount3.c	/^struct arg_set {        \/* two values in one arg *\/$/;"	s	file:
+args1	mutex2.c	/^struct arg_set args1;$/;"	v	typeref:struct:arg_set
+args2	mutex2.c	/^struct arg_set args2; \/\/ [추정] 두 번째 스레드용 구조체$/;"	v	typeref:struct:arg_set
+count	mutex2.c	/^    int count;     \/* file to examine *\/$/;"	m	struct:arg_set	typeref:typename:int	file:
+count	twordcount3.c	/^    int count;          \/* number of words *\/$/;"	m	struct:arg_set	typeref:typename:int	file:
+count_words	twordcount1.c	/^void *count_words(void *f)$/;"	f	typeref:typename:void *
+count_words	twordcount2.c	/^void *count_words(void *f)$/;"	f	typeref:typename:void *
+count_words	twordcount3.c	/^void *count_words(void *a)$/;"	f	typeref:typename:void *
+counter	interthread_cooperation.c	/^int counter = 0;$/;"	v	typeref:typename:int
+counter_lock	twordcount2.c	/^pthread_mutex_t counter_lock = PTHREAD_MUTEX_INITIALIZER;$/;"	v	typeref:typename:pthread_mutex_t
+flag	mutex2.c	/^pthread_cond_t flag = PTHREAD_COND_INITIALIZER;$/;"	v	typeref:typename:pthread_cond_t
+fname	mutex2.c	/^    char *fname;   \/* two values in one arg *\/$/;"	m	struct:arg_set	typeref:typename:char *	file:
+fname	twordcount3.c	/^    char *fname;        \/* file to examine *\/$/;"	m	struct:arg_set	typeref:typename:char *	file:
+lock	mutex2.c	/^pthread_mutex_t lock = PTHREAD_MUTEX_INITIALIZER;$/;"	v	typeref:typename:pthread_mutex_t
+mailbox	mutex2.c	/^void *mailbox; \/\/ [추정] 데이터를 전달하는 전역 포인터 (이미지에선 누락됨/;"	v	typeref:typename:void *
+main	hello_multi.c	/^main()$/;"	f
+main	interthread_cooperation.c	/^main()$/;"	f
+main	mutex2.c	/^int main(int ac, char *av[])$/;"	f	typeref:typename:int
+main	twordcount1.c	/^main(int ac, char *av[])$/;"	f
+main	twordcount2.c	/^main(int ac, char *av[])$/;"	f
+main	twordcount3.c	/^main(int ac, char *av[])$/;"	f
+print_count	interthread_cooperation.c	/^void *print_count(void *m)$/;"	f	typeref:typename:void *
+print_msg	hello_multi.c	/^void *print_msg(void *m)$/;"	f	typeref:typename:void *
+reports_in	mutex2.c	/^int reports_in = 0;$/;"	v	typeref:typename:int
+total_words	mutex2.c	/^int total_words = 0;$/;"	v	typeref:typename:int
+total_words	twordcount1.c	/^int total_words;$/;"	v	typeref:typename:int
+total_words	twordcount2.c	/^int total_words;                 \/* the counter and its lock *\/$/;"	v	typeref:typename:int

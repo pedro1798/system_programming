@@ -1,0 +1,20 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_OUTPUT_EXCMD	mixed	/number, pattern, mixed, or combineV2/
+!_TAG_OUTPUT_FILESEP	slash	/slash or backslash/
+!_TAG_OUTPUT_MODE	u-ctags	/u-ctags or e-ctags/
+!_TAG_PATTERN_LENGTH_LIMIT	96	/0 for no limit/
+!_TAG_PROC_CWD	/home/ubuntu/system_programming/1_12/socklib/	//
+!_TAG_PROGRAM_AUTHOR	Universal Ctags Team	//
+!_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
+!_TAG_PROGRAM_URL	https://ctags.io/	/official site/
+!_TAG_PROGRAM_VERSION	5.9.0	//
+BACKLOG	socklib.c	/^#define BACKLOG /;"	d	file:
+HOSTLEN	socklib.c	/^#define HOSTLEN /;"	d	file:
+child_waiter	zombie_prevention.c	/^void child_waiter(int signum) {$/;"	f	typeref:typename:void
+connect_to_server	socklib.c	/^int connect_to_server(char *host, int portnum) {$/;"	f	typeref:typename:int
+main	zombie_prevention.c	/^main() {$/;"	f
+make_server_socket	socklib.c	/^int make_server_socket(int portnum) {$/;"	f	typeref:typename:int
+make_server_socket_q	socklib.c	/^int make_server_socket_q(int portnum, int backlog) {$/;"	f	typeref:typename:int
+process_request	process_request.c	/^process_request(fd) {$/;"	f
+process_request	zombie_prevention.c	/^void process_request(int fd) {$/;"	f	typeref:typename:void

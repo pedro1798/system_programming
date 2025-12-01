@@ -16,13 +16,13 @@ HOSTLEN	timeserv/timeserv.c	/^#define HOSTLEN /;"	d	file:
 PORTNUM	timeserv/timeserv.c	/^#define PORTNUM /;"	d	file:
 be_bc	tiny_bc/tiny_bc.c	/^void be_bc(int todc[2], int fromdc[2]) {$/;"	f	typeref:typename:void
 be_dc	tiny_bc/tiny_bc.c	/^void be_dc(int in[2], int out[2]) {$/;"	f	typeref:typename:void
-error_handling	sp09A_CLI.c	/^void error_handling(char *message)$/;"	f	typeref:typename:void
 fatal	tiny_bc/tiny_bc.c	/^void fatal(char mess[]) {$/;"	f	typeref:typename:void
 main	popen/popen.c	/^int main() {$/;"	f	typeref:typename:int
 main	sp09A_CLI.c	/^int main(int argc, char *argv[])$/;"	f	typeref:typename:int
 main	sp09A_SERV.c	/^int main(int argc, char *argv[])$/;"	f	typeref:typename:int
 main	timeserv/timeserv.c	/^int main(int ac, char *av[]) {$/;"	f	typeref:typename:int
 main	tiny_bc/tiny_bc.c	/^int main() {$/;"	f	typeref:typename:int
+oops	sp09A_CLI.c	/^void oops(char *message)$/;"	f	typeref:typename:void
 oops	sp09A_SERV.c	/^void oops(char *message)$/;"	f	typeref:typename:void
 oops	timeserv/timeserv.c	/^#define oops(/;"	d	file:
 opps	tiny_bc/tiny_bc.c	/^#define opps(/;"	d	file:
