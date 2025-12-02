@@ -47,6 +47,7 @@ int main(int argc, char *argv[])
     // 이름 전송에 대한 응답 읽기
     str_len = read(sock, message, BUF_SIZE - 1);
     if (str_len != -1) {
+        // 마지막에 널 문자 '\0' 붙이기
         message[str_len] = 0;
         printf("%s\n", message);
     }
