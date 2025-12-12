@@ -1,0 +1,35 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_OUTPUT_EXCMD	mixed	/number, pattern, mixed, or combineV2/
+!_TAG_OUTPUT_FILESEP	slash	/slash or backslash/
+!_TAG_OUTPUT_MODE	u-ctags	/u-ctags or e-ctags/
+!_TAG_PATTERN_LENGTH_LIMIT	96	/0 for no limit/
+!_TAG_PROC_CWD	/home/ubuntu/system_programming/sp_final_term_prepare/	//
+!_TAG_PROGRAM_AUTHOR	Universal Ctags Team	//
+!_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
+!_TAG_PROGRAM_URL	https://ctags.io/	/official site/
+!_TAG_PROGRAM_VERSION	5.9.0	//
+BACKLOG	template/template_serv.c	/^#define BACKLOG /;"	d	file:
+GRID_HEIGHT	acid_rain.c	/^#define GRID_HEIGHT /;"	d	file:
+GRID_HEIGHT	template/template_serv.c	/^#define GRID_HEIGHT /;"	d	file:
+GRID_WIDTH	acid_rain.c	/^#define GRID_WIDTH /;"	d	file:
+GRID_WIDTH	template/template_serv.c	/^#define GRID_WIDTH /;"	d	file:
+GameSize	template/template_serv.c	/^typedef struct GameSize {$/;"	s	file:
+box_height	template/template_serv.c	/^   int box_height, box_width;$/;"	m	struct:GameSize	typeref:typename:int	file:
+box_width	template/template_serv.c	/^   int box_height, box_width;$/;"	m	struct:GameSize	typeref:typename:int	file:
+game_size_init	template/template_serv.c	/^game_size_t game_size_init() {$/;"	f	typeref:typename:game_size_t
+game_size_t	template/template_serv.c	/^} game_size_t;$/;"	t	typeref:struct:GameSize	file:
+generate_grid	acid_rain.c	/^char** generate_grid(int box_height, int box_width) {$/;"	f	typeref:typename:char **
+generate_grid	template/template_serv.c	/^char** generate_grid(int box_height, int box_width) {$/;"	f	typeref:typename:char **
+init_ncurse	acid_rain.c	/^void init_ncurse() {$/;"	f	typeref:typename:void
+init_ncurses	template/template_serv.c	/^void init_ncurses() {$/;"	f	typeref:typename:void
+main	acid_rain.c	/^int main(int ac, char* argv[]) {$/;"	f	typeref:typename:int
+main	template/template_serv.c	/^int main(int ac, char* argv[]) {$/;"	f	typeref:typename:int
+oops	acid_rain.c	/^#define oops(/;"	d	file:
+oops	template/template_serv.c	/^#define oops(/;"	d	file:
+run_game	template/template_serv.c	/^int run_game() {$/;"	f	typeref:typename:int
+socket_init	template/template_serv.c	/^int socket_init(char* ip, int port) {$/;"	f	typeref:typename:int
+start_x	template/template_serv.c	/^   int start_x, start_y;$/;"	m	struct:GameSize	typeref:typename:int	file:
+start_y	template/template_serv.c	/^   int start_x, start_y;$/;"	m	struct:GameSize	typeref:typename:int	file:
+term_height	template/template_serv.c	/^   int term_height, term_width;$/;"	m	struct:GameSize	typeref:typename:int	file:
+term_width	template/template_serv.c	/^   int term_height, term_width;$/;"	m	struct:GameSize	typeref:typename:int	file:

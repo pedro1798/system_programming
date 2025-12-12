@@ -235,6 +235,7 @@ int main(int argc, char* argv[]) {
     
     ch = getch();
    
+    /* restart */
     if (ch == 'r') {
         delwin(win);
         endwin();
@@ -244,7 +245,7 @@ int main(int argc, char* argv[]) {
             perror("execvp");
             exit(1);
         } else {
-            // waitpid(pid, NULL, 0);
+            waitpid(pid, NULL, 0);
             exit(0);
         }
     }
