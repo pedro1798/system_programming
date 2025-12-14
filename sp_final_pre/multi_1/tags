@@ -1,0 +1,64 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_OUTPUT_EXCMD	mixed	/number, pattern, mixed, or combineV2/
+!_TAG_OUTPUT_FILESEP	slash	/slash or backslash/
+!_TAG_OUTPUT_MODE	u-ctags	/u-ctags or e-ctags/
+!_TAG_PATTERN_LENGTH_LIMIT	96	/0 for no limit/
+!_TAG_PROC_CWD	/home/ubuntu/system_programming/sp_final_pre/multi_1/	//
+!_TAG_PROGRAM_AUTHOR	Universal Ctags Team	//
+!_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
+!_TAG_PROGRAM_URL	https://ctags.io/	/official site/
+!_TAG_PROGRAM_VERSION	5.9.0	//
+BOX_HEIGHT	client.c	/^#define BOX_HEIGHT /;"	d	file:
+BOX_HEIGHT	server.c	/^#define BOX_HEIGHT /;"	d	file:
+BOX_WIDTH	client.c	/^#define BOX_WIDTH /;"	d	file:
+BOX_WIDTH	server.c	/^#define BOX_WIDTH /;"	d	file:
+GameState	client.c	/^} GameState;$/;"	t	typeref:struct:__anon4f09d8d50108	file:
+GameState	server.c	/^} GameState;$/;"	t	typeref:struct:__anon0e7c93ed0108	file:
+MAX_SNAKE_LEN	client.c	/^#define MAX_SNAKE_LEN /;"	d	file:
+MAX_SNAKE_LEN	server.c	/^#define MAX_SNAKE_LEN /;"	d	file:
+PORT	client.c	/^#define PORT /;"	d	file:
+PORT	server.c	/^#define PORT /;"	d	file:
+Point	client.c	/^typedef struct Point {$/;"	s	file:
+Point	client.c	/^} Point;$/;"	t	typeref:struct:Point	file:
+Point	server.c	/^typedef struct Point {$/;"	s	file:
+Point	server.c	/^} Point;$/;"	t	typeref:struct:Point	file:
+TIMEOUT_SEC	client.c	/^#define TIMEOUT_SEC /;"	d	file:
+TIMEOUT_SEC	server.c	/^#define TIMEOUT_SEC /;"	d	file:
+_POSIX_C_SOURCE	client.c	/^#define _POSIX_C_SOURCE /;"	d	file:
+_POSIX_C_SOURCE	server.c	/^#define _POSIX_C_SOURCE /;"	d	file:
+__anon0e7c93ed0108	server.c	/^typedef struct {$/;"	s	file:
+__anon4f09d8d50108	client.c	/^typedef struct {$/;"	s	file:
+draw_board	client.c	/^void draw_board(int start_y, int start_x, GameState *state, char *title) {$/;"	f	typeref:typename:void
+draw_board	server.c	/^void draw_board(int start_y, int start_x, GameState *state, char *title) {$/;"	f	typeref:typename:void
+food	client.c	/^    Point food;$/;"	m	struct:__anon4f09d8d50108	typeref:typename:Point	file:
+food	server.c	/^    Point food;$/;"	m	struct:__anon0e7c93ed0108	typeref:typename:Point	file:
+game_round	client.c	/^    int game_round;$/;"	m	struct:__anon4f09d8d50108	typeref:typename:int	file:
+game_round	server.c	/^    int game_round;$/;"	m	struct:__anon0e7c93ed0108	typeref:typename:int	file:
+handler	server.c	/^void handler(int sig, siginfo_t *si, void *uc) {$/;"	f	typeref:typename:void
+is_game_over	client.c	/^    int is_game_over;$/;"	m	struct:__anon4f09d8d50108	typeref:typename:int	file:
+is_game_over	server.c	/^    int is_game_over;$/;"	m	struct:__anon0e7c93ed0108	typeref:typename:int	file:
+is_paused	client.c	/^    int is_paused;$/;"	m	struct:__anon4f09d8d50108	typeref:typename:int	file:
+is_paused	server.c	/^    int is_paused;$/;"	m	struct:__anon0e7c93ed0108	typeref:typename:int	file:
+main	client.c	/^int main(int argc, char *argv[]) {$/;"	f	typeref:typename:int
+main	server.c	/^int main() {$/;"	f	typeref:typename:int
+make_timer	server.c	/^void make_timer(timer_t *timerID, int signo, int sec, int interval_sec) {$/;"	f	typeref:typename:void
+recv_all	client.c	/^int recv_all(int sock, void *buffer, size_t size) {$/;"	f	typeref:typename:int
+recv_all	server.c	/^int recv_all(int sock, void *buffer, size_t size) {$/;"	f	typeref:typename:int
+remaining_time	client.c	/^    int remaining_time;$/;"	m	struct:__anon4f09d8d50108	typeref:typename:int	file:
+remaining_time	server.c	/^    int remaining_time;$/;"	m	struct:__anon0e7c93ed0108	typeref:typename:int	file:
+remaining_time	server.c	/^volatile sig_atomic_t remaining_time = TIMEOUT_SEC;$/;"	v	typeref:typename:volatile sig_atomic_t
+reset_game_state	client.c	/^void reset_game_state(GameState *state) {$/;"	f	typeref:typename:void
+reset_game_state	server.c	/^void reset_game_state(GameState *state) {$/;"	f	typeref:typename:void
+score	client.c	/^    int score;$/;"	m	struct:__anon4f09d8d50108	typeref:typename:int	file:
+score	server.c	/^    int score;$/;"	m	struct:__anon0e7c93ed0108	typeref:typename:int	file:
+snake	client.c	/^    Point snake[MAX_SNAKE_LEN];$/;"	m	struct:__anon4f09d8d50108	typeref:typename:Point[]	file:
+snake	server.c	/^    Point snake[MAX_SNAKE_LEN];$/;"	m	struct:__anon0e7c93ed0108	typeref:typename:Point[]	file:
+snake_len	client.c	/^    int snake_len;$/;"	m	struct:__anon4f09d8d50108	typeref:typename:int	file:
+snake_len	server.c	/^    int snake_len;$/;"	m	struct:__anon0e7c93ed0108	typeref:typename:int	file:
+want_restart	client.c	/^    int want_restart;$/;"	m	struct:__anon4f09d8d50108	typeref:typename:int	file:
+want_restart	server.c	/^    int want_restart;$/;"	m	struct:__anon0e7c93ed0108	typeref:typename:int	file:
+x	client.c	/^    int x, y;$/;"	m	struct:Point	typeref:typename:int	file:
+x	server.c	/^    int x, y;$/;"	m	struct:Point	typeref:typename:int	file:
+y	client.c	/^    int x, y;$/;"	m	struct:Point	typeref:typename:int	file:
+y	server.c	/^    int x, y;$/;"	m	struct:Point	typeref:typename:int	file:
