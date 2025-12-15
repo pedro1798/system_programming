@@ -44,7 +44,7 @@ body	server.c	/^    Point body[MAX_SNAKE_LEN];$/;"	m	struct:SnakeData	typeref:ty
 box_start_x	server.c	/^int box_start_x = 0;$/;"	v	typeref:typename:int
 box_start_y	server.c	/^int box_start_y = 0;$/;"	v	typeref:typename:int
 broadcast_game_state	server.c	/^void broadcast_game_state() {$/;"	f	typeref:typename:void
-client_fd	server.c	/^    int client_fd;$/;"	m	struct:Snake	typeref:typename:int	file:
+client_fd	server.c	/^    int client_fd; \/\/ 해당 뱀을 조종하는 클라이언트의 소켓 파일 디스크립/;"	m	struct:Snake	typeref:typename:int	file:
 data	server.c	/^    SnakeData data;$/;"	m	struct:Snake	typeref:typename:SnakeData	file:
 dir_x	server.c	/^    int dir_x, dir_y;$/;"	m	struct:Snake	typeref:typename:int	file:
 dir_y	server.c	/^    int dir_x, dir_y;$/;"	m	struct:Snake	typeref:typename:int	file:
@@ -82,6 +82,7 @@ render_game	client.c	/^void render_game(int my_id, const GameState *state) {$/;"
 score	client.c	/^    int score;$/;"	m	struct:SnakeData	typeref:typename:int	file:
 score	server.c	/^    int score;$/;"	m	struct:SnakeData	typeref:typename:int	file:
 setup_game_tick_timer	server.c	/^void setup_game_tick_timer() {$/;"	f	typeref:typename:void
+setup_ncurses_colors	client.c	/^void setup_ncurses_colors() {$/;"	f	typeref:typename:void
 setup_signal_handler	server.c	/^void setup_signal_handler() {$/;"	f	typeref:typename:void
 spawn_food	server.c	/^void spawn_food(Point *target_food) {$/;"	f	typeref:typename:void
 start_x	client.c	/^    int start_x, start_y;$/;"	m	struct:GameState	typeref:typename:int	file:
