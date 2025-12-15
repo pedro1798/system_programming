@@ -1,0 +1,96 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_OUTPUT_EXCMD	mixed	/number, pattern, mixed, or combineV2/
+!_TAG_OUTPUT_FILESEP	slash	/slash or backslash/
+!_TAG_OUTPUT_MODE	u-ctags	/u-ctags or e-ctags/
+!_TAG_PATTERN_LENGTH_LIMIT	96	/0 for no limit/
+!_TAG_PROC_CWD	/home/ubuntu/system_programming/sp_final_pre/multi_5/	//
+!_TAG_PROGRAM_AUTHOR	Universal Ctags Team	//
+!_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
+!_TAG_PROGRAM_URL	https://ctags.io/	/official site/
+!_TAG_PROGRAM_VERSION	5.9.0	//
+FOOD_COUNT	client.c	/^#define FOOD_COUNT /;"	d	file:
+FOOD_COUNT	server.c	/^#define FOOD_COUNT /;"	d	file:
+GAME_TICK_MS	server.c	/^#define GAME_TICK_MS /;"	d	file:
+GameState	client.c	/^typedef struct GameState {$/;"	s	file:
+GameState	client.c	/^} GameState;$/;"	t	typeref:struct:GameState	file:
+GameState	server.c	/^typedef struct GameState {$/;"	s	file:
+GameState	server.c	/^} GameState;$/;"	t	typeref:struct:GameState	file:
+MAX_CLIENTS	server.c	/^#define MAX_CLIENTS /;"	d	file:
+MAX_SNAKE_LEN	client.c	/^#define MAX_SNAKE_LEN /;"	d	file:
+MAX_SNAKE_LEN	server.c	/^#define MAX_SNAKE_LEN /;"	d	file:
+PLAYER_COUNT	client.c	/^#define PLAYER_COUNT /;"	d	file:
+PLAYER_COUNT	server.c	/^#define PLAYER_COUNT /;"	d	file:
+PORT	client.c	/^#define PORT /;"	d	file:
+PORT	server.c	/^#define PORT /;"	d	file:
+Point	client.c	/^typedef struct Point {$/;"	s	file:
+Point	client.c	/^} Point;$/;"	t	typeref:struct:Point	file:
+Point	server.c	/^typedef struct Point {$/;"	s	file:
+Point	server.c	/^} Point;$/;"	t	typeref:struct:Point	file:
+SERVER_IP	client.c	/^#define SERVER_IP /;"	d	file:
+Snake	server.c	/^typedef struct Snake {$/;"	s	file:
+Snake	server.c	/^} Snake;$/;"	t	typeref:struct:Snake	file:
+SnakeData	client.c	/^typedef struct SnakeData {$/;"	s	file:
+SnakeData	client.c	/^} SnakeData;$/;"	t	typeref:struct:SnakeData	file:
+SnakeData	server.c	/^typedef struct SnakeData {$/;"	s	file:
+SnakeData	server.c	/^} SnakeData;$/;"	t	typeref:struct:SnakeData	file:
+TIMEOUT_SEC	server.c	/^#define TIMEOUT_SEC /;"	d	file:
+_DEFAULT_SOURCE	client.c	/^#define _DEFAULT_SOURCE$/;"	d	file:
+_DEFAULT_SOURCE	server.c	/^#define _DEFAULT_SOURCE$/;"	d	file:
+_XOPEN_SOURCE	client.c	/^#define _XOPEN_SOURCE /;"	d	file:
+_XOPEN_SOURCE	server.c	/^#define _XOPEN_SOURCE /;"	d	file:
+body	client.c	/^    Point body[MAX_SNAKE_LEN];$/;"	m	struct:SnakeData	typeref:typename:Point[]	file:
+body	server.c	/^    Point body[MAX_SNAKE_LEN];$/;"	m	struct:SnakeData	typeref:typename:Point[]	file:
+box_start_x	server.c	/^int box_start_x = 2; $/;"	v	typeref:typename:int
+box_start_y	server.c	/^int box_start_y = 3; $/;"	v	typeref:typename:int
+broadcast_game_state	server.c	/^void broadcast_game_state() {$/;"	f	typeref:typename:void
+client_fd	server.c	/^    int client_fd; $/;"	m	struct:Snake	typeref:typename:int	file:
+data	server.c	/^    SnakeData data;$/;"	m	struct:Snake	typeref:typename:SnakeData	file:
+dir_x	server.c	/^    int dir_x, dir_y;$/;"	m	struct:Snake	typeref:typename:int	file:
+dir_y	server.c	/^    int dir_x, dir_y;$/;"	m	struct:Snake	typeref:typename:int	file:
+draw_ui	client.c	/^void draw_ui(int my_id, const GameState *state) {$/;"	f	typeref:typename:void
+foods	client.c	/^    Point foods[FOOD_COUNT];$/;"	m	struct:GameState	typeref:typename:Point[]	file:
+foods	server.c	/^    Point foods[FOOD_COUNT];$/;"	m	struct:GameState	typeref:typename:Point[]	file:
+foods	server.c	/^Point foods[FOOD_COUNT];$/;"	v	typeref:typename:Point[]
+game_map_height	server.c	/^int game_map_height = 25;$/;"	v	typeref:typename:int
+game_map_width	server.c	/^int game_map_width = 60;$/;"	v	typeref:typename:int
+game_mutex	server.c	/^pthread_mutex_t game_mutex = PTHREAD_MUTEX_INITIALIZER;$/;"	v	typeref:typename:pthread_mutex_t
+game_tick_flag	server.c	/^volatile sig_atomic_t game_tick_flag = 0;$/;"	v	typeref:typename:volatile sig_atomic_t
+get_winner_id	server.c	/^int get_winner_id() {$/;"	f	typeref:typename:int
+handle_client	server.c	/^void *handle_client(void *arg) {$/;"	f	typeref:typename:void *
+init_game	server.c	/^void init_game() {$/;"	f	typeref:typename:void
+is_dead	client.c	/^    int is_dead;$/;"	m	struct:SnakeData	typeref:typename:int	file:
+is_dead	server.c	/^    int is_dead;$/;"	m	struct:SnakeData	typeref:typename:int	file:
+length	client.c	/^    int length;$/;"	m	struct:SnakeData	typeref:typename:int	file:
+length	server.c	/^    int length;$/;"	m	struct:SnakeData	typeref:typename:int	file:
+main	client.c	/^int main() {$/;"	f	typeref:typename:int
+main	server.c	/^int main() {$/;"	f	typeref:typename:int
+map_height	client.c	/^    int map_width, map_height;$/;"	m	struct:GameState	typeref:typename:int	file:
+map_height	server.c	/^    int map_width, map_height;$/;"	m	struct:GameState	typeref:typename:int	file:
+map_width	client.c	/^    int map_width, map_height;$/;"	m	struct:GameState	typeref:typename:int	file:
+map_width	server.c	/^    int map_width, map_height;$/;"	m	struct:GameState	typeref:typename:int	file:
+players	client.c	/^    SnakeData players[PLAYER_COUNT];$/;"	m	struct:GameState	typeref:typename:SnakeData[]	file:
+players	server.c	/^    SnakeData players[PLAYER_COUNT];$/;"	m	struct:GameState	typeref:typename:SnakeData[]	file:
+players	server.c	/^Snake players[PLAYER_COUNT];$/;"	v	typeref:typename:Snake[]
+remaining_time	client.c	/^    int remaining_time;$/;"	m	struct:GameState	typeref:typename:int	file:
+remaining_time	server.c	/^    int remaining_time;$/;"	m	struct:GameState	typeref:typename:int	file:
+remaining_time	server.c	/^volatile sig_atomic_t remaining_time = TIMEOUT_SEC;$/;"	v	typeref:typename:volatile sig_atomic_t
+render_game	client.c	/^void render_game(int my_id, const GameState *state) {$/;"	f	typeref:typename:void
+render_game_over	client.c	/^void render_game_over(int my_id, const GameState *state, int term_h, int term_w) {$/;"	f	typeref:typename:void
+score	client.c	/^    int score;$/;"	m	struct:SnakeData	typeref:typename:int	file:
+score	server.c	/^    int score;$/;"	m	struct:SnakeData	typeref:typename:int	file:
+setup_ncurses_colors	client.c	/^void setup_ncurses_colors() {$/;"	f	typeref:typename:void
+setup_timers	server.c	/^void setup_timers() {$/;"	f	typeref:typename:void
+spawn_food	server.c	/^void spawn_food(Point *target_food) {$/;"	f	typeref:typename:void
+start_x	client.c	/^    int start_x, start_y;$/;"	m	struct:GameState	typeref:typename:int	file:
+start_x	server.c	/^    int start_x, start_y;$/;"	m	struct:GameState	typeref:typename:int	file:
+start_y	client.c	/^    int start_x, start_y;$/;"	m	struct:GameState	typeref:typename:int	file:
+start_y	server.c	/^    int start_x, start_y;$/;"	m	struct:GameState	typeref:typename:int	file:
+timer_handler	server.c	/^void timer_handler(int sig, siginfo_t *si, void *uc) {$/;"	f	typeref:typename:void
+update_game_logic	server.c	/^void update_game_logic() {$/;"	f	typeref:typename:void
+winner_id	client.c	/^    int winner_id;$/;"	m	struct:GameState	typeref:typename:int	file:
+winner_id	server.c	/^    int winner_id; $/;"	m	struct:GameState	typeref:typename:int	file:
+x	client.c	/^    int x, y;$/;"	m	struct:Point	typeref:typename:int	file:
+x	server.c	/^    int x, y;$/;"	m	struct:Point	typeref:typename:int	file:
+y	client.c	/^    int x, y;$/;"	m	struct:Point	typeref:typename:int	file:
+y	server.c	/^    int x, y;$/;"	m	struct:Point	typeref:typename:int	file:
