@@ -1,0 +1,54 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_OUTPUT_EXCMD	mixed	/number, pattern, mixed, or combineV2/
+!_TAG_OUTPUT_FILESEP	slash	/slash or backslash/
+!_TAG_OUTPUT_MODE	u-ctags	/u-ctags or e-ctags/
+!_TAG_PATTERN_LENGTH_LIMIT	96	/0 for no limit/
+!_TAG_PROC_CWD	/home/ubuntu/system_programming/sp_final/test2/	//
+!_TAG_PROGRAM_AUTHOR	Universal Ctags Team	//
+!_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
+!_TAG_PROGRAM_URL	https://ctags.io/	/official site/
+!_TAG_PROGRAM_VERSION	5.9.0	//
+GameSize	snake_battle.c	/^typedef struct GameSize {$/;"	s	file:
+MAX_SNAKE_LEN	snake_battle.c	/^#define MAX_SNAKE_LEN /;"	d	file:
+MSG_GAME_OVER	snake_battle.c	/^#define MSG_GAME_OVER /;"	d	file:
+MSG_QUIT_APP	snake_battle.c	/^#define MSG_QUIT_APP /;"	d	file:
+MSG_RESTART	snake_battle.c	/^#define MSG_RESTART /;"	d	file:
+MSG_SCORE	snake_battle.c	/^#define MSG_SCORE /;"	d	file:
+MSG_SPEED_ATTACK	snake_battle.c	/^#define MSG_SPEED_ATTACK /;"	d	file:
+PORT	snake_battle.c	/^#define PORT /;"	d	file:
+Packet	snake_battle.c	/^} Packet;$/;"	t	typeref:struct:__anon94703b630108	file:
+Point	snake_battle.c	/^typedef struct Point {$/;"	s	file:
+Point	snake_battle.c	/^} Point;$/;"	t	typeref:struct:Point	file:
+TIMEOUT_SEC	snake_battle.c	/^#define TIMEOUT_SEC /;"	d	file:
+_POSIX_C_SOURCE	snake_battle.c	/^#define _POSIX_C_SOURCE /;"	d	file:
+__anon94703b630108	snake_battle.c	/^typedef struct {$/;"	s	file:
+box_height	snake_battle.c	/^    int box_height, box_width;$/;"	m	struct:GameSize	typeref:typename:int	file:
+box_width	snake_battle.c	/^    int box_height, box_width;$/;"	m	struct:GameSize	typeref:typename:int	file:
+draw_ui	snake_battle.c	/^void draw_ui(int score, game_size_t size) {$/;"	f	typeref:typename:void
+force_quit	snake_battle.c	/^volatile int force_quit = 0;$/;"	v	typeref:typename:volatile int
+force_restart	snake_battle.c	/^volatile int force_restart = 0;$/;"	v	typeref:typename:volatile int
+game_size_t	snake_battle.c	/^} game_size_t;$/;"	t	typeref:struct:GameSize	file:
+handler	snake_battle.c	/^void handler(int sig, siginfo_t *si, void *uc) {$/;"	f	typeref:typename:void
+init_game_objects	snake_battle.c	/^void init_game_objects(Point snake[], int *length, Point *food, game_size_t size) {$/;"	f	typeref:typename:void
+is_time_over	snake_battle.c	/^volatile sig_atomic_t is_time_over = 0;$/;"	v	typeref:typename:volatile sig_atomic_t
+main	snake_battle.c	/^int main(int argc, char *argv[]) {$/;"	f	typeref:typename:int
+make_timer	snake_battle.c	/^void make_timer(timer_t *timerID, int signo, int sec, int interval_sec) {$/;"	f	typeref:typename:void
+my_delay	snake_battle.c	/^volatile int my_delay = 100;$/;"	v	typeref:typename:volatile int
+network_receiver	snake_battle.c	/^void* network_receiver(void* arg) {$/;"	f	typeref:typename:void *
+opponent_ended	snake_battle.c	/^volatile int opponent_ended = 0;$/;"	v	typeref:typename:volatile int
+opponent_final_score	snake_battle.c	/^volatile int opponent_final_score = -1;$/;"	v	typeref:typename:volatile int
+opponent_score	snake_battle.c	/^volatile int opponent_score = 0;$/;"	v	typeref:typename:volatile int
+payload	snake_battle.c	/^    int payload;$/;"	m	struct:__anon94703b630108	typeref:typename:int	file:
+remaining_time	snake_battle.c	/^volatile sig_atomic_t remaining_time = TIMEOUT_SEC;$/;"	v	typeref:typename:volatile sig_atomic_t
+run_game	snake_battle.c	/^int run_game(game_size_t init_size) {$/;"	f	typeref:typename:int
+send_packet	snake_battle.c	/^void send_packet(int type, int payload) {$/;"	f	typeref:typename:void
+shrink_level	snake_battle.c	/^volatile int shrink_level = 0;$/;"	v	typeref:typename:volatile int
+sock	snake_battle.c	/^int sock = -1; $/;"	v	typeref:typename:int
+start_x	snake_battle.c	/^    int start_x, start_y;$/;"	m	struct:GameSize	typeref:typename:int	file:
+start_y	snake_battle.c	/^    int start_x, start_y;$/;"	m	struct:GameSize	typeref:typename:int	file:
+term_height	snake_battle.c	/^    int term_height, term_width;$/;"	m	struct:GameSize	typeref:typename:int	file:
+term_width	snake_battle.c	/^    int term_height, term_width;$/;"	m	struct:GameSize	typeref:typename:int	file:
+type	snake_battle.c	/^    int type;$/;"	m	struct:__anon94703b630108	typeref:typename:int	file:
+x	snake_battle.c	/^    int x, y;$/;"	m	struct:Point	typeref:typename:int	file:
+y	snake_battle.c	/^    int x, y;$/;"	m	struct:Point	typeref:typename:int	file:
