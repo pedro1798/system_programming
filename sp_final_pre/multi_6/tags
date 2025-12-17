@@ -1,0 +1,111 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_OUTPUT_EXCMD	mixed	/number, pattern, mixed, or combineV2/
+!_TAG_OUTPUT_FILESEP	slash	/slash or backslash/
+!_TAG_OUTPUT_MODE	u-ctags	/u-ctags or e-ctags/
+!_TAG_PATTERN_LENGTH_LIMIT	96	/0 for no limit/
+!_TAG_PROC_CWD	/home/ubuntu/system_programming/sp_final_pre/multi_6/	//
+!_TAG_PROGRAM_AUTHOR	Universal Ctags Team	//
+!_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
+!_TAG_PROGRAM_URL	https://ctags.io/	/official site/
+!_TAG_PROGRAM_VERSION	5.9.0	//
+CMD_QUIT	client.c	/^#define CMD_QUIT /;"	d	file:
+CMD_QUIT	server.c	/^#define CMD_QUIT /;"	d	file:
+CMD_RESTART	client.c	/^#define CMD_RESTART /;"	d	file:
+CMD_RESTART	server.c	/^#define CMD_RESTART /;"	d	file:
+GameState	client.c	/^} GameState;$/;"	t	typeref:struct:__anon4f09d8d50308	file:
+GameState	server.c	/^} GameState;$/;"	t	typeref:struct:__anon0e7c93ed0308	file:
+INITIAL_HEIGHT	client.c	/^#define INITIAL_HEIGHT /;"	d	file:
+INITIAL_HEIGHT	server.c	/^#define INITIAL_HEIGHT /;"	d	file:
+INITIAL_WIDTH	client.c	/^#define INITIAL_WIDTH /;"	d	file:
+INITIAL_WIDTH	server.c	/^#define INITIAL_WIDTH /;"	d	file:
+KEY_DOWN_CMD	client.c	/^#define KEY_DOWN_CMD /;"	d	file:
+KEY_DOWN_CMD	server.c	/^#define KEY_DOWN_CMD /;"	d	file:
+KEY_LEFT_CMD	client.c	/^#define KEY_LEFT_CMD /;"	d	file:
+KEY_LEFT_CMD	server.c	/^#define KEY_LEFT_CMD /;"	d	file:
+KEY_PAUSE_CMD	client.c	/^#define KEY_PAUSE_CMD /;"	d	file:
+KEY_PAUSE_CMD	server.c	/^#define KEY_PAUSE_CMD /;"	d	file:
+KEY_RIGHT_CMD	client.c	/^#define KEY_RIGHT_CMD /;"	d	file:
+KEY_RIGHT_CMD	server.c	/^#define KEY_RIGHT_CMD /;"	d	file:
+KEY_UP_CMD	client.c	/^#define KEY_UP_CMD /;"	d	file:
+KEY_UP_CMD	server.c	/^#define KEY_UP_CMD /;"	d	file:
+MAX_SNAKE_LEN	client.c	/^#define MAX_SNAKE_LEN /;"	d	file:
+MAX_SNAKE_LEN	server.c	/^#define MAX_SNAKE_LEN /;"	d	file:
+PORT	client.c	/^#define PORT /;"	d	file:
+PORT	server.c	/^#define PORT /;"	d	file:
+PlayerState	client.c	/^} PlayerState;$/;"	t	typeref:struct:__anon4f09d8d50208	file:
+PlayerState	server.c	/^} PlayerState;$/;"	t	typeref:struct:__anon0e7c93ed0208	file:
+Point	client.c	/^} Point;$/;"	t	typeref:struct:__anon4f09d8d50108	file:
+Point	server.c	/^} Point;$/;"	t	typeref:struct:__anon0e7c93ed0108	file:
+TIMEOUT_SEC	client.c	/^#define TIMEOUT_SEC /;"	d	file:
+TIMEOUT_SEC	server.c	/^#define TIMEOUT_SEC /;"	d	file:
+_DEFAULT_SOURCE	client.c	/^#define _DEFAULT_SOURCE$/;"	d	file:
+_DEFAULT_SOURCE	server.c	/^#define _DEFAULT_SOURCE /;"	d	file:
+_XOPEN_SOURCE	client.c	/^#define _XOPEN_SOURCE /;"	d	file:
+_XOPEN_SOURCE	server.c	/^#define _XOPEN_SOURCE /;"	d	file:
+__anon0e7c93ed0108	server.c	/^typedef struct {$/;"	s	file:
+__anon0e7c93ed0208	server.c	/^typedef struct {$/;"	s	file:
+__anon0e7c93ed0308	server.c	/^typedef struct {$/;"	s	file:
+__anon4f09d8d50108	client.c	/^typedef struct {$/;"	s	file:
+__anon4f09d8d50208	client.c	/^typedef struct {$/;"	s	file:
+__anon4f09d8d50308	client.c	/^typedef struct {$/;"	s	file:
+body	client.c	/^    Point body[MAX_SNAKE_LEN];$/;"	m	struct:__anon4f09d8d50208	typeref:typename:Point[]	file:
+body	server.c	/^    Point body[MAX_SNAKE_LEN];$/;"	m	struct:__anon0e7c93ed0208	typeref:typename:Point[]	file:
+client_socks	server.c	/^int client_socks[2];$/;"	v	typeref:typename:int[2]
+current_timestamp	server.c	/^long long current_timestamp() {$/;"	f	typeref:typename:long long
+dir_x	client.c	/^    int dir_x, dir_y;$/;"	m	struct:__anon4f09d8d50208	typeref:typename:int	file:
+dir_x	server.c	/^    int dir_x, dir_y;$/;"	m	struct:__anon0e7c93ed0208	typeref:typename:int	file:
+dir_y	client.c	/^    int dir_x, dir_y;$/;"	m	struct:__anon4f09d8d50208	typeref:typename:int	file:
+dir_y	server.c	/^    int dir_x, dir_y;$/;"	m	struct:__anon0e7c93ed0208	typeref:typename:int	file:
+draw_game	client.c	/^void draw_game() {$/;"	f	typeref:typename:void
+draw_game_over	client.c	/^void draw_game_over() {$/;"	f	typeref:typename:void
+food	client.c	/^    Point food;             $/;"	m	struct:__anon4f09d8d50208	typeref:typename:Point	file:
+food	server.c	/^    Point food;             \/\/ 먹이 위치$/;"	m	struct:__anon0e7c93ed0208	typeref:typename:Point	file:
+food_eat_idx	client.c	/^    int food_eat_idx;       $/;"	m	struct:__anon4f09d8d50208	typeref:typename:int	file:
+food_eat_idx	server.c	/^    int food_eat_idx;       \/\/ 인덱스$/;"	m	struct:__anon0e7c93ed0208	typeref:typename:int	file:
+food_timestamps	client.c	/^    long long food_timestamps[MAX_SNAKE_LEN]; $/;"	m	struct:__anon4f09d8d50208	typeref:typename:long long[]	file:
+food_timestamps	server.c	/^    long long food_timestamps[MAX_SNAKE_LEN]; \/\/ 먹이 먹은 시간(ms)$/;"	m	struct:__anon0e7c93ed0208	typeref:typename:long long[]	file:
+game_over	client.c	/^    int game_over;          $/;"	m	struct:__anon4f09d8d50308	typeref:typename:int	file:
+game_over	server.c	/^    int game_over;          \/\/ 종료 여부 (0:진행, 1:종료)$/;"	m	struct:__anon0e7c93ed0308	typeref:typename:int	file:
+handle_client	server.c	/^void *handle_client(void *arg) {$/;"	f	typeref:typename:void *
+id	client.c	/^    int id;                $/;"	m	struct:__anon4f09d8d50208	typeref:typename:int	file:
+id	server.c	/^    int id;                 \/\/ 플레이어 ID (0 or 1)$/;"	m	struct:__anon0e7c93ed0208	typeref:typename:int	file:
+init_player	server.c	/^void init_player(int pid) {$/;"	f	typeref:typename:void
+input_handler	client.c	/^void *input_handler(void *arg) {$/;"	f	typeref:typename:void *
+is_dead	client.c	/^    int is_dead;            $/;"	m	struct:__anon4f09d8d50208	typeref:typename:int	file:
+is_dead	server.c	/^    int is_dead;            \/\/ 사망 여부$/;"	m	struct:__anon0e7c93ed0208	typeref:typename:int	file:
+is_paused	client.c	/^    int is_paused;          $/;"	m	struct:__anon4f09d8d50208	typeref:typename:int	file:
+is_paused	server.c	/^    int is_paused;          \/\/ 일시정지$/;"	m	struct:__anon0e7c93ed0208	typeref:typename:int	file:
+last_shrink_score	client.c	/^    int last_shrink_score;  $/;"	m	struct:__anon4f09d8d50208	typeref:typename:int	file:
+last_shrink_score	server.c	/^    int last_shrink_score;  \/\/ 마지막으로 맵을 축소시킨 점수 구간$/;"	m	struct:__anon0e7c93ed0208	typeref:typename:int	file:
+length	client.c	/^    int length;$/;"	m	struct:__anon4f09d8d50208	typeref:typename:int	file:
+length	server.c	/^    int length;$/;"	m	struct:__anon0e7c93ed0208	typeref:typename:int	file:
+main	client.c	/^int main(int argc, char *argv[]) {$/;"	f	typeref:typename:int
+main	server.c	/^int main() {$/;"	f	typeref:typename:int
+map_height	client.c	/^    int map_height;$/;"	m	struct:__anon4f09d8d50208	typeref:typename:int	file:
+map_height	server.c	/^    int map_height;$/;"	m	struct:__anon0e7c93ed0208	typeref:typename:int	file:
+map_width	client.c	/^    int map_width;          $/;"	m	struct:__anon4f09d8d50208	typeref:typename:int	file:
+map_width	server.c	/^    int map_width;          \/\/ 동적 맵 크기$/;"	m	struct:__anon0e7c93ed0208	typeref:typename:int	file:
+mutex	server.c	/^pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;$/;"	v	typeref:typename:pthread_mutex_t
+my_id	client.c	/^int my_id = 0; \/\/ 0 or 1 (실행 인자로 받음)$/;"	v	typeref:typename:int
+p	client.c	/^    PlayerState p[2];       $/;"	m	struct:__anon4f09d8d50308	typeref:typename:PlayerState[2]	file:
+p	server.c	/^    PlayerState p[2];       \/\/ 플레이어 2명$/;"	m	struct:__anon0e7c93ed0308	typeref:typename:PlayerState[2]	file:
+remaining_time	client.c	/^    int remaining_time;     $/;"	m	struct:__anon4f09d8d50308	typeref:typename:int	file:
+remaining_time	server.c	/^    int remaining_time;     \/\/ 남은 시간$/;"	m	struct:__anon0e7c93ed0308	typeref:typename:int	file:
+reset_game	server.c	/^void reset_game() {$/;"	f	typeref:typename:void
+score	client.c	/^    int score;$/;"	m	struct:__anon4f09d8d50208	typeref:typename:int	file:
+score	server.c	/^    int score;$/;"	m	struct:__anon0e7c93ed0208	typeref:typename:int	file:
+setup_colors	client.c	/^void setup_colors() {$/;"	f	typeref:typename:void
+sock	client.c	/^int sock;$/;"	v	typeref:typename:int
+spawn_food	server.c	/^void spawn_food(int pid) {$/;"	f	typeref:typename:void
+speed_ms	client.c	/^    int speed_ms;           $/;"	m	struct:__anon4f09d8d50208	typeref:typename:int	file:
+speed_ms	server.c	/^    int speed_ms;           \/\/ 현재 속도 (ms)$/;"	m	struct:__anon0e7c93ed0208	typeref:typename:int	file:
+state	client.c	/^GameState state;$/;"	v	typeref:typename:GameState
+state	server.c	/^GameState state;$/;"	v	typeref:typename:GameState
+update_game_logic	server.c	/^void update_game_logic(int pid) {$/;"	f	typeref:typename:void
+winner_id	client.c	/^    int winner_id;          $/;"	m	struct:__anon4f09d8d50308	typeref:typename:int	file:
+winner_id	server.c	/^    int winner_id;          \/\/ 승자 ID (-1:무승부)$/;"	m	struct:__anon0e7c93ed0308	typeref:typename:int	file:
+x	client.c	/^    int x, y;$/;"	m	struct:__anon4f09d8d50108	typeref:typename:int	file:
+x	server.c	/^    int x, y;$/;"	m	struct:__anon0e7c93ed0108	typeref:typename:int	file:
+y	client.c	/^    int x, y;$/;"	m	struct:__anon4f09d8d50108	typeref:typename:int	file:
+y	server.c	/^    int x, y;$/;"	m	struct:__anon0e7c93ed0108	typeref:typename:int	file:

@@ -1,0 +1,47 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_OUTPUT_EXCMD	mixed	/number, pattern, mixed, or combineV2/
+!_TAG_OUTPUT_FILESEP	slash	/slash or backslash/
+!_TAG_OUTPUT_MODE	u-ctags	/u-ctags or e-ctags/
+!_TAG_PATTERN_LENGTH_LIMIT	96	/0 for no limit/
+!_TAG_PROC_CWD	/home/ubuntu/system_programming/sp_final_pre/multi_2/	//
+!_TAG_PROGRAM_AUTHOR	Universal Ctags Team	//
+!_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
+!_TAG_PROGRAM_URL	https://ctags.io/	/official site/
+!_TAG_PROGRAM_VERSION	5.9.0	//
+FOOD_COUNT	server.c	/^#define FOOD_COUNT /;"	d	file:
+GameSize	server.c	/^typedef struct GameSize {$/;"	s	file:
+MAX_SNAKE_LEN	server.c	/^#define MAX_SNAKE_LEN /;"	d	file:
+Point	server.c	/^typedef struct Point {$/;"	s	file:
+Point	server.c	/^} Point;$/;"	t	typeref:struct:Point	file:
+Snake	server.c	/^typedef struct Snake {$/;"	s	file:
+Snake	server.c	/^} Snake;$/;"	t	typeref:struct:Snake	file:
+TIMEOUT_SEC	server.c	/^#define TIMEOUT_SEC /;"	d	file:
+_POSIX_C_SOURCE	server.c	/^#define _POSIX_C_SOURCE /;"	d	file:
+body	server.c	/^    Point body[MAX_SNAKE_LEN];$/;"	m	struct:Snake	typeref:typename:Point[]	file:
+box_height	server.c	/^    int box_height, box_width;$/;"	m	struct:GameSize	typeref:typename:int	file:
+box_width	server.c	/^    int box_height, box_width;$/;"	m	struct:GameSize	typeref:typename:int	file:
+color_pair	server.c	/^    int color_pair;$/;"	m	struct:Snake	typeref:typename:int	file:
+dir_x	server.c	/^    int dir_x, dir_y;$/;"	m	struct:Snake	typeref:typename:int	file:
+dir_y	server.c	/^    int dir_x, dir_y;$/;"	m	struct:Snake	typeref:typename:int	file:
+draw_ui	server.c	/^void draw_ui(Snake *s1, Snake *s2, game_size_t size) {$/;"	f	typeref:typename:void
+game_size_t	server.c	/^} game_size_t;$/;"	t	typeref:struct:GameSize	file:
+handler	server.c	/^void handler(int sig, siginfo_t *si, void *uc) {$/;"	f	typeref:typename:void
+head_char	server.c	/^    char head_char;$/;"	m	struct:Snake	typeref:typename:char	file:
+init_snake	server.c	/^void init_snake(Snake *s, int start_x, int start_y, int color, char head) {$/;"	f	typeref:typename:void
+is_dead	server.c	/^    int is_dead;$/;"	m	struct:Snake	typeref:typename:int	file:
+is_time_over	server.c	/^volatile sig_atomic_t is_time_over = 0;$/;"	v	typeref:typename:volatile sig_atomic_t
+length	server.c	/^    int length;$/;"	m	struct:Snake	typeref:typename:int	file:
+main	server.c	/^int main() {$/;"	f	typeref:typename:int
+make_timer	server.c	/^void make_timer(timer_t *timerID, int signo, int sec, int interval_sec) {$/;"	f	typeref:typename:void
+remaining_time	server.c	/^volatile sig_atomic_t remaining_time = TIMEOUT_SEC;$/;"	v	typeref:typename:volatile sig_atomic_t
+run_game	server.c	/^int run_game(game_size_t size) {$/;"	f	typeref:typename:int
+score	server.c	/^    int score;$/;"	m	struct:Snake	typeref:typename:int	file:
+spawn_food	server.c	/^void spawn_food(Point *target_food, Snake *s1, Snake *s2, Point foods[], game_size_t size) {$/;"	f	typeref:typename:void
+start_x	server.c	/^    int start_x, start_y;$/;"	m	struct:GameSize	typeref:typename:int	file:
+start_y	server.c	/^    int start_x, start_y;$/;"	m	struct:GameSize	typeref:typename:int	file:
+term_height	server.c	/^    int term_height, term_width;$/;"	m	struct:GameSize	typeref:typename:int	file:
+term_width	server.c	/^    int term_height, term_width;$/;"	m	struct:GameSize	typeref:typename:int	file:
+update_snake_pos	server.c	/^void update_snake_pos(Snake *s) {$/;"	f	typeref:typename:void
+x	server.c	/^    int x, y;$/;"	m	struct:Point	typeref:typename:int	file:
+y	server.c	/^    int x, y;$/;"	m	struct:Point	typeref:typename:int	file:
